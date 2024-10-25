@@ -1,0 +1,59 @@
+.cancel_order
+{
+    margin: 5px;
+    border: none;
+    background-color: red;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 15px ;
+}
+.cancel_order_icon i
+{
+    color: #af6d08 !important;
+}
+.imagetd img
+{
+    width: 160px;
+    border-radius: 10px;
+}
+.product_inner_div
+{
+    padding: 10px;
+}
+.order_product_main_div
+{
+    margin: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e4e0e0;
+    height: fit-content;
+}
+.product_inner_div div
+{
+    display: flex;
+}
+.product_inner_div h3
+{
+    margin: 0;
+    font-size: large;
+}
+.product_inner_div p
+{
+    margin: 0 10px;
+    display: flex;
+}
+.cancel_order_icon
+{
+    float: right;
+}
+#grand_total
+{
+    text-align: end;
+    font-family: 'Poppins';
+}
+.change_text_format
+{
+    font-family: 'Poppins';
+    font-weight: 500;
+    color: #ae6c08;
+}

@@ -1,0 +1,33 @@
+.popup_main_box
+{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-color: #021526c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    transform: translateY(-200%);
+}
+.popup_inner_box
+{
+    width: 30%;
+    background-color: #021526;
+    color: #fff;
+    border-radius: 10px;
+}
+.popup_inner_box h3
+{
+    font-weight: 700;
+    text-align: center;
+    padding: 20px 0;
+}
+.popup_inner_box i
+{
+    color: #021526;
+    text-align: end;
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: 22px;
+}

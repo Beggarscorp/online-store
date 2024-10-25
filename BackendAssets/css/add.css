@@ -1,0 +1,47 @@
+input,select
+{
+    width: 80%;
+    border: none;
+    box-shadow: 0 0 5px 0px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin: 10px 0 !important;
+}
+input:focus-visible,select:focus-visible
+{
+    outline: none;
+}
+button
+{
+    border: none;
+    background-color: var(--color-2);
+    color: var(--color-5);
+    padding: 5px 15px;
+    border-radius: 5px !important;
+}
+.category_show,.colors
+{
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px 1px;
+    border-radius: 10px;
+}
+.category_show h4,.colors h4
+{
+    margin: 15px 0;
+    padding: 5px;
+    border-bottom: 2px solid gray;
+}
+.category_show ul
+{
+    padding:0 15px;
+}
+.category_show li
+{
+    margin: 10px 0;
+}
+.operation_link a 
+{
+    color: green !important;
+    margin: 0 10px;
+    float: inline-end;
+}

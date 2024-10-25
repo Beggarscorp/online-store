@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ $1.php [L]
+
+# Custom URL rewrite for shop.php
+# RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ shop.php?page=$1&category=$2&id=$3 [L,QSA]
+# RewriteRule ^([^/]+)/([^/]+)/?$ shop.php?page=$1&category=$2 [L,QSA]

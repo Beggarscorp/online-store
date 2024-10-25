@@ -1,0 +1,171 @@
+.banner
+{
+    height: 50vh;
+    width: 100%;
+    /* background-image: url("/images/resources/Final\ Karma\ Cafe\ banner\ for\ website.png"); */
+}
+.banner_content
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inner_dashboard
+{
+    box-shadow: 0 0 3px 3px lightgray;
+    margin: 50px 100px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.sidebar ul
+{
+    list-style: none;
+    /* border-right: 1px solid lightgray; */
+    padding: 0;
+    height: fit-content;
+}
+.sidebar ul li
+{
+    margin: 10px 15px;
+    padding: 10px;
+    box-shadow: inset 0 0 6px 0px gray;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.5s linear;
+    cursor: pointer;
+}
+.sidebar ul li:hover
+{
+    background: #b26f0a;
+    color: #fff;
+}
+.content
+{
+    border-left: 1px solid lightgray;
+    padding: 0 10px;
+}
+.form_group
+{
+    margin: 15px 0;
+}
+.form_group label
+{
+    width: 15%;
+}
+@media (max-width:768px) {
+    .form_group input, label
+    {
+        width: 100% !important;
+    }
+    .inner_dashboard
+    {
+        margin: 10px;
+    }
+    .content
+    {
+        border: 0;
+    }
+    
+}
+.form_group input
+{
+    width: 80%;
+    border: none;
+    background-color: transparent;
+    box-shadow: inset 0 0 6px 0px gray;
+    border-radius: 10px;
+    padding: 4px 15px;
+}
+button
+{
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px 0px gray;
+    display: flex;
+    margin: auto;
+    transition: 0.5s linear;
+    background: transparent;
+    padding: 3px 25px;
+}
+button:hover
+{
+    background-color: #b26f0a;
+    color: #fff;
+}
+.content_line
+{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.product_card
+{
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 0 6px 0px gray;
+    border-radius: 10px;
+}
+.product_card img
+{
+    border-radius: 10px;
+}
+.content_hide
+{
+    display: none;
+}
+.banner_content img
+{
+    width: 15%;
+    border-radius: 50%;
+    margin: 20px; 
+}
+
+#imagefileInput
+{
+    position: absolute;
+    right: 0;
+    opacity: 0;
+}
+.buttons
+{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+}
+@media (max-width:768px) {
+    .buttons
+    {
+        display: unset;
+    }
+    .buttons button
+    {
+        margin: 10px;
+    }
+}
+.cancel_order_icon
+{
+    position: absolute;
+    right: 15px;
+    color: #b26f0a;
+}
+.tc
+{
+    text-align: center;
+}
+.order_pending
+{
+    background: red;
+    width: fit-content;
+    padding: 0 10px;
+    border-radius: 10px;
+    color: white;
+}
+.order_approve
+{
+    background: green;
+    width: fit-content;
+    padding: 0 10px;
+    border-radius: 10px;
+    color: white;
+}

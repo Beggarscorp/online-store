@@ -1,0 +1,51 @@
+@import url('admin.css');
+
+input:focus-visible,textarea:focus-visible,.addcate-select:focus-visible,#product_color:focus-visible,#category:focus-visible
+{
+    border: none;
+    outline: 0;
+}
+input,textarea,.addcate-select,#product_color,#category
+{
+    border: none;
+    width: 50%;
+    margin: 10px 0 !important;
+    background-color: var(--color-2) !important;
+    color: var(--color-5) !important;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+textarea{
+    white-space: pre-wrap;
+}
+input::placeholder,textarea::placeholder
+{
+    color: var(--color-5) !important; 
+}
+button
+{
+    border: none;
+    color: var(--color-5) !important;
+    background-color: var(--color-2) !important;    
+    padding: 3px 28px;
+    margin: 10px 0 !important;
+    border-radius: 15px !important;
+}
+td
+{
+    word-break: break-all;
+}
+.delete,.update
+{
+    cursor: pointer;
+}
+.content::-webkit-scrollbar-thumb
+{
+    background-color: var(--color-2);
+    border-radius: 10px;
+}
+.content::-webkit-scrollbar
+{
+    width: 8px;
+    height: 8px;
+}
