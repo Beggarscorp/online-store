@@ -10,6 +10,10 @@ a
     transition: 0.5s linear;
     transition: transform 0.5s linear;
 }
+.productCard h6
+{
+    padding: 5px 0;
+}
 /*.productCard:hover.productCard img*/
 /*{*/
 /*    transform: scale(1.1);*/
