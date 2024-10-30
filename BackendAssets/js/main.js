@@ -50,11 +50,11 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 $(document).ready(()=>{
 
-    $base_url='http://localhost/online-store/';
+    $base_url='http://localhost:3000/';
 
     // increase cart product quantity 
 
-    $('.plus_icon').on("click",(e)=>{
+    $('.cart_products').on("click",".plus_icon",(e)=>{
 
         $cart_product_id=e.currentTarget.attributes.cart_product_id.value;
         
@@ -67,7 +67,7 @@ $(document).ready(()=>{
                 if(response.status === 'success')
                 {
                     $(e.currentTarget).next().text(response.quantity);
-                    count_product_price(e.currentTarget,'next');
+                    set_product_on_cart();
                 }
             },
             error:(error)=>
@@ -82,8 +82,8 @@ $(document).ready(()=>{
 
     // decrease cart product quantity
 
-    $('.minus_icon').on("click",(e)=>{
-
+    $('.cart_products').on("click",".minus_icon",(e)=>{
+        
         $cart_product_id=e.currentTarget.attributes.cart_product_id.value;
 
         $.ajax({
@@ -97,17 +97,18 @@ $(document).ready(()=>{
                     if(response.quantity === 0)
                     {
                         $(e.currentTarget).parent().parent().parent().css({"display":"none"});
+                        $(".cart_count").text(parseInt($(".cart_count").text())-1);
                     }
                     else
                     {
                         $(e.currentTarget).prev().text(response.quantity);
-                        count_product_price(e.currentTarget,'prev');
+                        set_product_on_cart();
                     }
                 }
             },
             error:(error)=>
             {
-                alert(error);
+                console.log(error);
             }
         })
 
@@ -129,7 +130,11 @@ $(document).ready(()=>{
             success:(response)=>{
                 if(response.status === 'success')
                 {
-                    alert("Product Added to cart");
+                    Swal.fire({
+                        title:"Product added to cart",
+                        icon:"success"
+                    });
+                    set_product_on_cart();
                 }
             },
             error:(error)=>{
@@ -142,20 +147,95 @@ $(document).ready(()=>{
     
     // this function for count product price from his quantity change
 
-    count_product_price=(ele,from)=>{
-        if(from === 'prev')
-        {
-            let value=($(ele).prev().text())*($(ele).next().attr('price'));
-            $(ele).next().children().text(value);
-        }
-        else
-        {
-            let value=($(ele).next().text())*($(ele).next().next().next().attr('price'));
-            $(ele).next().next().next().children().text(value);
-        }
-    }
+    // const count_product_price=(ele,from)=>{
+    //     if(from === 'prev')
+    //     {
+    //         $(ele).next().text("");
+    //         let value=($(ele).prev().text())*($(ele).next().attr('price'));
+    //         $(ele).next().append("<span><i class='bi bi-currency-rupee'></i>"+value+"<span/>");
+    //     }
+    //     else
+    //     {
+    //         $(ele).next().next().next().text("");
+    //         let value=($(ele).next().text())*($(ele).next().next().next().attr('price'));
+    //         $(ele).next().next().next().append("<span><i class='bi bi-currency-rupee'></i>"+value+"<span/>");
+    //     }
+    // }
 
     // end here
     
-})
+    // set product of cart sidebar
+
+    const set_product_on_cart=()=>{
+
+        $.ajax({
+            url:$base_url+"BackendAssets/mysqlcode/addtocart.php",
+            method:'POST',
+            datatype:'json',
+            data:{fetch_data_form_cart:true},
+            success:(response)=>{
+                if(response.status === 'success' && response.product_data != "")
+                {
+                    $product_carts_html='';
+                    for($i=0;$i<response.product_data.length;$i++)
+                        {
+                            $product_carts_html+=`
+                            <div class='product_cart'>
+                                <div class='row'>
+                                    <div class='col-sm-3'>
+                                        <img src='`+$base_url+`BackendAssets/assets/images/productImages/${response.product_data[$i].productimage}' alt='${response.product_data[$i].productimage}' class='img-thumbnail'>
+                                    </div>
+                                    <div class='col-sm-9'>
+                                        <h6>${response.product_data[$i].productname}</h6>
+                                        <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price}</h6>
+                                        <button class='plus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-plus-lg'></i></button>
+                                        <span id='quantity-${response.product_data[$i].id}'>${response.product_data[$i][0]}</span>
+                                        <button class='minus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-dash-lg'></i></button>
+                                        <div class='price' id='price-${response.product_data[$i].id}' price='${response.product_data[$i].price}' quantity='${response.product_data[$i][0]}'>
+                                            <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price*response.product_data[$i][0]}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        }
+
+                        $(".cart_products").html($product_carts_html);
+
+                        calculate_grand_total_price();
+
+                        $(".cart_count").text(response.product_data.length != "" ? response.product_data.length : "" );
+                        
+                    }
+                    else
+                    {
+                        $(".cart_products").html("<h5>No Products in Cart</h5>");
+
+                    }
+            }
+        })
+
+    }
+
+    set_product_on_cart();
+
+    // end here
+
+    calculate_grand_total_price=()=>{
+
+        let price_element=document.querySelectorAll(".price");
+        let total_price_element=document.getElementsByClassName("total_price");
+        if(price_element)
+        {
+            let all_prices=[];
+            price_element.forEach((e)=>{
+                all_prices.push(e.getAttribute("price")*e.getAttribute("quantity"));
+            })
+            const total_prices = all_prices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            total_price_element[0].innerHTML="<i class='bi bi-currency-rupee'></i>"+total_prices;
+        }
+    }
+
     
+    
+})

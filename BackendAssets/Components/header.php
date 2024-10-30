@@ -2,54 +2,6 @@
 
 <?php
 require('config/db.php');
-
-session_start();
-if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-    $cart_product_ids = [];
-    
-    // Extract product IDs from the cart session
-    foreach ($_SESSION['cart'] as $cart_product) {
-        if (isset($cart_product['product_id'])) {
-            $cart_product_ids[] = $cart_product['product_id'];
-        }
-    }
-    
-    // Check if there are any product IDs to fetch
-    if (!empty($cart_product_ids)) {
-        // Create placeholders for prepared statement
-        $placeholders = rtrim(str_repeat('?,', count($cart_product_ids)), ','); 
-        $fetch_product_sql = $conn->prepare("SELECT * FROM `products` WHERE id IN ($placeholders)");
-        
-        // Create a type string for binding (assuming product_id is an integer)
-        $types = str_repeat('i', count($cart_product_ids));
-        $fetch_product_sql->bind_param($types, ...$cart_product_ids); // Use the spread operator
-        
-        if ($fetch_product_sql->execute()) {
-            $fetch_product_result = $fetch_product_sql->get_result();
-            $product_data = $fetch_product_result->fetch_all(MYSQLI_ASSOC);
-        }
-    } else {
-        // Handle empty cart case
-        $product_data = [];
-    }
-    
-    $conn->close();
-} else {
-    // Handle the case where the cart session is not set
-    $product_data = [];
-}
-
-
-function get_product_quantity_by_session($product_id)
-{
-    foreach($_SESSION['cart'] as $key=>$cart_product)
-    {
-        if((int)$_SESSION['cart'][$key]['product_id'] === (int)$product_id)
-        {
-            return $_SESSION['cart'][$key]['product_count'];
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +16,7 @@ function get_product_quantity_by_session($product_id)
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="<?=BASE_URL?>BackendAssets/css/<?=CURRENT_PAGE?>.css?version=<?=FILE_VERSION?>">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body class="roboto-regular">
@@ -81,6 +34,7 @@ function get_product_quantity_by_session($product_id)
                     <i class="bi bi-search" style="font-size:17px;"></i>
                     <i class="bi bi-person"></i>
                     <i class="bi bi-cart3" id="cart_icon"></i>
+                    <span class="cart_count"></span>
                 </div>
             </div>
         </div>
@@ -92,7 +46,7 @@ function get_product_quantity_by_session($product_id)
                 <div class="col-sm-6">
                     <ul class="navbar_links my-auto">
                         <a href="<?=BASE_URL?>"><li>Home</li></a>
-                        <a href="shop"><li>Shop</li></a>
+                        <a href="shop.php"><li>Shop</li></a>
                         <a href="about-us"><li>About us</li></a>
                         <a href="stole"><li>Stole</li></a>
                         <a href="bag"><li>Bag</li></a>
@@ -123,44 +77,16 @@ function get_product_quantity_by_session($product_id)
                                     <h5>Your cart products</h5>
                                 </div>
                                 <div class="cart_products">
-                                    <?php
-                                    if(isset($_SESSION['cart']))
-                                    {
-                                        foreach($product_data as $product_row)
-                                        {
-                                            ?>
-                                                <div class="product_cart">
-                                                    <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <img src="<?=BASE_URL?>BackendAssets/assets/images/productImages/<?=$product_row['productimage']?>" alt="<?=$product_row['productimage']?>" class="img-thumbnail">
-                                                        </div>
-                                                        <div class="col-sm-9">
-                                                            <h6><?=$product_row['productname']?></h6>
-                                                            <h6></h6>
-                                                            <button class="plus_icon" cart_product_id="<?=$product_row['id']?>"><i class="bi bi-plus-lg"></i></button>
-                                                            <span class="quantity">
-                                                                <?php
-                                                                echo get_product_quantity_by_session($product_row['id']);
-                                                                ?>
-                                                            </span>
-                                                            <button class="minus_icon" cart_product_id="<?=$product_row['id']?>"><i class="bi bi-dash-lg"></i></button>
-                                                            <div class="price" price="<?=$product_row['price']?>"><h6><i class="bi bi-currency-rupee"></i> <?=$product_row['price']?></h6></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ?>
-                                        <h6>Product not available in cart</h6>
-                                        <?php
-                                    }
-                                    ?>
+                                
                                 </div>
                                 <div class="cart_footer">
-                                    cart footer
+                                    <div class="price_ele">
+                                        <h6>Total Price :</h6>
+                                        <h6 class="total_price">0</h6>
+                                    </div>
+                                    <a href="<?=BASE_URL?>checkout_2.php" target="_blank" rel="noopener noreferrer">
+                                        <button class="proceed_to_checkout">Proceed to Checkout</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

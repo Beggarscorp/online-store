@@ -6,7 +6,6 @@ include("config/db.php");
 // include("/BackendAssets/Components/popup.php");
 // error_reporting(0);
 
-
 $sql = "SELECT * FROM `category`";
 $result = mysqli_query($conn, $sql);
 ?>
@@ -69,7 +68,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                         </a>
                                         <6><?= $row['productname'] ?></6>
                                         <h6>INR <?= $row['price'] ?></h6>
-                                        <button class="add-to-cart-btn" product_cart_id="<?=$row['id']?>">Add to cart</button>
+                                        <button class="add-to-cart-btn" product_cart_id="<?=$row['id']?>">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             <?php

@@ -6,5 +6,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^/]+)/?$ $1.php [L]
 
 # Custom URL rewrite for shop.php
-# RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ shop.php?page=$1&category=$2&id=$3 [L,QSA]
-# RewriteRule ^([^/]+)/([^/]+)/?$ shop.php?page=$1&category=$2 [L,QSA]
+RewriteRule ^shop.php/([0-9]+) shop.php?id=$1
+
+# Rewrite example.com/category/books to category.php?name=books
+RewriteRule ^category/([a-zA-Z0-9_-]+)$ category.php?name=$1 [L,QSA]

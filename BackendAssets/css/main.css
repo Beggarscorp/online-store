@@ -241,6 +241,26 @@
   overflow-y: scroll;
   padding: 10px;
 }
+.price_ele
+{
+  display: flex;
+  width: 100%;
+}
+.price_ele .total_price
+{
+  margin: 0 10px;
+}
+.cart_footer a
+{
+  width: 100%;
+}
+.proceed_to_checkout
+{
+  border: none;
+  background: var(--golden);
+  color: var(--white);
+  padding: 5px 15px;
+}
 /* end here */
 
 
