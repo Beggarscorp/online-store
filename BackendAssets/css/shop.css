@@ -10,6 +10,11 @@ a
     transition: 0.5s linear;
     transition: transform 0.5s linear;
 }
+.productCard a
+{
+    position: relative;
+}
+
 .productCard h6
 {
     padding: 5px 0;
@@ -86,6 +91,7 @@ a
 .cate-heading
 {
     padding: 0 5px;
+    cursor: pointer;
 }
 .cate-heading::first-letter
 {

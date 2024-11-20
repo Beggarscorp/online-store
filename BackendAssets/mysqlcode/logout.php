@@ -1,8 +1,11 @@
+
 <?php
+include("../../config/config.php");
 session_start(); // Start the session
 
-// Destroy all session data
-$_SESSION = array();
+// Unset specific session variables
+unset($_SESSION['user']);
+unset($_SESSION['id']);
 
 // If using cookies to store the session ID, delete the cookie
 if (ini_get("session.use_cookies")) {
@@ -15,10 +18,7 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Finally, destroy the session
-session_destroy();
-
 // Redirect to the login page or home page
-header("Location: /login.php"); // Change to your login page URL
+header("Location: ".BASE_URL."login.php"); // Change to your login page URL
 exit();
 ?>

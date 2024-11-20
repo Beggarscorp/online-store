@@ -1,5 +1,31 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
+    var swiper_1 = new Swiper(".myswiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+      });
+
+    var swiper_2 = new Swiper(".myswiper_2", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+      });
+
     const sidebar=document.getElementsByClassName("sidebar");
     const cart_icon=document.getElementById("cart_icon");
     const sidebar_blank_area=document.getElementsByClassName("sidebar_blank_area");
@@ -46,11 +72,98 @@ document.addEventListener("DOMContentLoaded",()=>{
         }   
     })
 
-});
+
+
+
+    const slider = document.querySelector('.slider');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    const sliderItems = document.querySelectorAll('.slider-item');
+    const totalItems = sliderItems.length;
+    let currentIndex = 0;
+
+    // Function to update the center item style
+    function updateCenterItem() {
+      sliderItems.forEach((item, index) => {
+        item.classList.remove('center');  // Remove center class from all
+        if (index === currentIndex) {
+          item.classList.add('center'); // Add center class to the current item
+        }
+      });
+    }
+
+    // Function to slide the items based on the currentIndex
+    function slide() {
+      const itemsVisible = getVisibleItemsCount();
+      const offset = -currentIndex * (100 / itemsVisible); // Calculate the offset for the visible items
+      slider.style.transform = `translateX(${offset}%)`; // Apply sliding effect
+    }
+
+    // Function to get the number of items visible based on screen size
+    function getVisibleItemsCount() {
+      const width = window.innerWidth;
+      if (width <= 480) {
+        return 1; // 1 item on mobile
+      } else if (width <= 768) {
+        return 2; // 2 items on tablet
+      } else {
+        return 3; // 3 items on desktop
+      }
+    }
+
+    // Previous button functionality
+    prevButton.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = totalItems - getVisibleItemsCount();  // Loop to the last set of items
+      }
+      slide();
+      updateCenterItem();
+    });
+
+    // Next button functionality
+    nextButton.addEventListener('click', () => {
+      if (currentIndex < totalItems - getVisibleItemsCount()) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;  // Loop back to the first set of items
+      }
+      slide();
+      updateCenterItem();
+    });
+
+    // Initialize the slider and center the first item
+    updateCenterItem();
+
+    // Recalculate slide position when the window is resized
+    window.addEventListener('resize', () => {
+      slide();
+      updateCenterItem();
+    });
+
+
+
+}) ;
 
 $(document).ready(()=>{
 
-    $base_url='http://localhost:3000/';
+    // show dashboard div code
+    
+    $user_icon=$("#user_icon");
+    $("#user_icon").on("click",()=>{
+        $(".dashboard_show").toggleClass("dashboard_hide");
+    })
+
+    $("#hide_dashboard").on("click",()=>{
+        $(".dashboard_show").removeClass("dashboard_hide");
+    })
+
+    // end here
+
+
+    
+    $base_url=$(".base_url_define").attr("base_url");
 
     // increase cart product quantity 
 
@@ -118,30 +231,32 @@ $(document).ready(()=>{
 
     // add-to-cart product from add-to-cart button
 
-    $(".add-to-cart-btn").on("click",(e)=>{
+
+        $(document).on("click",".add-to-cart-btn",(e)=>{
+        // $("").on("click",(e)=>{
+            
+            $cart_product_id=$(e.currentTarget).attr("product_cart_id");
         
-        $cart_product_id=$(e.currentTarget).attr("product_cart_id");
-    
-        $.ajax({
-            url:$base_url+"BackendAssets/mysqlcode/addtocart.php",
-            type:'POST',
-            data:{add_to_cart_product_id:$cart_product_id},
-            datatype:'json',
-            success:(response)=>{
-                if(response.status === 'success')
-                {
-                    Swal.fire({
-                        title:"Product added to cart",
-                        icon:"success"
-                    });
-                    set_product_on_cart();
+            $.ajax({
+                url:$base_url+"BackendAssets/mysqlcode/addtocart.php",
+                type:'POST',
+                data:{add_to_cart_product_id:$cart_product_id},
+                datatype:'json',
+                success:(response)=>{
+                    if(response.status === 'success')
+                    {
+                        Swal.fire({
+                            title:"Product added to cart",
+                            icon:"success"
+                        });
+                        set_product_on_cart();
+                    }
+                },
+                error:(error)=>{
+                    console.log(error);
                 }
-            },
-            error:(error)=>{
-                console.log(error);
-            }
+            })
         })
-    })
 
     // end here
     
@@ -187,13 +302,14 @@ $(document).ready(()=>{
                                     </div>
                                     <div class='col-sm-9'>
                                         <h6>${response.product_data[$i].productname}</h6>
-                                        <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price}</h6>
-                                        <button class='plus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-plus-lg'></i></button>
+                                        <div class='quantity_div'>
+                                        <button type='button' class='plus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-plus-lg'></i></button>
                                         <span id='quantity-${response.product_data[$i].id}'>${response.product_data[$i][0]}</span>
-                                        <button class='minus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-dash-lg'></i></button>
+                                        <button type='button' class='minus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-dash-lg'></i></button>
+                                        </div>
                                         <div class='price' id='price-${response.product_data[$i].id}' price='${response.product_data[$i].price}' quantity='${response.product_data[$i][0]}'>
                                             <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price*response.product_data[$i][0]}</h6>
-                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +320,7 @@ $(document).ready(()=>{
 
                         calculate_grand_total_price();
 
-                        $(".cart_count").text(response.product_data.length != "" ? response.product_data.length : "" );
+                        $(".cart_count").text(parseInt(response.product_data.length) != "" && parseInt(response.product_data.length) != null ? response.product_data.length : 0 );
                         
                     }
                     else
@@ -223,19 +339,114 @@ $(document).ready(()=>{
 
     calculate_grand_total_price=()=>{
 
-        let price_element=document.querySelectorAll(".price");
+        let price_element=document.querySelectorAll(".cart_content .product_cart .price");
         let total_price_element=document.getElementsByClassName("total_price");
+
+
         if(price_element)
         {
             let all_prices=[];
-            price_element.forEach((e)=>{
-                all_prices.push(e.getAttribute("price")*e.getAttribute("quantity"));
-            })
-            const total_prices = all_prices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            for (const e of price_element) {
+                all_prices.push(e.innerText);
+            }
+            const total_prices = all_prices.reduce((sum, value) => sum + Number(value.trim()), 0);
             total_price_element[0].innerHTML="<i class='bi bi-currency-rupee'></i>"+total_prices;
+            if(document.getElementById("ptc_total_price"))
+            {
+                document.getElementById("ptc_total_price").innerHTML="<i class='bi bi-currency-rupee'></i>"+total_prices;
+            }
         }
     }
+    
+    $("#select_address").on("change",(e)=>{
+        $("#address").html("Address "+$(e.currentTarget).val()+"<i class='bi bi-check2-circle' style='font-size:15px;'>");
+    })
 
+    // remove message show parameter form url after 2s 
+
+    setTimeout(() => {
+
+        for($o=0;$o<5;$o++)
+        {
+            if(window.location.href === $base_url+"checkout_2/"+$o)
+            {
+                let currentUrl = new URL($base_url+"checkout_2/"+$o);
+                
+                // Split the pathname into parts
+                let pathParts = currentUrl.pathname.split('/');
+                
+                // Remove the last segment (msg-value)
+                pathParts.pop();
+                
+                // Rebuild the pathname without the last segment
+                let newPathname = pathParts.join('/');
+                
+                // Update the URL in the browser without reloading the page
+                currentUrl.pathname = newPathname;
+                window.history.replaceState({}, '', currentUrl);
+    
+            }
+
+        }
+    }, 2000);
+
+    // end here
+
+    // header filter element show hide js code
+
+    $("#filter_icon").on("click",()=>{
+        $(".filter_element").toggleClass("filter_element_show");
+    })
+
+    $(".filter_element ").on("change",(e)=>{
+        $cate=$(e.currentTarget).val();
+        window.location.href=$base_url+"shop/"+$cate;
+    })
+
+    // end here
+    
+    $("#signup_password_field_icon").on("click",()=>{
+        $("#signup_password_field").attr("type","text");
+    })
     
     
 })
+
+$(document).ready(function() {
+    // toast showing jquey code
+
+    var toastEl = $('.toast');
+    if (toastEl.length > 0) {
+        var toast = new bootstrap.Toast(toastEl[0]);
+        toast.show();
+        setTimeout(() => {
+            toast.hide();
+        }, 5000);
+    }
+
+    // end here
+
+
+    // make some animation on element show
+
+    let gallery_image=document.querySelectorAll(".gallery_image");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+           
+                entry.target.classList.toggle("gallery_image_show",entry.isIntersecting);
+                if(entry.isIntersecting) observer.unobserve(entry.target)
+        })
+        ,
+        {
+            rootMargin: "100px",
+        }
+    })
+
+    gallery_image.forEach(image =>{
+        observer.observe(image);
+    })
+
+    // end here
+
+});

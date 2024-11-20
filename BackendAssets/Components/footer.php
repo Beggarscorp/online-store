@@ -46,16 +46,23 @@
         </div>
     </footer>
     <div class="footer_bottom">
-        <p>Copyright ©  <span class="golden">Beggars Corporation   | Humanomics Private Limited, India</span></p>
+        <p>Copyright ©  <span class="golden" style="border:none;">Beggars Corporation   | Humanomics Private Limited, India</span></p>
     </div>
     <script src="<?=BASE_URL?>BackendAssets/js/main.js"></script>
     <?php
-    if(file_exists(BASE_URL."BackendAssets/js/".CURRENT_PAGE.".js"))
+    $filtePath=BASE_URL."BackendAssets/js/".CURRENT_PAGE.".js";
+    $serverPath=$_SERVER['DOCUMENT_ROOT']. "/online-store/BackendAssets/js/" . CURRENT_PAGE . ".js";
+    if(file_exists($serverPath))
     {
-        echo "<script src=".BASE_URL."BackendAssets/js/".CURRENT_PAGE.".js></script>";
+        echo "<script src=\"" . BASE_URL . "BackendAssets/js/" . CURRENT_PAGE . ".js\"></script>";
+    }
+    else
+    {
+        // echo "file not get";
     }
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+    <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     </body>
 </html>

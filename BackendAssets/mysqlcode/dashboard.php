@@ -2,6 +2,27 @@
 <?php
 require('../Components/forsession.php');
 include("../../config/db.php");
+header('Content-Type: application/json');
+
+if(isset($_POST['action']) && $_POST['action'] === 'formupdate')
+{
+    $formData=$_POST['form_data'];
+    $id=$formData['id'];
+    $key=$formData['key'];
+    $value=$formData['value'];
+    $status;
+    $sqlUpdate="UPDATE `user_default_address_table` SET `$key`='$value' WHERE address_id=$id";
+    $result=mysqli_query($conn,$sqlUpdate);
+    if($sqlUpdate)
+    {
+        $status=true;
+    }
+    else
+    {
+        $status=false;
+    }
+    echo json_encode(["status"=>$status,'data'=>$formData['id'],'key'=>$key]);
+}
 
 $userid=$_SESSION['id'];
 
@@ -97,7 +118,7 @@ if(isset($_POST['update_third_address']))
 
 function Address_insert_function($name,$email,$phonenumber,$country,$state,$city,$pincode,$address,$table_name,$msg) {
     
-    include("../db.php");
+    include("../../config/db.php");
     $userid=$_SESSION['id'];
 
     $address_insert=$conn->prepare("INSERT INTO $table_name
@@ -123,7 +144,7 @@ function Address_insert_function($name,$email,$phonenumber,$country,$state,$city
         echo $address_insert->error;
     }
     $address_insert->close();
-    header("Location: /dashboard.php?msg=$msg");
+    header("Location: ".BASE_URL."dashboard.php?msg=$msg");
     exit();
 }
 
@@ -135,7 +156,7 @@ if(isset($_POST['make_default_address']))
     $userid=$_POST['userid'];
     $tables=['user_default_address_table','user_second_address_table','user_third_address_table'];
     $new_table_array=array_diff($tables,[$table_name]);
-    print_r($new_table_array);
+    // print_r($new_table_array);
 
     foreach($new_table_array as $key=>$val)
     {
@@ -157,13 +178,13 @@ if(isset($_POST['make_default_address']))
     if($update_default_add->execute())
     {
         $msg="Your address activated";
-        header("Location: /checkout.php?msg=$msg");
+        header("Location: ".BASE_URL."dashboard?msg=$msg");
         exit();
     }
     else
     {
         $msg="Address query failed";
-        header("Location: /checkout.php?msg=$msg");
+        header("Location: ".BASE_URL."dashboar?msg=$msg");
         exit();
     }
 }

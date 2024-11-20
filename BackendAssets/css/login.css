@@ -47,6 +47,29 @@ button
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    /* animation: background_change 8s infinite; */
+}
+@keyframes background_change {
+    0%{
+        background-image: url("../assets/images/blob-scene-haikei.png");
+    }
+    25%{
+        background-image: url("../assets/images/blob-scene-haikei (1).png");
+    }
+    50%
+    {
+        background-image: url("../assets/images/blob-scene-haikei (2).png");
+    }
+    75%
+    {
+        background-image: url("../assets/images/blob-scene-haikei (3).png");
+        
+    }
+    100%
+    {
+        background-image: url("../assets/images/blob-scene-haikei (4).png");
+
+    }
 }
 .signup_bg_image::before
 {

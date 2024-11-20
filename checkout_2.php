@@ -2,87 +2,77 @@
 include("BackendAssets/Components/header.php");
 require("config/db.php");
 
-$product_data = [];
-if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-    $cart_product_ids = [];
-    $cart_detail = [];
 
-    // Extract product IDs from the cart session
-    foreach ($_SESSION['cart'] as $cart_product) {
-        if (isset($cart_product['product_id'])) {
-            $cart_product_ids[] = $cart_product['product_id'];
-        }
-        $cart_detail[] = $cart_product;
-    }
-
-
-    // Check if there are any product IDs to fetch
-    if (!empty($cart_product_ids)) {
-        // Create placeholders for prepared statement
-        $placeholders = rtrim(str_repeat('?,', count($cart_product_ids)), ',');
-        $fetch_product_sql = $conn->prepare("SELECT * FROM `products` WHERE id IN ($placeholders)");
-
-        // Create a type string for binding (assuming product_id is an integer)
-        $types = str_repeat('i', count($cart_product_ids));
-        $fetch_product_sql->bind_param($types, ...$cart_product_ids); // Use the spread operator
-
-        if ($fetch_product_sql->execute()) {
-            $fetch_product_result = $fetch_product_sql->get_result();
-            $product_data = $fetch_product_result->fetch_all(MYSQLI_ASSOC);
-        }
-    } else {
-        // Handle empty cart case
-        $product_data = [];
-    }
-
-    $conn->close();
-} else {
-    // Handle the case where the cart session is not set
-    $product_data = [];
+if(isset($_GET['msg']) && (int)$_GET['msg'] === 1)
+{
+    echo "<script>Swal.fire({
+      title:'Your order placed successfully',
+      icon:'success'
+    });</script>";
+}
+if(isset($_GET['msg']) && (int)$_GET['msg'] === 2)
+{
+    echo "<script>Swal.fire({
+      title:'All field are required',
+      icon:'error'
+    });</script>";
+}
+if(isset($_GET['msg']) && (int)$_GET['msg'] === 3)
+{
+    echo "<script>Swal.fire({
+      title:'Something gone wrong',
+      icon:'error'
+    });</script>";
+}
+if(isset($_GET['msg']) && (int)$_GET['msg'] === 4)
+{
+    echo "<script>Swal.fire({
+      title:'You are not logged in',
+      icon:'error'
+    });</script>";
+}
+if(isset($_GET['msg']) && (int)$_GET['msg'] === 5)
+{
+    echo "<script>Swal.fire({
+      title:'Order failed',
+      icon:'error'
+    });</script>";
 }
 
-
-foreach ($product_data as $key => $data) {
-    if ($product_data[$key]['id'] === $cart_detail[$key]['product_id']) {
-        array_push($product_data[$key], $product_data[$key]['product_id'] = $cart_detail[$key]['product_id']);
-        array_push($product_data[$key], $product_data[$key]['product_count'] = $cart_detail[$key]['product_count']);
-    }
-}
-
-
+$order_product_session;
 
 
 ?>
 
 <main>
 
+    <form action="<?=BASE_URL?>BackendAssets/mysqlcode/checkout_2.php" method="POST" name="place_order_form"  id="place_order_form">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8">
                 <div class="checkout-form">
-                    <form action="BackendAssets/mysqlcode/checkout.php" method="post" id="place_order_form">
                         <label for="username">Name :</label><br>
-                        <input type="text" name="username" placeholder="Enter your name" id="username" value="<?= isset($address_data['name']) ? $address_data['name'] : "" ?>" onkeypress="return false" readonly required><br>
+                        <input type="text" name="username" placeholder="Enter your name" id="username" value="<?= isset($address_data['name']) ? $address_data['name'] : "" ?>"  required><br>
 
                         <label for="useremail">Email :</label><br>
-                        <input type="email" name="useremail" placeholder="Enter your email" value="<?= isset($address_data['email']) ? $address_data['email'] : "" ?>" id="useremail" onkeypress="return false" readonly required><br>
+                        <input type="email" name="useremail" placeholder="Enter your email" value="<?= isset($address_data['email']) ? $address_data['email'] : "" ?>" id="useremail"  required><br>
 
                         <label for="usernumber">Number :</label><br>
                         <input type="number" name="usernumber" placeholder="Enter your number" value="<?= isset($address_data['phonenumber']) ? $address_data['phonenumber'] : ""  ?>" id="usernumber" required><br>
 
                         <div class="row">
                             <div class="col-sm-4">
-                                <label for="country">Select country</label>
+                                <label for="country">Enter country name</label>
                                 <input type="text" name="country" id="country" placeholder="Enter your country">
                             </div>
 
                             <div class="col-sm-4">
-                                <label for="states">Select state</label><br>
+                                <label for="states">Enter state name</label><br>
                                 <input type="text" name="state" id="states" placeholder="Enter your state">
                             </div>
 
                             <div class="col-sm-4">
-                                <label for="city">Select city</label>
+                                <label for="city">Enter city name</label>
                                 <input type="text" name="city" id="city" placeholder="Enter your city">
                             </div>
                         </div>
@@ -99,8 +89,9 @@ foreach ($product_data as $key => $data) {
                         </div><br>
 
                         <label for="useraddress">Address :</label><br>
-                        <textarea name="useraddress" placeholder="Flat/House no./Floor/Building" id="useraddress" required>
+                        <textarea name="useraddress" placeholder="Flat/House no./Floor/Building" id="useraddress" required>Flat/House no./Floor/Building
                         </textarea><br>
+                        
 
 
                 </div>
@@ -109,39 +100,92 @@ foreach ($product_data as $key => $data) {
                 <div style="border:1px solid lightgray;margin:10px;padding:10px;border-radius:10px;">
                     <div class="product-div">
                         <?php
-                        // if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                        //     foreach ($product_data as $pro_data) {
+                        if (isset($_SESSION['cart']) && !empty($_SESSION['cart']) && !isset($_GET['dummy'])) {
+
+                            $order_product_session='cart';
                         ?>
-                                <div class="addtocart-card cart_products">
-                                    <!-- <div class="row">
-                                        <div class="col-sm-4 p-2">
-                                            <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $pro_data['productimage'] ?>" alt="<?= $pro_data['productimage'] ?>" class="checkout_cart_image">
-                                        </div>
-                                        <div class="col-sm-8 p-2">
-                                            <h6><?= $pro_data['productname'] ?></h6>
-                                            <h6><i class="bi bi-currency-rupee"></i><?= $pro_data['price'] ?></h6>
-                                            <div class="quantity">
-                                                <div class='plus_icon' cart_product_id='<?=$pro_data['id']?>'><i class='bi bi-plus-lg'></i></div>
-                                                <span id='quantity-<?=$pro_data['id']?>'></span>
-                                                <div class='minus_icon' cart_product_id='<?=$pro_data['id']?>'><i class='bi bi-dash-lg'></i></div>
+                            <div class="addtocart-card cart_products">
+
+                            </div>
+                            <div class="price_ele">
+                                <h6>Total Price :</h6>
+                                <h6 id="ptc_total_price">0</h6>
+                            </div>
+                            <?php
+                        } else {
+                            if (isset($_GET['dummy']) && $_GET['dummy'] === 'product' && isset($_SESSION['proceed_to_checkout'][0]['product_id'])) {
+                                $order_product_session='proceed_to_checkout';
+                                $data=$_SESSION['proceed_to_checkout_data'];
+                            ?>
+
+                                <div class='proceed_to_checkout_container'>
+                                    <?php
+                                    if($data[0][0] === 0)
+                                    {
+                                        ?>
+                                        <h3>No Product available now</h3>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                            <div class='row'>
+                                                <div class='col-sm-4'>
+                                                    <img src='<?= BASE_URL ?>BackendAssets/assets/images/productImages/<?= $data[0]['productimage'] ?>'
+                                                        alt='<?= $data[0]['productimage'] ?>' class='img-thumbnail'>
+                                                </div>
+                                                <div class='col-sm-8'>
+                                                    <h6><?= $data[0]['productname'] ?></h6>
+                                                    <div class='quantity_div'>
+                                                        <button type="button" class='plus_icon' cart_product_id='<?= $data[0]['id'] ?>'><i
+                                                                class='bi bi-plus-lg'></i></button>
+                                                        <span id='quantity'><?= $data[0][0] ?></span>
+                                                        <button type="button" class='minus_icon' cart_product_id='<?= $data[0]['id'] ?>'><i
+                                                                class='bi bi-dash-lg'></i></button>
+                                                    </div>
+                                                    <div class='price' price='<?= $data[0]['price']?>' quantity='<?= $data[0][0] ?>'>   
+                                                        <h6 class="ptc_price" id="price"><i class='bi bi-currency-rupee'></i><?= $data[0]['price']*$data[0][0] ?>
+                                                        </h6>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div> -->
+
+                                        <?php
+                                    }
+                                    ?>
                                 </div>
-                        <?php
-                        //     }
-                        // } else {
-                        //     echo "<h4>No products in cart</h4>";
-                        // }
+                                <div class="price_ele ptc_price_ele">
+                                <h6>Total Price :</h6>
+                                <h6 id="ptc_second_total_price"><i class='bi bi-currency-rupee'></i><?=$data[0]['price']?></h6>
+                            </div>
+                            
+                            <?php
+                            } else {
+                                echo "<h4>No products in cart</h4>";
+                            }
+                        }
+                        
                         ?>
+                    </div>
+                    <div class="place_order_btn">
+                        <button type="submit" name="place_order" id="place_order">Place Order</button>
                     </div>
                 </div>
             </div>
+
+            <!-- storing order product id and quantity -->
+
+            <input type="hidden" name="product_id_and_quantity" value="<?=$order_product_session?>">
+
+            <!-- end here -->
+
         </div>
     </div>
+</form>
 
 </main>
 
 <?php
+
 include("BackendAssets/Components/footer.php");
 ?>

@@ -28,7 +28,8 @@
                 <input type="email" name="email" placeholder="Email address here" pattern="[a-zA-Z0-9._%+-]+@gmail\.com" required>
               </div>
               <div>
-                <input type="password" name="password" placeholder="Password here" required>
+                <input type="password" name="password" id="signup_password_field" placeholder="Password here" required>
+                <i class="bi bi-eye" id="signup_password_field_icon"></i>
               </div>
               <button type="submit" name="user_submit">Sign up</button>
               <div style="color:#dcdcdc;">

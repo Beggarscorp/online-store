@@ -1,7 +1,5 @@
 td
 {
-    border: 1px solid gray !important;
-    width: 10px;
     text-align: center;
 }
 thead tr td,tbody tr td
@@ -9,11 +7,6 @@ thead tr td,tbody tr td
     padding: 8px 10px;
     word-break: break-all;
     white-space: nowrap;
-}
-tbody tr:nth-child(even)
-{
-  background-color: var(--color-2);
-  color: var(--color-5);
 }
 .content::-webkit-scrollbar-thumb
 {
@@ -24,4 +17,12 @@ tbody tr:nth-child(even)
 {
     width: 8px;
     height: 8px;
+}
+table
+{
+    background: whitesmoke !important;
+}
+tbody
+{
+    background: white !important;
 }

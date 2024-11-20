@@ -10,15 +10,15 @@ if(!defined('SITE_NAME'))
 }
 if(!defined('BASE_URL'))
 {
-    define('BASE_URL','http://localhost:3000/');
+    define('BASE_URL','http://localhost/online-store/');
 }
 if(!defined('SITE_ICON'))
 {
-    define('SITE_ICON', 'https://beggarscorporation.com/images/main/favicon.png');
+    define('SITE_ICON', BASE_URL.'BackendAssets/assets/images/logos/footer-logo-1.png');
 }
 if(!defined('SITE_LOGO'))
 {
-    define('SITE_LOGO','https://beggarscorporation.com/images/main/header-logo3.png');
+    define('SITE_LOGO',BASE_URL.'BackendAssets/assets/images/logos/header-logo3.png');
 }
 if(!defined('CURRENT_PAGE'))
 {

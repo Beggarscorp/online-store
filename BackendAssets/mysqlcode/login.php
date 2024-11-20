@@ -33,7 +33,7 @@ if($email != '' && $password != ""){
                 $_SESSION["user"] = $userdata['First_name'];
                 $_SESSION["id"]= $userdata['id'];
     
-                header("Location: ".$baseurl."shop.php");
+                header("Location: ".$baseurl."shop");
     
                 exit();
             }
@@ -41,7 +41,7 @@ if($email != '' && $password != ""){
             {
                 $msg="Credential wrong";
     
-                header("Location: ".$baseurl."login.php?msg=".$msg);
+                header("Location: ".$baseurl."login?msg=".$msg);
     
                 exit();
             }
@@ -50,7 +50,7 @@ if($email != '' && $password != ""){
         {
             $msg="Your email not verified";
 
-            header("Location: ".$baseurl."login.php?msg=".$msg);
+            header("Location: ".$baseurl."login?msg=".$msg);
 
             exit();
         }
@@ -59,7 +59,7 @@ if($email != '' && $password != ""){
     {
         $msg="Email or password wrong";
 
-        header("Location: ".$baseurl."login.php?msg=".$msg);
+        header("Location: ".$baseurl."login?msg=".$msg);
 
         exit();
     }
@@ -68,16 +68,16 @@ if($email != '' && $password != ""){
     {
         $msg="User already exists";
 
-        header("Location: ".$baseurl."shop.php?msg=".$msg);
+        header("Location: ".$baseurl."shop?msg=".$msg);
 
         exit();
     }
 }
-elseif($email = '' || $password = ""){
+elseif($email = "" || $password = ""){
 
     $msg="Put credential";
 
-    header("Location: ".$baseurl."login.php?msg=".$msg);
+    header("Location: ".$baseurl."login?msg=".$msg);
 
     exit();
 }

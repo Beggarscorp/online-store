@@ -38,15 +38,6 @@
         
         // end here
     
-        // video pop up open code start from here
-
-    //     window.addEventListener("load",()=>{
-    //     document.getElementById("pop_up_btn").click();
-        
-    // })
-    
-    // end here
-    
     // video pop up close video code start from here
     
     const close_video=(e)=>{
@@ -55,5 +46,35 @@
     }
     
     // end here
+});
+
+
+$(document).ready(function () {
     
+    get_all_products=($filter,$value)=>{
+        
+        $.ajax({
+            type: "POST",
+            url: $base_url+"BackendAssets/mysqlcode/shop.php",
+            data: {action:"fetch_all_products",filter:$filter,value:$value},
+            dataType: "json",
+            success: function (response) {
+                if(response.status === true)
+                {
+                    // $(".loader").remove();
+                    $(".product-container .row").html(response.data);
+                }
+            }
+        });
+    }
+    
+    $(".cate-heading").click(function (e) { 
+        e.preventDefault();
+        // $(".product-container").html("<div class='loader'></div>");
+        $value=$(e.target).text().toLowerCase();
+        $filter='category';
+        get_all_products($filter,$value);
+    });
+    // get_all_products();
+
 });

@@ -6,8 +6,10 @@ include("config/db.php");
 // include("/BackendAssets/Components/popup.php");
 // error_reporting(0);
 
+
 $sql = "SELECT * FROM `category`";
 $result = mysqli_query($conn, $sql);
+
 ?>
 
 <?php
@@ -27,7 +29,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
             <div class="filter-main-head">
                 <h5>Filters</h5>
                 <div class="filter-icon-div">
-                    <a href="<?= $_SERVER['PHP_SELF'] ?>">
+                    <a href="<?=BASE_URL?>shop">
                         <button class="clear_all_category_btn">Clear all</button>
                     </a>
                     <i class="fa fa-filter"></i>
@@ -38,12 +40,16 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                 <?php
                 foreach ($result as $row) {
                 ?>
-                    <a href="?cate=<?= $row['category'] ?>">
-                        <h6 class="cate-heading"><?= $row['category'] ?></h6>
-                    </a>
+                    <h6 class="cate-heading"><?= $row['category'] ?></h6>
                 <?php
                 }
                 ?>
+            </div>
+            <div class="color-container py-3">
+                <h5>Color</h5>
+                <h6 class="cate-heading">Red</h6>
+                <h6 class="cate-heading">Yellow</h6>
+                <h6 class="cate-heading">Black</h6>
             </div>
         </div>
         <div class="col-sm-10">
@@ -58,15 +64,23 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     }
                     $data = array_slice($data, 0, 16);
                     foreach ($data as $row) {
-                        if (isset($_GET['cate'])) {
-                            if ($_GET['cate'] == $row['category']) {
+                        if (isset($_GET['category'])) {
+                            if ($_GET['category'] == $row['category']) {
                     ?>
                                 <div class="col-sm-3">
                                     <div class="productCard text-center">
-                                        <a href="/singleProduct.php?id=<?= $row['id'] ?>&cate=<?= $row['category'] ?>" target="_blank">
+                                        <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
                                             <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
+                                            <?php
+                                                if((int)$row['min_order'] === 0)
+                                                {
+                                                    ?>
+                                                        <div class="out_of_stock">Out of Stock</div>
+                                                    <?php
+                                                }
+                                            ?>
                                         </a>
-                                        <6><?= $row['productname'] ?></6>
+                                        <h6><?= $row['productname'] ?></h6>
                                         <h6>INR <?= $row['price'] ?></h6>
                                         <button class="add-to-cart-btn" product_cart_id="<?=$row['id']?>">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></button>
                                     </div>
@@ -77,8 +91,16 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                             ?>
                             <div class="col-sm-3">
                                 <div class="productCard text-center">
-                                    <a href="/singleProduct.php?id=<?= $row['id'] ?>&cate=<?= $row['category'] ?>" target="_blank">
+                                    <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
                                         <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
+                                        <?php
+                                            if((int)$row['min_order'] === 0)
+                                            {
+                                                ?>
+                                                    <div class="out_of_stock">Out of Stock</div>
+                                                <?php
+                                            }
+                                        ?>
                                     </a>
                                     <h6><?= $row['productname'] ?></h6>
                                     <h6>INR <?= $row['price'] ?></h6>

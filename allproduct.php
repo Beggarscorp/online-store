@@ -8,7 +8,7 @@ include('BackendAssets/mysqlcode/allproducts.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Products</title>
-    <link rel="stylesheet" href="BackendAssets/css/allproduct.css">
+    <link rel="stylesheet" href="<?=BASE_URL?>BackendAssets/css/allproduct.css">
 </head>
 
 <body>
