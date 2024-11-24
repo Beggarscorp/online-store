@@ -2,15 +2,44 @@
 include 'BackendAssets/Components/header.php';
 include('config/db.php');
 
-$userid = isset($_SESSION['id']) ? $_SESSION['id'] : 14;
 
 $id = $_GET['id'];
 $sql = "SELECT * FROM `products` WHERE id=$id";
 $Allproducts = $conn->query($sql);
 $row = mysqli_fetch_array($Allproducts);
-?>
-<!--<link rel="stylesheet" href="BackendAssets/css/singleProduct.css">-->
-<?php
+
+$product_qty='';
+$add_to_cart_btn='';
+if((int)$row['min_order'] > 0)
+{
+    $product_qty=$row['min_order'];
+}
+else
+{
+    if(isset($_SESSION['cart']))
+    {
+        foreach($_SESSION['cart']  as $key => $cartProduct)
+        {
+            if((int)$id === $cartProduct['product_id'])
+            {
+                $product_qty=$cartProduct['product_count'];
+                $add_to_cart_btn='hide';
+            }
+            else
+            {
+                $add_to_cart_btn='show';
+                $product_qty=1;
+            }
+        }
+    }
+    else
+    {
+        $add_to_cart_btn='show';
+        $product_qty=1;
+    }
+}
+
+
 if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
     echo "<div class='alert alert-success' role='alert'>
   Product added to the cart
@@ -56,37 +85,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     <h2><?= $row['productname'] ?></h2>
                     <p class="font-16"><?= $row['discription'] ?></p>
                 </div>
-                <h4 class="productPrice">Price: ₹ <?= $row['price'] ?></h4>
-                <?php
-                if ($userid != "" && isset($_SESSION['id'])) {
-                    if ($row['min_order'] > 0) {
-                ?>
-                        <h5>QTY : <?= $row['min_order'] ?> <span style="color:red;font-size:12px;">(Min order <?= $row['min_order'] ?> pices)</span></h5>
-                        <?php
-                    } else {
-                        $productid = $row['id'];
-                        $sqlForQty = "SELECT MAX(product_qty) FROM `checkout` WHERE product_id=$productid AND userid=$userid";
-                        $resultForQty = mysqli_fetch_assoc(mysqli_query($conn, $sqlForQty));
-                        if ($resultForQty['MAX(product_qty)'] > 0) {
-                        ?>
-                            <h5>QTY : <input type="number" name="quantityIncreaseDecrease" id="quantityIncreaseDecrease" value="<?= $resultForQty['MAX(product_qty)'] ?>" min="1" userid="<?= $_SESSION['id'] ?>" productid="<?= $row['id'] ?>" productprice="<?= $row['price'] ?>" onchange="quantityTotal(this)"></h5>
-                        <?php
-                        } else {
-                        ?>
-                            <h5>QTY : <input type="number" name="quantityIncreaseDecrease" id="quantityIncreaseDecrease" value="1" min="1" userid="<?= $_SESSION['id'] ?>" productid="<?= $row['id'] ?>" productprice="<?= $row['price'] ?>" onchange="quantityTotal(this)"></h5>
-                <?php
-
-                        }
-                    }
-                }
-                ?>
-                <div class="buttons">
-                    <!--<a href="BackendAssets/mysqlcode/addtocart.php?id=<?= $row['id'] ?>&page=<?= $_SERVER['PHP_SELF'] ?>&cate=<?= $row['category'] ?>">-->
-                    <button class="add-to-cart-btn" product_cart_id="<?= $row['id'] ?>">Add to Cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                            <!--</a>-->
-                        </span>
-                    </button>
-                </div>
+                <!-- <h4 class="productPrice">Price: ₹ <?= $row['price'] ?></h4> -->
                 <?php
                 if ($row['sizeandfit'] != "") {
                 ?>
@@ -123,15 +122,53 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     </div>
                 <?php
                 }
+
+                if((int)$row['min_order'] > 0)
+                {
+                    ?>
+                    <div class="fix_quantity_div my-3">
+                        QTY : <?=$product_qty?> <span>(min order)</span>
+                    </div>
+                    <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>' quantity='<?=$product_qty?>'>
+                        <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price']*(int)$product_qty)?></h6>
+                    </div>
+                    <?php
+                }
+                else
+                {
+                    if($add_to_cart_btn === 'show')
+                    {
+                    ?>
+                    <div class="buttons">
+                        <button class="add-to-cart-btn" product_cart_id="<?= $row['id'] ?>">Add to Cart 
+                            <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                        </button>
+                    </div>
+                    <?php
+                    }
+                    else
+                    {
+                    ?>
+                    <div class='quantity_div my-3'>
+                        <button type='button' class='plus_icon' cart_product_id='<?=$row['id']?>'><i class='bi bi-plus-lg'></i></button>
+                            <span id='quantity-<?=$row['id']?>'><?=$product_qty?></span>
+                        <button type='button' class='minus_icon' cart_product_id='<?=$row['id']?>'><i class='bi bi-dash-lg'></i></button>
+                    </div>
+                    <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>}' quantity='<?=$product_qty?>'>
+                        <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h6>
+                    </div>
+                    <?php
+                    }
+                }
                 ?>
-                <button class="proceed_to_checkout" product_cart_id="<?=$row['id']?>">Proceed to Checkout <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                
+                <button class="proceed_to_checkout" product_cart_id="<?=$row['id']?>">Proceed to Checkout <i class="bi bi-arrow-right-circle-fill"></i></button>
                 <a href="<?=BASE_URL?>shop">
-                    <button class="go_to_checkout">Continue Shopping <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                    <button class="go_to_checkout">Continue Shopping <i class="bi bi-arrow-right-circle-fill"></i></button>
                 </a>
             </div>
         </div>
         <div class="row">
-            <!--<div class="container">-->
             <h3>Related Products</h3>
             <?php
             $relatedProductSql = "SELECT * FROM `products`";
@@ -153,7 +190,6 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                 }
             }
             ?>
-            <!--</div>-->
         </div>
     </div>
 </div>

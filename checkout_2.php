@@ -110,6 +110,7 @@ $order_product_session;
                             <div class="price_ele">
                                 <h6>Total Price :</h6>
                                 <h6 id="ptc_total_price">0</h6>
+                                <input type="hidden" name="total_price_input" id="total_price_input">
                             </div>
                             <?php
                         } else {
@@ -136,17 +137,35 @@ $order_product_session;
                                                 </div>
                                                 <div class='col-sm-8'>
                                                     <h6><?= $data[0]['productname'] ?></h6>
+                                                    <?php
+                                                    if((int)$data[0]['min_order'] > 0)
+                                                    {
+                                                        ?>
+                                                        <div class='fix_quantity_div'>QTY : <?=$data[0]['min_order']?> <span>(min order)</span></div>
+                                                        <div class='price' id='price-<?=$data[0]['id']?>' price='<?=$data[0]['price']?>' quantity='<?=$data[0]['min_order']?>'>
+                                                            <h6><i class='bi bi-currency-rupee'></i> <?=$data[0]['price']*$data[0]['min_order']?></h6>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                    else
+                                                    {
+                                                    ?>
                                                     <div class='quantity_div'>
-                                                        <button type="button" class='plus_icon' cart_product_id='<?= $data[0]['id'] ?>'><i
-                                                                class='bi bi-plus-lg'></i></button>
+                                                        <button type="button" class='plus_icon' cart_product_id='<?= $data[0]['id'] ?>'>
+                                                            <i class='bi bi-plus-lg'></i>
+                                                        </button>
                                                         <span id='quantity'><?= $data[0][0] ?></span>
-                                                        <button type="button" class='minus_icon' cart_product_id='<?= $data[0]['id'] ?>'><i
-                                                                class='bi bi-dash-lg'></i></button>
+                                                        <button type="button" class='minus_icon' cart_product_id='<?= $data[0]['id'] ?>'>
+                                                            <i class='bi bi-dash-lg'></i>
+                                                        </button>
                                                     </div>
                                                     <div class='price' price='<?= $data[0]['price']?>' quantity='<?= $data[0][0] ?>'>   
                                                         <h6 class="ptc_price" id="price"><i class='bi bi-currency-rupee'></i><?= $data[0]['price']*$data[0][0] ?>
                                                         </h6>
                                                     </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
 
@@ -157,6 +176,7 @@ $order_product_session;
                                 <div class="price_ele ptc_price_ele">
                                 <h6>Total Price :</h6>
                                 <h6 id="ptc_second_total_price"><i class='bi bi-currency-rupee'></i><?=$data[0]['price']?></h6>
+                                <input type="hidden" name="ptc_total_price_input" id="ptc_total_price_input">
                             </div>
                             
                             <?php

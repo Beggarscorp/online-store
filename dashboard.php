@@ -33,6 +33,7 @@ if($userSql->execute())
 {
     $userSql_result=$userSql->get_result();
     $userData=$userSql_result->fetch_all(MYSQLI_ASSOC)[0];
+    $userSql->close();
 }
 ?>
 
@@ -42,7 +43,7 @@ if($userSql->execute())
                 <div class="col-sm-3 p-2 ">
                     <div class="profile_view dash_background dashboard_sidebar ">
                         <div class="row border-1 border-bottom pb-2">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 col-6">
                                 <?php
                                 $user_img = $conn->prepare("SELECT user_image,First_name FROM `user` WHERE id=$userid");
                                 if ($user_img->execute()) {
@@ -59,12 +60,17 @@ if($userSql->execute())
                                 }
                                 ?>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 col-6">
                                 <input type="file" id="imagefileInput" accept="image/*" onchange="handleFileSelect(event)">
                                 <h6>Welcome,<br> <?= $img['First_name']?> </h6>
                             </div>
                         </div>
                         <div class="navigation">
+                        <div class="menu_icon">
+                            <span class="first_line menu_line"></span>
+                            <span class="middle_line menu_line"></span>
+                            <span class="last_line menu_line"></span>
+                        </div>
                             <ul>
                                 <li id="profile">Profile</li>
                                 <li id="orders">Orders</li>

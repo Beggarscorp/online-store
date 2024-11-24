@@ -6,8 +6,7 @@ $msgnumber;
 session_start();
 
 if (isset($_SESSION['user'])) {
-    // if(isset($_POST['place_order_form']))
-    // {
+    
     $user_id = $_SESSION['id'];
     $username = $_POST['username'];
     $useremail = $_POST['useremail'];
@@ -21,23 +20,23 @@ if (isset($_SESSION['user'])) {
     $razorpay_payment_id = "odfgh549";
     $razorpay_order_id = "sdf34534";
     $razorpay_signature = "soih094khrdg";
-    $totalPrice = 0230;
+    $totalPrice;
     $order_status = 0;
-
+    
+    
 
     if ($username != "" && $useremail != "" && $usernumber != "" && $country != "" && $state != "" && $city != "" && $userpincode != "" && $useraddress != "") {
         $product_id;
         $product_count;
+        $product_key;
         if ($product_id_and_quantity === 'cart') {
-            $product_detail = [
-                'product_id' => [],
-                'product_qty' => []
-            ];
+            
             for ($p = 0; $p < count($_SESSION[$product_id_and_quantity]); $p++) {
-                // array_push($product_detail['product_id'],$_SESSION[$product_id_and_quantity][$p]['product_id']);
-                // array_push($product_detail['product_qty'],$_SESSION[$product_id_and_quantity][$p]['product_count']);
+                
                 $product_id = $_SESSION[$product_id_and_quantity][$p]['product_id'];
                 $product_count = $_SESSION[$product_id_and_quantity][$p]['product_count'];
+
+                $totalPrice=$_POST['total_price_input'];
 
                 $order_sql = $conn->prepare("INSERT INTO `orders` (`userid`, `productid`, `productquantity`, `username`, `usercountry`, `useremail`, `usernumber`, `userstate`, `usercity`, `userpincode`, `useraddress`, `totalprice`, `order_status`, `razorpay_payment_id`, `razorpay_order_id`, `razorpay_signature`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 $order_sql->bind_param('iiisssissisiisss', $user_id, $product_id, $product_count, $username, $country, $useremail, $usernumber, $state, $city, $userpincode, $useraddress, $totalPrice, $order_status, $razorpay_payment_id, $razorpay_order_id, $razorpay_signature);
@@ -47,18 +46,19 @@ if (isset($_SESSION['user'])) {
                     $msgnumber = 5;
                 }
             }
-            // $product_id=json_encode(implode(',',$product_detail['product_id']));
-            // $product_count=json_encode(implode(',',$product_detail['product_qty']));
+            
         } 
         else 
         {
             $product_detail = [];
+            $product_key;
             for ($p = 0; $p < count($_SESSION[$product_id_and_quantity]); $p++) {
                 $product_detail['product_id'] = $_SESSION[$product_id_and_quantity][$p]['id'];
                 $product_detail['product_qty'] = $_SESSION[$product_id_and_quantity][$p]['0'];
             }
             $product_id = $product_detail['product_id'];
             $product_count = $product_detail['product_qty'];
+            $totalPrice=$_POST['ptc_total_price_input'];
 
             $order_sql=$conn->prepare("INSERT INTO `orders` (`userid`, `productid`, `productquantity`, `username`, `usercountry`, `useremail`, `usernumber`, `userstate`, `usercity`, `userpincode`, `useraddress`, `totalprice`, `order_status`, `razorpay_payment_id`, `razorpay_order_id`, `razorpay_signature`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $order_sql->bind_param('iiisssissisiisss',$user_id,$product_id,$product_count,$username,$country,$useremail,$usernumber,$state,$city,$userpincode,$useraddress,$totalPrice,$order_status,$razorpay_payment_id,$razorpay_order_id,$razorpay_signature);
@@ -75,15 +75,13 @@ if (isset($_SESSION['user'])) {
     } else {
         $msgnumber = 2;
     }
-    // }
-    // else
-    // {
-    //     $msgnumber=3;
-    // }
-} else {
+
+}
+else 
+{
     $msgnumber = 4;
 }
-// echo $msgnumber;
+
 header("Location: ".BASE_URL."checkout_2/$msgnumber");
 exit();
 

@@ -1,12 +1,10 @@
 <?php
-session_start();
 require('config/db.php');
 $categories;
 $fetch_category = $conn->prepare("SELECT * FROM `category`");
 if ($fetch_category->execute()) {
     $fetch_category_result = $fetch_category->get_result();
     $categories = $fetch_category_result->fetch_all(MYSQLI_ASSOC);
-    $fetch_category->close();
 }
 
 ?>
@@ -36,27 +34,35 @@ include("login_logout_msg.php");
 ?>
 
 <body class="roboto-regular">
-    <div class="header_for_desktop">
-        <header>
-            <div class="base_url_define" base_url="<?= BASE_URL ?>"></div>
-            <div class="container-fluid upper_header">
-                <div class="row p-3">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
+    <header>
+        <div class="base_url_define" base_url="<?= BASE_URL ?>"></div>
+        <div class="mobile_header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
                         <div class="logo text-center">
                             <img class="w-75" src="<?= SITE_LOGO ?>" alt="<?= BASE_URL ?>BackendAssets/assets/images/logos/header-logo3.png">
                         </div>
                     </div>
-                    <div class="col-sm-4 my-auto">
+                </div>
+                <div class="row border border-top py-1">
+                    <div class="col-6">
+                        <div class="menu_icon mobile_menu_icon">
+                            <span class="first_line menu_line"></span>
+                            <span class="middle_line menu_line"></span>
+                            <span class="last_line menu_line"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
                         <div class="icons text-light text-end">
-                            <i class="bi bi-search" id="filter_icon" style="font-size:17px;"></i>
-                            <i class="bi bi-person-circle" id="user_icon"></i>
-                            <i class="bi bi-cart3" id="cart_icon"></i>
+                            <i class="bi bi-search" id="filter_icon"></i>
+                            <i class="bi bi-person-circle" id="user_icon_mobile"></i>
+                            <i class="bi bi-cart3" id="cart_icon_mobile"></i>
                             <span class="cart_count">0</span>
                             <div class="dashboard_show">
                                 <div class="dashboard_show_head">
                                     <h5><?= isset($_SESSION['user']) ? "Welcome " . $_SESSION['user'] . "," : "User Menu" ?></h5>
-                                    <h5><i class="bi bi-x" id="hide_dashboard"></i></h5>
+                                    <h5><i class="bi bi-x" id="hide_dashboard_mobile"></i></h5>
                                 </div>
                                 <div class="dashboard_show_body">
                                     <ol>
@@ -86,7 +92,7 @@ include("login_logout_msg.php");
                                     </ol>
                                 </div>
                                 <div class="dashboard_show_footer">
-    
+
                                 </div>
                             </div>
                         </div>
@@ -103,66 +109,56 @@ include("login_logout_msg.php");
                     </div>
                 </div>
             </div>
-            <div class="header_second">
-                <div class="container-fluid">
-                    <div class="row p-3">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-6">
-                            <ul class="navbar_links my-auto">
-                                <li><a href="<?= BASE_URL ?>">Home</a></li>
-                                <li><a href="<?= BASE_URL ?>shop">Don't Donate,Purchase</a></li>
-                                <li class="category">Categories
-                                    <ul class="sub_menu">
-                                    <?php
-                                    foreach ($categories as $category) {
-                                    ?>
-                                        <li><a href="<?=BASE_URL?>shop/<?=$category['category']?>"><?=$category['category']?></a></li>
-                                    <?php
-                                    }
-                                    ?>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-3"></div>
+        </div>
+
+        <div class="header_second">
+            <div class="container-fluid">
+                <div class="row p-3">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <ul class="navbar_links my-auto d-none">
+                            <li><a href="<?= BASE_URL ?>">Home</a></li>
+                            <li><a href="<?= BASE_URL ?>shop">Don't Donate, Purchase</a></li>
+                            <li><a href="<?= BASE_URL ?>about-us">About us</a></li>
+                            <li><a href="<?= BASE_URL ?>shop/stole">Stole</a></li>
+                            <li><a href="<?= BASE_URL ?>shop/bag">Bag</a></li>
+                        </ul>
                     </div>
+                    <div class="col-sm-3"></div>
                 </div>
             </div>
-        </header>
-    </div>
-    <div class="sidebar">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-8 col-2 sidebar_blank_area vh-100">
-                                <!-- <div class=""></div> -->
-                            </div>
-                            <div class="col-sm-4 col-10 sidebar_content_area vh-100 p-0">
-                                <div class="">
-                                    <div class="continue_shopping">
-                                        <a href="shop">
-                                            <h6>
-                                                <i class="bi bi-chevron-left"></i>
-                                                Continue Shopping
-                                            </h6>
-                                        </a>
+            <div class="sidebar">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-8 sidebar_blank_area vh-100">
+                            <!-- <div class=""></div> -->
+                        </div>
+                        <div class="col-sm-4 sidebar_content_area vh-100 p-0">
+                            <div class="">
+                                <div class="continue_shopping">
+                                    <a href="shop">
+                                        <h6>
+                                            <i class="bi bi-chevron-left"></i>
+                                            Continue Shopping
+                                        </h6>
+                                    </a>
+                                </div>
+                                <div class="cart_content">
+                                    <div class="cart_heading">
+                                        <h5>Your cart products</h5>
                                     </div>
-                                    <div class="cart_content">
-                                        <div class="cart_heading">
-                                            <h5>Your cart products</h5>
+                                    <div class="cart_products">
+
+                                    </div>
+                                    <div class="cart_footer">
+                                        <div class="price_ele">
+                                            <h6>Total Price :</h6>
+                                            <h6 class="total_price">0</h6>
                                         </div>
-                                        <div class="cart_products">
-    
-                                        </div>
-                                        <div class="cart_footer">
-                                            <div class="price_ele">
-                                                <h6>Total Price :</h6>
-                                                <h6 class="total_price">0</h6>
-                                            </div>
-                                            <div>
-                                                <a href="<?= BASE_URL ?>checkout_2" target="_blank" rel="noopener noreferrer">
-                                                    <button class="proceed_to_checkout">Proceed to Checkout</button>
-                                                </a>
-                                            </div>
+                                        <div>
+                                            <a href="<?= BASE_URL ?>checkout_2" target="_blank" rel="noopener noreferrer">
+                                                <button class="proceed_to_checkout">Proceed to Checkout</button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -170,10 +166,29 @@ include("login_logout_msg.php");
                         </div>
                     </div>
                 </div>
-
-    <div class="header_for_mobile">
-        <?php
-        include("./BackendAssets/Components/mobile_header.php");
-        ?>
-    </div>
+            </div>
+        </div>
     
+    <div class="mobile_sidebar">
+        <h4 class="menu_heading">Menu</h4>
+        <ul class="my-auto">
+            <li><a href="<?= BASE_URL ?>">Home</a></li>
+            <li><a href="<?= BASE_URL ?>shop">Shop</a></li>
+            <li class="category">Categories
+                <ul class="sub_menu">
+                <?php
+                foreach ($categories as $category) {
+                ?>
+                    <li><a href="<?=BASE_URL?>shop/<?=$category['category']?>"><?=$category['category']?></a></li>
+                <?php
+                }
+                ?>
+                </ul>
+            </li>
+            <li><a href="<?= BASE_URL ?>about-us">About us</a></li>
+            <li><a href="<?= BASE_URL ?>shop/stole">Stole</a></li>
+            <li><a href="<?= BASE_URL ?>shop/bag">Bag</a></li>
+        </ul>
+    </div>                        
+
+    </header>

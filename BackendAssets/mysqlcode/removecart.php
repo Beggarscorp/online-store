@@ -29,6 +29,7 @@ if(isset($_POST['product_id']))
     }
 
 
+
     // foreach($_SESSION['cart'] as $key=>$cart_product)
     // {
     //     if((int)$_SESSION['cart'][$key]['product_id'] === (int)$product_cart_id)
@@ -53,6 +54,20 @@ if(isset($_POST['product_id']))
     // }
 }
 
+if(isset($_POST['action']) && $_POST['action'] === 'fix_quantity_product_remover_from_cart')
+{
+    session_start();
+    $id=$_POST['id'];
+    $data='';
+    foreach($_SESSION['cart'] as $key=>$cart)
+    {
+        if((int)$_SESSION['cart'][$key]['product_id'] === (int)$id)
+        {
+            unset($_SESSION['cart'][$key]);
+        }
+    }
+    echo json_encode(["status"=>true,"data"=>$data]);
+}
 
 
 // if(isset($cartid))

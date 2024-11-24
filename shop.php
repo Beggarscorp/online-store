@@ -6,7 +6,6 @@ include("config/db.php");
 // include("/BackendAssets/Components/popup.php");
 // error_reporting(0);
 
-
 $sql = "SELECT * FROM `category`";
 $result = mysqli_query($conn, $sql);
 

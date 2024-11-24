@@ -50,9 +50,15 @@ $(document).ready(function () {
         });
     })
 
+    const calculate_ptc_product_grand_total_price=()=>{
+        $tt=$(".proceed_to_checkout_container #price").text();
+        $("#ptc_second_total_price").html("<i class='bi bi-currency-rupee'></i>"+$tt);
+        $("#ptc_total_price_input").val($tt);
+    }
+    calculate_ptc_product_grand_total_price();
+
     $("#place_order").on("click",(e)=>{
         e.preventDefault();
         $("#place_order_form").submit();
     })
-    
 });

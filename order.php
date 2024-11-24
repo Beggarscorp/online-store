@@ -1,7 +1,7 @@
 <?php
 ob_start();
-include("./BackendAssets/Components/header.php");
-include("./BackendAssets/db.php");
+include("BackendAssets/Components/header.php");
+include("config/db.php");
 $msg = '';
 
 if (isset($_SESSION['user'])) {

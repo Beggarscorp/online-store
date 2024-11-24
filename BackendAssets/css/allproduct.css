@@ -2,6 +2,13 @@ td
 {
     text-align: center;
 }
+thead 
+{
+    position: sticky;
+    top: 10px;
+    background-color: var(--color-2);
+    color: var(--color-5);
+}
 thead tr td,tbody tr td
 {
     padding: 8px 10px;

@@ -57,7 +57,7 @@
     border-radius: 10px;
     padding: 4px 15px;
 }
-button
+.dash_background button
 {
     border: none;
     box-shadow: inset 0 0 6px 0px gray;
@@ -67,7 +67,7 @@ button
     background: transparent;
     padding: 3px 25px;
 }
-button:hover
+.dash_background button:hover
 {
     background-color: #b26f0a;
     color: #fff;

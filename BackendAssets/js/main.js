@@ -11,6 +11,24 @@ document.addEventListener("DOMContentLoaded",()=>{
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
           },
+          breakpoints: {
+            250: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+        }
       });
 
     var swiper_2 = new Swiper(".myswiper_2", {
@@ -24,12 +42,33 @@ document.addEventListener("DOMContentLoaded",()=>{
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
           },
+          breakpoints: {
+            250: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+        }
       });
 
     const sidebar=document.getElementsByClassName("sidebar");
     const cart_icon=document.getElementById("cart_icon");
+    const cart_icon_mobile=document.getElementById("cart_icon_mobile");
     const sidebar_blank_area=document.getElementsByClassName("sidebar_blank_area");
-    cart_icon.addEventListener("click",()=>{
+    
+    const sidebar_show_function=()=>{
+        console.log("click ho rha hai")
         sidebar[0].classList.toggle("sidebar_show");
         if(sidebar[0].classList.contains("sidebar_show"))
         {
@@ -39,7 +78,11 @@ document.addEventListener("DOMContentLoaded",()=>{
         {
             document.body.style.overflow = 'inherit';
         }
-    })
+    }
+
+    cart_icon.addEventListener("click",sidebar_show_function);
+    cart_icon_mobile.addEventListener("click",sidebar_show_function);
+
     sidebar_blank_area[0].addEventListener("click",()=>{
         sidebar[0].classList.remove("sidebar_show");
         document.body.style.overflow = 'inherit';
@@ -75,87 +118,126 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 
-    const slider = document.querySelector('.slider');
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-    const sliderItems = document.querySelectorAll('.slider-item');
-    const totalItems = sliderItems.length;
-    let currentIndex = 0;
+    // const slider = document.querySelector('.slider');
+    // const prevButton = document.querySelector('.prev');
+    // const nextButton = document.querySelector('.next');
+    // const sliderItems = document.querySelectorAll('.slider-item');
+    // const totalItems = sliderItems.length;
+    // let currentIndex = 0;
 
-    // Function to update the center item style
-    function updateCenterItem() {
-      sliderItems.forEach((item, index) => {
-        item.classList.remove('center');  // Remove center class from all
-        if (index === currentIndex) {
-          item.classList.add('center'); // Add center class to the current item
-        }
-      });
-    }
+    // // Function to update the center item style
+    // function updateCenterItem() {
+    //   sliderItems.forEach((item, index) => {
+    //     item.classList.remove('center');  // Remove center class from all
+    //     if (index === currentIndex) {
+    //       item.classList.add('center'); // Add center class to the current item
+    //     }
+    //   });
+    // }
 
-    // Function to slide the items based on the currentIndex
-    function slide() {
-      const itemsVisible = getVisibleItemsCount();
-      const offset = -currentIndex * (100 / itemsVisible); // Calculate the offset for the visible items
-      slider.style.transform = `translateX(${offset}%)`; // Apply sliding effect
-    }
+    // // Function to slide the items based on the currentIndex
+    // function slide() {
+    //   const itemsVisible = getVisibleItemsCount();
+    //   const offset = -currentIndex * (100 / itemsVisible); // Calculate the offset for the visible items
+    //   slider.style.transform = `translateX(${offset}%)`; // Apply sliding effect
+    // }
 
-    // Function to get the number of items visible based on screen size
-    function getVisibleItemsCount() {
-      const width = window.innerWidth;
-      if (width <= 480) {
-        return 1; // 1 item on mobile
-      } else if (width <= 768) {
-        return 2; // 2 items on tablet
-      } else {
-        return 3; // 3 items on desktop
-      }
-    }
+    // // Function to get the number of items visible based on screen size
+    // function getVisibleItemsCount() {
+    //   const width = window.innerWidth;
+    //   if (width <= 480) {
+    //     return 1; // 1 item on mobile
+    //   } else if (width <= 768) {
+    //     return 2; // 2 items on tablet
+    //   } else {
+    //     return 3; // 3 items on desktop
+    //   }
+    // }
 
-    // Previous button functionality
-    prevButton.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-      } else {
-        currentIndex = totalItems - getVisibleItemsCount();  // Loop to the last set of items
-      }
-      slide();
-      updateCenterItem();
-    });
+    // // Previous button functionality
+    // prevButton.addEventListener('click', () => {
+    //   if (currentIndex > 0) {
+    //     currentIndex--;
+    //   } else {
+    //     currentIndex = totalItems - getVisibleItemsCount();  // Loop to the last set of items
+    //   }
+    //   slide();
+    //   updateCenterItem();
+    // });
 
-    // Next button functionality
-    nextButton.addEventListener('click', () => {
-      if (currentIndex < totalItems - getVisibleItemsCount()) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;  // Loop back to the first set of items
-      }
-      slide();
-      updateCenterItem();
-    });
+    // // Next button functionality
+    // nextButton.addEventListener('click', () => {
+    //   if (currentIndex < totalItems - getVisibleItemsCount()) {
+    //     currentIndex++;
+    //   } else {
+    //     currentIndex = 0;  // Loop back to the first set of items
+    //   }
+    //   slide();
+    //   updateCenterItem();
+    // });
 
-    // Initialize the slider and center the first item
-    updateCenterItem();
+    // // Initialize the slider and center the first item
+    // updateCenterItem();
 
-    // Recalculate slide position when the window is resized
-    window.addEventListener('resize', () => {
-      slide();
-      updateCenterItem();
-    });
+    // // Recalculate slide position when the window is resized
+    // window.addEventListener('resize', () => {
+    //   slide();
+    //   updateCenterItem();
+    // });
 
 
 
-}) ;
+});
 
 $(document).ready(()=>{
 
+
+    // mobile header js code
+
+    $(".menu_icon").on("click",()=>{
+        $(".first_line").toggleClass("first_line_show");
+        $(".middle_line").toggleClass("middle_line_show");
+        $(".last_line").toggleClass("last_line_show");
+    })
+
+    $(".mobile_menu_icon").on("click",()=>{
+        $(".mobile_sidebar").toggleClass("mobile_sidebar_show");
+        $mobile_sidebar=$(".mobile_sidebar");
+        if($mobile_sidebar[0].classList.contains("mobile_sidebar_show"))
+            {
+                document.body.style.overflow = 'hidden';
+            }
+            else
+            {
+                document.body.style.overflow = 'inherit';
+            }
+    })
+    
+    
+    // end here
+
+    $(".category").on("click",()=>{
+        $wid=window.screen.width;
+        if($wid < 768){
+            $(".sub_menu").toggleClass("submenu_show");
+        }
+    });
+
+    
     // show dashboard div code
     
     $user_icon=$("#user_icon");
     $("#user_icon").on("click",()=>{
         $(".dashboard_show").toggleClass("dashboard_hide");
     })
+    $("#user_icon_mobile").on("click",()=>{
+        $(".dashboard_show").toggleClass("dashboard_hide");
+    })
 
     $("#hide_dashboard").on("click",()=>{
+        $(".dashboard_show").removeClass("dashboard_hide");
+    })
+    $("#hide_dashboard_mobile").on("click",()=>{
         $(".dashboard_show").removeClass("dashboard_hide");
     })
 
@@ -211,6 +293,7 @@ $(document).ready(()=>{
                     {
                         $(e.currentTarget).parent().parent().parent().css({"display":"none"});
                         $(".cart_count").text(parseInt($(".cart_count").text())-1);
+                        set_product_on_cart();
                     }
                     else
                     {
@@ -294,22 +377,33 @@ $(document).ready(()=>{
                     $product_carts_html='';
                     for($i=0;$i<response.product_data.length;$i++)
                         {
+                            if(parseInt(response.product_data[$i].min_order) > 0 )
+                            {
+                                $quantity_show=`<div class='fix_quantity_div'>QTY : ${response.product_data[$i].min_order} <span>(min order)</span></div><span class="fix_product_quantity_remove_icon" id="${response.product_data[$i].id}"><i class="bi bi-x-circle"></i></span>
+                                <div class='price' id='price-${response.product_data[$i].id}' price='${response.product_data[$i].price}' quantity='${response.product_data[$i][0]}'>
+                                    <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price*response.product_data[$i].min_order}</h6>
+                                </div>`;
+                            }
+                            else
+                            {
+                                $quantity_show=`<div class='quantity_div'>
+                                            <button type='button' class='plus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-plus-lg'></i></button>
+                                            <span id='quantity-${response.product_data[$i].id}'>${response.product_data[$i][0]}</span>
+                                            <button type='button' class='minus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-dash-lg'></i></button>
+                                            </div>
+                                            <div class='price' id='price-${response.product_data[$i].id}' price='${response.product_data[$i].price}' quantity='${response.product_data[$i][0]}'>
+                                                <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price*response.product_data[$i][0]}</h6>
+                                            </div>`;
+                            }
                             $product_carts_html+=`
                             <div class='product_cart'>
                                 <div class='row'>
-                                    <div class='col-sm-3'>
+                                    <div class='col-sm-3 col-4'>
                                         <img src='`+$base_url+`BackendAssets/assets/images/productImages/${response.product_data[$i].productimage}' alt='${response.product_data[$i].productimage}' class='img-thumbnail'>
                                     </div>
-                                    <div class='col-sm-9'>
+                                    <div class='col-sm-9 col-8'>
                                         <h6>${response.product_data[$i].productname}</h6>
-                                        <div class='quantity_div'>
-                                        <button type='button' class='plus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-plus-lg'></i></button>
-                                        <span id='quantity-${response.product_data[$i].id}'>${response.product_data[$i][0]}</span>
-                                        <button type='button' class='minus_icon' cart_product_id='${response.product_data[$i].id}'><i class='bi bi-dash-lg'></i></button>
-                                        </div>
-                                        <div class='price' id='price-${response.product_data[$i].id}' price='${response.product_data[$i].price}' quantity='${response.product_data[$i][0]}'>
-                                            <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price*response.product_data[$i][0]}</h6>
-                                    </div>
+                                        ${$quantity_show}
                                     </div>
                                 </div>
                             </div>
@@ -354,6 +448,7 @@ $(document).ready(()=>{
             if(document.getElementById("ptc_total_price"))
             {
                 document.getElementById("ptc_total_price").innerHTML="<i class='bi bi-currency-rupee'></i>"+total_prices;
+                document.getElementById("total_price_input").value=total_prices;
             }
         }
     }
@@ -448,5 +543,27 @@ $(document).ready(function() {
     })
 
     // end here
+
+
+    $(document).on("click",".fix_product_quantity_remove_icon",(e)=>{
+        $id=$(e.currentTarget).attr("id");
+        $.ajax({
+            type: "POST",
+            url: $base_url+"/BackendAssets/mysqlcode/removecart.php",
+            data: {action:"fix_quantity_product_remover_from_cart",id:$id},
+            dataType: "json",
+            success: function (response) {
+                if(response.status === true)
+                {
+                    $(e.currentTarget).parent().parent().css({"display":"none"});
+                    if(parseInt($(".cart_count").text()) > 0)
+                    {
+                        $(".cart_count").text(parseInt($(".cart_count").text())-1);
+                    }    
+                }
+            }
+        });
+    })
+
 
 });
