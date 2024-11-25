@@ -77,5 +77,15 @@ $(document).ready(function () {
         })
     })
 
-    // $(".orders").height($(".profile_view").height());
+    // dashboard navigation show hide code
+
+    $screen_width=window.screen.width;
+    if($screen_width < 768 )
+    {
+        $(".dashboar_menu_icon").on("click",()=>{
+            $(".navigation").toggleClass("navigation_show");
+        })
+    }
+
+    // end here
 });

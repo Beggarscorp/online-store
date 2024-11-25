@@ -65,12 +65,11 @@ if($userSql->execute())
                                 <h6>Welcome,<br> <?= $img['First_name']?> </h6>
                             </div>
                         </div>
-                        <div class="navigation">
-                        <div class="menu_icon">
-                            <span class="first_line menu_line"></span>
-                            <span class="middle_line menu_line"></span>
-                            <span class="last_line menu_line"></span>
+                        <div class="dashboar_menu_icon">
+                            <span><h4>Dashboard Menu</h4></span>
+                            <i class="bi bi-list"></i>
                         </div>
+                        <div class="navigation">
                             <ul>
                                 <li id="profile">Profile</li>
                                 <li id="orders">Orders</li>

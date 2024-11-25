@@ -102,7 +102,8 @@
                                         foreach($fetch_table_name_result->fetch_all(MYSQLI_ASSOC) as $tablename)
                                         {
                                             ?>
-                                            <option value="<?=$tablename['table_name']?>"><?=$tablename['table_name']?></option>
+                                            <option value="<?=$tablename['table_name']?>">
+                                                <?=ucwords(str_replace(" table","",str_replace("user","",str_replace("_"," ",$tablename['table_name']))))?></option>
                                             <?php
                                         }
                                     }

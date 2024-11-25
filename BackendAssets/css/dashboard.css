@@ -265,12 +265,34 @@ select:focus-visible
     max-height: 0;
     transition: 0.2s linear;
 }
-
 .dash_content_show
 {
     visibility: visible;
     opacity: 1;
     max-height: fit-content;
 }
-
+.dashboar_menu_icon i
+{
+    font-size: 20px;
+    color: var(--golden);
+}
+.dashboar_menu_icon
+{
+    display: none;
+}
+@media screen and (max-width:768px) {
+    .dashboar_menu_icon
+    {
+        display: flex;
+        justify-content: space-between;
+    }
+    .navigation
+    {
+        display: none;
+    }
+    .navigation_show
+    {
+        display: block;
+    }
+}
 /* end here */
