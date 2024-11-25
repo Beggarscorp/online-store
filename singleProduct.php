@@ -55,30 +55,32 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
     <div class="smain">
         <div class="row">
             <div class="col-sm-7">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="multipleImg">
-                            <?php
+                
+                    <!-- <div class="col-sm-9"> -->
+                        <div class="productImg" style="
+                    --opacity:'0';
+                    --zoom-x:0%;
+                    --zoom-y:0%;
+                    --imageurl:url('<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>');
+;                    ">
+                            <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
+                        </div>
+                    <div class="multipleImg">
+                        <div class="row pe-md-5">
+                                <?php
                             $galleryImages = explode(",", $row["productimagegallery"]);
                             foreach ($galleryImages as $galleryImage) {
-                            ?>
-                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= $galleryImage ?>" alt="<?= $galleryImage ?>" onclick="galleryimages(this)">
+                                ?>
+                                <div class="col-sm-4 col-4">
+                                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= $galleryImage ?>"  alt="<?= $galleryImage ?>" onclick="galleryimages(this)">
+                                </div>
                             <?php
                             }
                             ?>
                         </div>
                     </div>
-                    <div class="col-sm-9">
-                        <div class="productImg" style="
-                    --display:'none';
-                    --zoom-x:88%;
-                    --zoom-y:41.2%;
-                    --imageurl:url('<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>');
-;                    ">
-                            <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
-                        </div>
-                    </div>
-                </div>
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
             <div class="col-sm-5">
                 <div style="border-bottom:1px solid lightgray;">
@@ -168,8 +170,8 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                 </a>
             </div>
         </div>
-        <div class="row">
-            <h3>Related Products</h3>
+        <div class="row py-5">
+            <h4>Related Products</h4>
             <?php
             $relatedProductSql = "SELECT * FROM `products`";
             $RelatedAllProducts = $conn->query($relatedProductSql);

@@ -44,7 +44,9 @@ include("login_logout_msg.php");
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
                         <div class="logo text-center">
-                            <img class="w-75" src="<?= SITE_LOGO ?>" alt="<?= BASE_URL ?>BackendAssets/assets/images/logos/header-logo3.png">
+                            <a href="<?=BASE_URL?>">
+                                <img class="w-75" src="<?= SITE_LOGO ?>" alt="<?= BASE_URL ?>BackendAssets/assets/images/logos/header-logo3.png">
+                            </a>
                         </div>
                     </div>
                     <div class="col-sm-4 my-auto">

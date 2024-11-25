@@ -8,16 +8,21 @@
                 <div class="col-sm-4">
                     <h4>Important Links</h4>
                     <div class="links">
-                        <p>Home</p>
-                        <p>Shop</p>
-                        <p>About us</p>
-                        <p>Terms and Conditions</p>
+                        <p><a href="<?=BASE_URL?>" rel="noopener noreferrer">Home</a></p>
+                        <p><a href="<?=BASE_URL?>shop" rel="noopener noreferrer">Shop</a></p>
+                        <p><a href="<?=BASE_URL?>about-us">About us</a></p>
+                        <p><a href="<?=BASE_URL?>terms-and-conditions">Terms and Conditions</a></p>
+                        <p><a href="<?=BASE_URL?>privacy-policy">Privacy Policy</a></p>
+                        <p><a href="<?=BASE_URL?>shipping-and-delivery-policy">Shipping and Delivery Policy</a></p>
+                        <p><a href="<?=BASE_URL?>cancellation-and-refund-policy">Cancellation and Refund Policy</a></p>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="footer_logs py-5">
-                        <img src="<?=BASE_URL?>BackendAssets/assets/images/logos/footer-logo-1.png" alt="footer-logo-1">
-                        <img src="<?=BASE_URL?>BackendAssets/assets/images/logos/footer-logo-2.png" alt="footer-logo-2">
+                        <a href="<?=BASE_URL?>">
+                            <img src="<?=BASE_URL?>BackendAssets/assets/images/logos/footer-logo-1.png" alt="footer-logo-1">
+                            <img src="<?=BASE_URL?>BackendAssets/assets/images/logos/footer-logo-2.png" alt="footer-logo-2">
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -32,13 +37,13 @@
                     </div>
                     <div class="address">
                         <i class="bi bi-envelope"></i>
-                        <p>office@beggarscorporation.com</p>
+                        <p><a class="text-decoration-none text-secondary" href="mailto:office@beggarscorporation.com" target="_blank" rel="noopener noreferrer">office@beggarscorporation.com</a></p>
                     </div>
                     <div class="social-media-links">
-                    <i class="bi bi-instagram"></i>
-                    <i class="bi bi-facebook"></i>
-                    <i class="bi bi-twitter"></i>
-                    <i class="bi bi-linkedin"></i>
+                        <a href="https://www.instagram.com/beggarscorporation/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.facebook.com/beggarscorporation" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i></a>
+                        <a href="https://x.com/BeggarsCorp" target="_blank" rel="noopener noreferrer"><i class="bi bi-twitter"></i></a>
+                        <a href="https://www.linkedin.com/company/beggars-corporation/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
             </div>

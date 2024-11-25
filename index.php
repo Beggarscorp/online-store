@@ -22,32 +22,60 @@ if($product_sql->execute())
 ?>
 
 <main>
-    <div class="banner">
-        <div id="carouselExample" class="carousel slide">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-1.jpg" class="d-block w-100" alt="...">
+    <div class="banner bg-light bg-gradient">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-8 p-4">
+                    <div id="bannerCarousel" class="carousel slide shadow-lg carousel-fade">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-1.jpg" class="d-block w-100 rounded" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-2.png" class="d-block w-100 rounded" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-3.png" class="d-block w-100 rounded" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-5.jpg" class="d-block w-100 rounded" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-6.jpg" class="d-block w-100 rounded" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-7.jpg" class="d-block w-100 rounded" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-8.jpg" class="d-block w-100 rounded" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
                 </div>
-                <div class="carousel-item">
-                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-2.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/banner-img-3.png" class="d-block w-100" alt="...">
+                <div class="col-sm-4 m-auto">
+                    <div class="banner-content p-3" style="font-family: system-ui;">
+                        <h4 class="my-2" >Beggars Corporation</h4>
+                        <p class="h6 text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat corporis quisquam ratione magnam ad nemo ab id asperiores quibusdam illo sit, perspiciatis deleniti officia numquam quasi dolore tenetur voluptas repellendus.</p>
+                        <a href="<?=BASE_URL?>shop">
+                            <button class="border-0 bg-gradient-warning p-2 rounded shadow my-2 text-light h6" style="background:var(--gradient)">Don't Donate,Purchase <i class="bi bi-arrow-right-short"></i></button>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
     </div>
 
-    <div class="category bg-light bg-gradient pb-5">
-    <div class="container">
+    <div class="category  pb-5">
+    <div class="container-fluid p-4">
         <div class="heading">
             <h3>Cate<span class="golden">gories</span></h3>
         </div>
@@ -74,7 +102,7 @@ if($product_sql->execute())
 </div>
     </div>
 
-    <div class="featured_products container">
+    <div class="featured_products container-fluid p-4 bg-light bg-gradient">
         <div class="heading">
             <h3>Featured <span class="golden">Products</span></h3>
         </div>
@@ -105,7 +133,7 @@ if($product_sql->execute())
         </div>
     </div>
 
-        <div class="featured_products container">
+        <div class="featured_products container-fluid p-4">
             <div class="heading">
                 <h3>Best <span class="golden">Seller</span></h3>
             </div>

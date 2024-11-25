@@ -184,12 +184,18 @@ document.addEventListener("DOMContentLoaded",()=>{
     //   slide();
     //   updateCenterItem();
     // });
+    let bannerCarousel = document.querySelector('#bannerCarousel');
 
-
+    const carousel = new bootstrap.Carousel(bannerCarousel, {
+      interval: 2000,
+      touch: false
+    })
 
 });
 
 $(document).ready(()=>{
+
+
 
 
     // mobile header js code

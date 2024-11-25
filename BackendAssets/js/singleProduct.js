@@ -1,7 +1,7 @@
 
 const imagediv = document.getElementsByClassName("productImg");
     imagediv[0].addEventListener("mousemove", (e) => {
-        imagediv[0].style.setProperty('--display', 'block');
+        imagediv[0].style.setProperty('--opacity', '1');
         imagediv[0].style.cursor = "zoom-in";
         let pointer = {
             x: (e.offsetX * 100) / imagediv[0].offsetWidth,
@@ -11,7 +11,7 @@ const imagediv = document.getElementsByClassName("productImg");
         imagediv[0].style.setProperty('--zoom-y', pointer.y + '%');
     })
     imagediv[0].addEventListener("mouseout", () => {
-        imagediv[0].style.setProperty('--display', 'none');
+        imagediv[0].style.setProperty('--opacity', '0');
     })
 
 

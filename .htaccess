@@ -7,6 +7,11 @@ RewriteRule ^([^/]+)/?$ $1.php [L]
 
 RewriteBase /online-store/
 
+# Additional rule for the "pages" folder
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^pages/([^/]+)/?$ pages/$1.php [L]
+
 # Rewrite rule for singleProduct.php
 RewriteRule ^singleProduct/([^/]+)/([0-9]+)/?$ singleProduct.php?category=$1&id=$2 [L,QSA]
 
