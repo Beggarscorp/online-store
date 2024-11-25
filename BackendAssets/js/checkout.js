@@ -59,6 +59,17 @@ $(document).ready(function () {
 
     $("#place_order").on("click",(e)=>{
         e.preventDefault();
-        $("#place_order_form").submit();
+        $place_order_form=$("#place_order_form")[0];
+        if($place_order_form.checkValidity())
+        {
+            $("#place_order_form").submit();
+        }
+        else
+        {
+            Swal.fire({
+                title:"All fields are required",
+                icon:"warning"
+            })
+        }
     })
 });

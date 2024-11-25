@@ -91,9 +91,6 @@ include("login_logout_msg.php");
                                         ?>
                                     </ol>
                                 </div>
-                                <div class="dashboard_show_footer">
-
-                                </div>
                             </div>
                         </div>
                         <select name="filter_text" class="filter_element">

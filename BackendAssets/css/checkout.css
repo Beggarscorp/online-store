@@ -1,6 +1,5 @@
-@import url('admin.css');
 
-input:focus-visible
+input:focus-visible,textarea:focus-visible
 {
     border: none;
     outline: 0;
@@ -15,7 +14,7 @@ input,textarea,select
     padding: 8px 18px;
     border-radius: 10px;
     box-shadow: inset 0 0 4px 0 gray;
-    font-weight: 600;
+    font-weight: 500;
 }
 input::placeholder,textarea::placeholder,select::placeholder
 {
@@ -25,10 +24,11 @@ label
 {
     margin: 0 10px;
     color: #b26f0ad4 !important;
+    font-weight: 500;
 }
 .product-div
 {
-     margin: 45px 0;
+     margin: 20px 0;
 }
 #usernumber::-webkit-outer-spin-button,
 #usernumber::-webkit-inner-spin-button {
@@ -118,4 +118,30 @@ label
 {
     padding: 0 10px;
     border-top: 1px solid lightgray;
+}
+.checkout_cart_image
+{
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+}
+.cart_products
+{
+    overflow: hidden;
+    padding: 0;
+}
+.place_order_btn button
+{
+    border: none;
+    width: 100%;
+    padding: 6px 0;
+    border-radius: 10px;
+    background: var(--gradient);
+    color: var(--white);
+}
+.proceed_to_checkout_container
+{
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding: 20px 10px;
 }

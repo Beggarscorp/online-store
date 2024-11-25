@@ -14,8 +14,8 @@ RewriteRule ^singleProduct/([^/]+)/([0-9]+)/?$ singleProduct.php?category=$1&id=
 RewriteRule ^shop/([^/]+)/?$ shop.php?category=$1 [L,QSA]
                                                          
 # Rewrite rule for checkout
-RewriteRule ^checkout_2/([^/]+)/([^/]+)/?$ checkout_2.php?dummy=$1&id=$2 [L,QSA]
+RewriteRule ^checkout/([^/]+)/([^/]+)/?$ checkout.php?dummy=$1&id=$2 [L,QSA]
 
 # Rewrite rule for checkout page for show messages
-RewriteRule ^checkout_2/([^/]+)/?$ checkout_2.php?msg=$1& [L,QSA]
+RewriteRule ^checkout/([^/]+)/?$ checkout.php?msg=$1& [L,QSA]
                                                          

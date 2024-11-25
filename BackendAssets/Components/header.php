@@ -85,9 +85,6 @@ include("login_logout_msg.php");
                                         ?>
                                     </ol>
                                 </div>
-                                <div class="dashboard_show_footer">
-    
-                                </div>
                             </div>
                         </div>
                         <select name="filter_text" class="filter_element">
@@ -159,7 +156,7 @@ include("login_logout_msg.php");
                                                 <h6 class="total_price">0</h6>
                                             </div>
                                             <div>
-                                                <a href="<?= BASE_URL ?>checkout_2" target="_blank" rel="noopener noreferrer">
+                                                <a href="<?= BASE_URL ?>checkout" target="_blank" rel="noopener noreferrer">
                                                     <button class="proceed_to_checkout">Proceed to Checkout</button>
                                                 </a>
                                             </div>

@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     const sidebar_blank_area=document.getElementsByClassName("sidebar_blank_area");
     
     const sidebar_show_function=()=>{
-        console.log("click ho rha hai")
+        
         sidebar[0].classList.toggle("sidebar_show");
         if(sidebar[0].classList.contains("sidebar_show"))
         {
@@ -375,6 +375,8 @@ $(document).ready(()=>{
                 if(response.status === 'success' && response.product_data != "")
                 {
                     $product_carts_html='';
+                    $productQuantity=[];
+                    $productPrice=[];
                     for($i=0;$i<response.product_data.length;$i++)
                         {
                             if(parseInt(response.product_data[$i].min_order) > 0 )
@@ -383,6 +385,8 @@ $(document).ready(()=>{
                                 <div class='price' id='price-${response.product_data[$i].id}' price='${response.product_data[$i].price}' quantity='${response.product_data[$i][0]}'>
                                     <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price*response.product_data[$i].min_order}</h6>
                                 </div>`;
+                                $productQuantity.push(response.product_data[$i].min_order);
+                                $productPrice.push(response.product_data[$i].price);
                             }
                             else
                             {
@@ -394,6 +398,8 @@ $(document).ready(()=>{
                                             <div class='price' id='price-${response.product_data[$i].id}' price='${response.product_data[$i].price}' quantity='${response.product_data[$i][0]}'>
                                                 <h6><i class='bi bi-currency-rupee'></i> ${response.product_data[$i].price*response.product_data[$i][0]}</h6>
                                             </div>`;
+                                            $productQuantity.push(response.product_data[$i][0]);
+                                            $productPrice.push(response.product_data[$i].price);
                             }
                             $product_carts_html+=`
                             <div class='product_cart'>
@@ -412,7 +418,7 @@ $(document).ready(()=>{
 
                         $(".cart_products").html($product_carts_html);
 
-                        calculate_grand_total_price();
+                        calculate_grand_total_price($productQuantity,$productPrice);
 
                         $(".cart_count").text(parseInt(response.product_data.length) != "" && parseInt(response.product_data.length) != null ? response.product_data.length : 0 );
                         
@@ -431,27 +437,21 @@ $(document).ready(()=>{
 
     // end here
 
-    calculate_grand_total_price=()=>{
-
-        let price_element=document.querySelectorAll(".cart_content .product_cart .price");
-        let total_price_element=document.getElementsByClassName("total_price");
-
-
-        if(price_element)
+    calculate_grand_total_price=(qty,price)=>{
+        $totalprice=[];
+        if(qty.length === price.length)
         {
-            let all_prices=[];
-            for (const e of price_element) {
-                all_prices.push(e.innerText);
-            }
-            const total_prices = all_prices.reduce((sum, value) => sum + Number(value.trim()), 0);
-            total_price_element[0].innerHTML="<i class='bi bi-currency-rupee'></i>"+total_prices;
-            if(document.getElementById("ptc_total_price"))
+            for($e=0;$e<qty.length;$e++)
             {
-                document.getElementById("ptc_total_price").innerHTML="<i class='bi bi-currency-rupee'></i>"+total_prices;
-                document.getElementById("total_price_input").value=total_prices;
+                $totalprice.push((qty[$e])*(price[$e]));
             }
+            $sumtotalPrice = $totalprice.reduce((acc, currentValue) => acc + currentValue, 0);
+            $(".total_price").html('<i class="bi bi-currency-rupee"></i>'+$sumtotalPrice);
+            $("#ptc_total_price").html('<i class="bi bi-currency-rupee"></i>'+$sumtotalPrice);
+            $("#total_price_input").val($sumtotalPrice);
         }
     }
+    
     
     $("#select_address").on("change",(e)=>{
         $("#address").html("Address "+$(e.currentTarget).val()+"<i class='bi bi-check2-circle' style='font-size:15px;'>");
@@ -463,9 +463,9 @@ $(document).ready(()=>{
 
         for($o=0;$o<5;$o++)
         {
-            if(window.location.href === $base_url+"checkout_2/"+$o)
+            if(window.location.href === $base_url+"checkout/"+$o)
             {
-                let currentUrl = new URL($base_url+"checkout_2/"+$o);
+                let currentUrl = new URL($base_url+"checkout/"+$o);
                 
                 // Split the pathname into parts
                 let pathParts = currentUrl.pathname.split('/');

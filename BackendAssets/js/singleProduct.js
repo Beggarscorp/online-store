@@ -67,7 +67,7 @@ const imagediv = document.getElementsByClassName("productImg");
                     if(response.status === 'success')
                     {
                         // console.log(response.data);
-                        window.location.href=$base_url+"checkout_2/product/"+response.data;
+                        window.location.href=$base_url+"checkout/product/"+response.data;
                     }
                 }
             });
