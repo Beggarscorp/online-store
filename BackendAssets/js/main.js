@@ -237,7 +237,6 @@ $(document).ready(()=>{
             $(".sub_menu").toggleClass("submenu_show");
         }
     });
-
     
     // show dashboard div code
     

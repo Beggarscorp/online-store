@@ -246,10 +246,10 @@ body,html
   z-index: 9999;
   padding: 5px 10px;
   background: whitesmoke;
-  /* box-shadow: -2px -1px 10px lightgrey; */
   width: fit-content;
   opacity: 0;
-  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transform: translateY(-500px);
+  transition: 0.5s cubic-bezier(0, 0.47, 0.96, 1.35);
 }
 @media screen and (max-width:768px) {
   .sub_menu
@@ -271,6 +271,7 @@ body,html
   .category:hover .sub_menu
   {
     opacity: 1;
+    transform: translateY(0);
   }
   
 }
@@ -618,7 +619,7 @@ footer .links,.address
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
+  background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;

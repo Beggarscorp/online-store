@@ -111,7 +111,7 @@ include("login_logout_msg.php");
                                 <li><a href="<?= BASE_URL ?>">Home</a></li>
                                 <li><a href="<?= BASE_URL ?>shop">Don't Donate,Purchase</a></li>
                                 <li class="category">Categories
-                                    <ul class="sub_menu">
+                                    <ul class="sub_menu shadow">
                                     <?php
                                     foreach ($categories as $category) {
                                     ?>
