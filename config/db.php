@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$database="beggarsc_backend";
+$database="beggarsc_backend_2";
 $password = "";
 
 // Create connection

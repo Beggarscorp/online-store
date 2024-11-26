@@ -3,6 +3,7 @@ include("BackendAssets/Components/header.php");
 require("config/db.php");
 
 
+
 if(isset($_GET['msg']) && (int)$_GET['msg'] === 1)
 {
     echo "<script>Swal.fire({
@@ -107,7 +108,7 @@ $order_product_session;
                             <div class="addtocart-card cart_products">
 
                             </div>
-                            <div class="price_ele">
+                            <div class="cart_price_ele">
                                 <h6>Total Price :</h6>
                                 <h6 id="ptc_total_price">0</h6>
                                 <input type="hidden" name="total_price_input" id="total_price_input">
@@ -196,6 +197,14 @@ $order_product_session;
             <!-- storing order product id and quantity -->
 
             <input type="hidden" name="product_id_and_quantity" value="<?=$order_product_session?>">
+
+            <!-- end here -->
+
+            <!-- storing razorpay ids -->
+
+            <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+            <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+            <input type="hidden" name="razorpay_signature" id="razorpay_signature">
 
             <!-- end here -->
 

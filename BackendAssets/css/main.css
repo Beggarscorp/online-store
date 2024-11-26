@@ -381,7 +381,7 @@ body,html
   overflow-y: scroll;
   padding: 5px 15px;
 }
-.price_ele
+.price_ele,.cart_price_ele
 {
   display: flex;
   justify-content: space-between;

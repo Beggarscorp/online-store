@@ -184,19 +184,28 @@ document.addEventListener("DOMContentLoaded",()=>{
     //   slide();
     //   updateCenterItem();
     // });
-    let bannerCarousel = document.querySelector('#bannerCarousel');
-
-    const carousel = new bootstrap.Carousel(bannerCarousel, {
-      interval: 2000,
-      touch: false
-    })
+    
 
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    let bannerCarousel = document.querySelector('#bannerCarousel');
+    
+    if(bannerCarousel)
+    {
+        // Initialize Bootstrap carousel with autoplay and other options
+        const carousel = new bootstrap.Carousel(bannerCarousel, {
+          interval: 2000,  // Autoplay every 2 seconds
+          touch: true,     // Allow touch swipe
+          keyboard: true,  // Enable keyboard navigation
+          ride: 'carousel' // Ensure the carousel auto starts
+        });
+
+    }
+  });
+
+
 $(document).ready(()=>{
-
-
-
 
     // mobile header js code
 
