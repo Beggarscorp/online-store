@@ -72,8 +72,8 @@ include("login_logout_msg.php");
                                             <option value="2">Address 2</option>
                                             <option value="3">Address 3</option>
                                         </select>
-                                        <li>Orders</li>
-                                        <li>Cart</li>
+                                        <li><a href="<?=BASE_URL?>Dashboard">Orders</a></li>
+                                        <li><a href="<?=BASE_URL?>Dashboard">Cart</a></li>
                                         <?php
                                         if (isset($_SESSION['user'])) {
                                         ?>

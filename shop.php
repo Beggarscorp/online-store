@@ -44,12 +44,6 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                 }
                 ?>
             </div>
-            <div class="color-container py-3">
-                <h5>Color</h5>
-                <h6 class="cate-heading">Red</h6>
-                <h6 class="cate-heading">Yellow</h6>
-                <h6 class="cate-heading">Black</h6>
-            </div>
         </div>
         <div class="col-sm-10">
         <div class="product-container">
@@ -71,7 +65,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                         <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
                                             <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
                                             <?php
-                                                if((int)$row['min_order'] === 0)
+                                                if((int)$row['stock'] === 0)
                                                 {
                                                     ?>
                                                         <div class="out_of_stock">Out of Stock</div>
@@ -81,7 +75,22 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                         </a>
                                         <h6><?= $row['productname'] ?></h6>
                                         <h6>INR <?= $row['price'] ?></h6>
-                                        <button class="add-to-cart-btn" product_cart_id="<?=$row['id']?>">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></button>
+                                        <?php
+                                            if((int)$row['stock'] === 0)
+                                            {
+                                                ?>
+                                                    <button disabled id="btn_tooltip" class="add-to-cart-btn">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                                        <span class="btn_tooltip">Product out of stock now</span>
+                                                    </button>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                    <button class="add-to-cart-btn" product_cart_id="<?=$row['id']?>">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></button>
+                                                <?php
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             <?php
@@ -93,7 +102,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                     <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
                                         <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
                                         <?php
-                                            if((int)$row['min_order'] === 0)
+                                            if((int)$row['stock'] === 0)
                                             {
                                                 ?>
                                                     <div class="out_of_stock">Out of Stock</div>
@@ -103,7 +112,22 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                     </a>
                                     <h6><?= $row['productname'] ?></h6>
                                     <h6>INR <?= $row['price'] ?></h6>
-                                    <button class="add-to-cart-btn" product_cart_id="<?=$row['id']?>">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span></button>
+                                    <?php
+                                        if((int)$row['stock'] === 0)
+                                        {
+                                            ?>
+                                                <button disabled  id="btn_tooltip" class="add-to-cart-btn">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                                                    <span class="btn_tooltip">Product out of stock now</span>
+                                                </button>
+                                            <?php
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                                <button class="add-to-cart-btn" product_cart_id="<?=$row['id']?>">Add to cart <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span></button>
+                                            <?php
+                                        }
+                                    ?>
                                 </div>
                             </div>
                     <?php

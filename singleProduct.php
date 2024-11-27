@@ -140,31 +140,79 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                 {
                     if($add_to_cart_btn === 'show')
                     {
+                        if((int)$row['stock'] === 0)
+                        {
                     ?>
                     <div class="buttons">
-                        <button class="add-to-cart-btn" product_cart_id="<?= $row['id'] ?>">Add to Cart 
+                        <button class="add-to-cart-btn" id="btn_tooltip" disabled>Add to Cart 
                             <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                            <span class="btn_tooltip">Product out of stock now</span>
                         </button>
                     </div>
                     <?php
+                        }
+                        else
+                        {
+                            ?>
+                            <div class="buttons">
+                                <button class="add-to-cart-btn" product_cart_id="<?= $row['id'] ?>">Add to Cart 
+                                    <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                            <?php
+                        }
                     }
                     else
                     {
+                        if((int)$row['stock'] === 0)
+                        {
                     ?>
-                    <div class='quantity_div my-3'>
-                        <button type='button' class='plus_icon' cart_product_id='<?=$row['id']?>'><i class='bi bi-plus-lg'></i></button>
-                            <span id='quantity-<?=$row['id']?>'><?=$product_qty?></span>
-                        <button type='button' class='minus_icon' cart_product_id='<?=$row['id']?>'><i class='bi bi-dash-lg'></i></button>
-                    </div>
-                    <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>}' quantity='<?=$product_qty?>'>
-                        <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h6>
+                    <div id="btn_tooltip">
+                        <span class="btn_tooltip">Product out of stock now</span>
+                        <div class='quantity_div my-3'>
+                            <button type='button' disabled><i class='bi bi-plus-lg'></i></button>
+                                <span id='quantity-<?=$row['id']?>'><?=$product_qty?></span>
+                            <button disabled><i class='bi bi-dash-lg'></i></button>
+                        </div>
+                        <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>}' quantity='<?=$product_qty?>'>
+                            <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h6>
+                        </div>
                     </div>
                     <?php
+                        }
+                        else
+                        {
+                            ?>
+                            <div class='quantity_div my-3'>
+                            <button type='button' class='plus_icon' cart_product_id='<?=$row['id']?>'><i class='bi bi-plus-lg'></i></button>
+                                <span id='quantity-<?=$row['id']?>'><?=$product_qty?></span>
+                            <button type='button' class='minus_icon' cart_product_id='<?=$row['id']?>'><i class='bi bi-dash-lg'></i></button>
+                            </div>
+                            <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>}' quantity='<?=$product_qty?>'>
+                                <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h6>
+                            </div>
+                            <?php
+                        }
                     }
                 }
                 ?>
                 
-                <button class="proceed_to_checkout" product_cart_id="<?=$row['id']?>">Proceed to Checkout <i class="bi bi-arrow-right-circle-fill"></i></button>
+                <?php
+                if((int)$row['stock'] === 0)
+                {
+                    ?>
+                        <button class="proceed_to_checkout" disabled id="btn_tooltip">Proceed to Checkout <i class="bi bi-arrow-right-circle-fill"></i>
+                            <span class="btn_tooltip">Product out of stock now</span>
+                        </button>
+                    <?php
+                }
+                else
+                {
+                    ?>
+                        <button class="proceed_to_checkout" product_cart_id="<?=$row['id']?>">Proceed to Checkout <i class="bi bi-arrow-right-circle-fill"></i></button>
+                    <?php
+                }
+                ?>
                 <a href="<?=BASE_URL?>shop">
                     <button class="go_to_checkout">Continue Shopping <i class="bi bi-arrow-right-circle-fill"></i></button>
                 </a>

@@ -116,9 +116,6 @@ include("login_logout_msg.php");
                         <ul class="navbar_links my-auto d-none">
                             <li><a href="<?= BASE_URL ?>">Home</a></li>
                             <li><a href="<?= BASE_URL ?>shop">Don't Donate, Purchase</a></li>
-                            <li><a href="<?= BASE_URL ?>about-us">About us</a></li>
-                            <li><a href="<?= BASE_URL ?>shop/stole">Stole</a></li>
-                            <li><a href="<?= BASE_URL ?>shop/bag">Bag</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-3"></div>
@@ -170,7 +167,7 @@ include("login_logout_msg.php");
         <h4 class="menu_heading">Menu</h4>
         <ul class="my-auto">
             <li><a href="<?= BASE_URL ?>">Home</a></li>
-            <li><a href="<?= BASE_URL ?>shop">Shop</a></li>
+            <li><a href="<?= BASE_URL ?>shop">Don't Donate,Purchase</a></li>
             <li class="category">Categories
                 <ul class="sub_menu">
                 <?php
@@ -182,9 +179,7 @@ include("login_logout_msg.php");
                 ?>
                 </ul>
             </li>
-            <li><a href="<?= BASE_URL ?>about-us">About us</a></li>
-            <li><a href="<?= BASE_URL ?>shop/stole">Stole</a></li>
-            <li><a href="<?= BASE_URL ?>shop/bag">Bag</a></li>
+            
         </ul>
     </div>                        
 

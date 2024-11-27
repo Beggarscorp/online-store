@@ -127,6 +127,28 @@ body,html
     font-weight: 700;
     color: #9c9c9c;
   }
+  #btn_tooltip
+{
+    position: relative;
+}
+.btn_tooltip
+{
+    position: absolute;
+    background: red;
+    color: white;
+    z-index: 1;
+    width: fit-content;
+    left: 0;
+    bottom: 40px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+    font-size: 12px;
+    padding-bottom: 20px;
+    visibility: hidden;
+}
+#btn_tooltip:hover .btn_tooltip
+{
+    visibility: visible;
+}
   header
   {
     transition: all 0.7s linear;
@@ -255,7 +277,7 @@ body,html
   .sub_menu
   {
     width: 100%;
-    background-color: var(--footer-bg);
+    background-color: lavender;
   }
 }
 .sub_menu li
@@ -266,6 +288,7 @@ body,html
 .submenu_show
 {
   opacity: 1;
+  transform: translateY(0);
 }
 @media screen and (min-width:768px) {
   .category:hover .sub_menu
@@ -682,15 +705,15 @@ footer .links,.address
 .out_of_stock
 {
   color: white;
-    background: red;
-    width: fit-content;
-    margin: auto;
-    border-radius: 10px;
-    padding: 0 10px;
-    position: absolute;
-    top: -102px;
-    right: 0;
-    font-family: math;
+  background: red;
+  width: fit-content;
+  margin: auto;
+  border-radius: 10px;
+  padding: 0 10px;
+  position: absolute;
+  top: -102px;
+  right: 0;
+  font-family: math;
 }
 .our_best_products img
 {

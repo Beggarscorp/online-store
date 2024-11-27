@@ -1,11 +1,13 @@
 
 <?php
 include("../../config/config.php");
+require_once("../../config/google_config.php");
 session_start(); // Start the session
 
 // Unset specific session variables
 unset($_SESSION['user']);
 unset($_SESSION['id']);
+$google_client->revokeToken();
 
 // If using cookies to store the session ID, delete the cookie
 if (ini_get("session.use_cookies")) {
@@ -19,6 +21,6 @@ if (ini_get("session.use_cookies")) {
 }
 
 // Redirect to the login page or home page
-header("Location: ".BASE_URL."login.php"); // Change to your login page URL
+header("Location: ".BASE_URL."login"); // Change to your login page URL
 exit();
 ?>
