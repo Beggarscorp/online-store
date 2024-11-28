@@ -144,7 +144,7 @@ if($product_sql->execute())
                         foreach($products as $product)
                         {
                             ?>
-                                <div class="swiper-slide">
+                                <div class="swiper-slide light-bg">
                                     <div class="featured_product_card">
                                         <a href="<?=BASE_URL?>singleProduct/<?=$product['category']?>/<?=$product['id']?>" target="_bland">
                                             <img src="<?=BASE_URL?>BackendAssets/assets/images/ProductImages/<?=$product['productimage']?>" alt="<?=$product['productimage']?>">

@@ -855,4 +855,34 @@ footer .links,.address
   color: var(--text-light-white);
 }
 
+#bannerCarousel
+{
+  animation: bannerMove 10s  infinite linear;
+}
+
+@keyframes bannerMove {
+  0%
+  {
+    transform: translateX(0);
+  }
+  25%{
+    transform: translateX(10px);
+  }
+  50%{
+    transform: translateX(0);
+  }
+  75%{
+    transform: translateX(10px);
+  }
+  100%{
+    transform: translateX(0);
+  }
+}
+.light-bg:hover
+{
+  background-color: #f7f8f9;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 2px #e9e9e9;
+}
+
 /* end here */

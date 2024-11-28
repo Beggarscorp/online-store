@@ -23,7 +23,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
 ?>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2">
+        <!-- <div class="col-sm-2">
             <div class="filter-main-head">
                 <h5>Filters</h5>
                 <div class="filter-icon-div">
@@ -43,8 +43,8 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                 }
                 ?>
             </div>
-        </div>
-        <div class="col-sm-10">
+        </div> -->
+        <div class="col-sm-12">
         <div class="product-container">
                 <div class="row">
                     <?php
@@ -59,7 +59,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                         if (isset($_GET['category'])) {
                             if ($_GET['category'] == $row['category']) {
                     ?>
-                                <div class="col-sm-3">
+                                <div class="col-sm-3 light-bg">
                                     <div class="productCard text-center">
                                         <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
                                             <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
@@ -96,7 +96,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                             }
                         } else {
                             ?>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 light-bg">
                                 <div class="productCard text-center">
                                     <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
                                         <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
