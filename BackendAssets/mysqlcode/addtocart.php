@@ -127,7 +127,6 @@ if (isset($_POST['get_quantity']) && $_POST['get_quantity'] != "") {
     // echo json_encode(['status' => 'success', 'quantity' => $quantity]);
 }
 
-
 // end here
 
 

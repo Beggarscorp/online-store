@@ -3,7 +3,6 @@
 include("BackendAssets/Components/header.php");
 include('BackendAssets/mysqlcode/allproducts.php');
 include("config/db.php");
-// include("/BackendAssets/Components/popup.php");
 // error_reporting(0);
 
 $sql = "SELECT * FROM `category`";

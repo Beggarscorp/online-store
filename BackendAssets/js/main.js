@@ -260,6 +260,7 @@ $(document).ready(()=>{
 
     
     $base_url=$(".base_url_define").attr("base_url");
+    
 
     // increase cart product quantity 
 
@@ -306,7 +307,8 @@ $(document).ready(()=>{
                     if(response.quantity === 0)
                     {
                         $(e.currentTarget).parent().parent().parent().css({"display":"none"});
-                        $(".cart_count").text(parseInt($(".cart_count").text())-1);
+                        // $(".cart_count").text(parseInt($(".cart_count").text())-1);
+                        $(".cart_count").text(0);
                         set_product_on_cart();
                     }
                     else
@@ -572,7 +574,7 @@ $(document).ready(function() {
                     $(e.currentTarget).parent().parent().css({"display":"none"});
                     if(parseInt($(".cart_count").text()) > 0)
                     {
-                        $(".cart_count").text(parseInt($(".cart_count").text())-1);
+                        $(".cart_count").text(parseInt(response.cart_count));
                     }    
                 }
             }

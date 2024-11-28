@@ -64,9 +64,10 @@ if(isset($_POST['action']) && $_POST['action'] === 'fix_quantity_product_remover
         if((int)$_SESSION['cart'][$key]['product_id'] === (int)$id)
         {
             unset($_SESSION['cart'][$key]);
+            $cart_count=count($_SESSION['cart']);
         }
     }
-    echo json_encode(["status"=>true,"data"=>$data]);
+    echo json_encode(["status"=>true,"data"=>$data,"cart_count"=>$cart_count]);
 }
 
 
