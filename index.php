@@ -63,10 +63,10 @@ if($product_sql->execute())
                 </div>
                 <div class="col-sm-4 m-auto">
                     <div class="banner-content p-3" style="font-family: system-ui;">
-                        <h4 class="my-2" >Beggars Corporation</h4>
-                        <p class="h6 text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat corporis quisquam ratione magnam ad nemo ab id asperiores quibusdam illo sit, perspiciatis deleniti officia numquam quasi dolore tenetur voluptas repellendus.</p>
+                        <h4 class="my-2" >Don't Donate,Purchase</h4>
+                        <p class="h6 text-secondary">..Be a Responsible Citizen. Your Purposeful Purchase can lift someone from the poverty trap and turn him or her from a Beggar To Entrepreneur (BTE).</p>
                         <a href="<?=BASE_URL?>shop">
-                            <button class="border-0 bg-gradient-warning p-2 rounded shadow my-2 text-light h6" style="background:var(--gradient)">Don't Donate,Purchase <i class="bi bi-arrow-right-short"></i></button>
+                            <button class="border-0 bg-gradient-warning p-2 rounded shadow my-2 text-light h6" style="background:var(--gradient)">See our BTEs Handmade Products <i class="bi bi-arrow-right-short"></i></button>
                         </a>
                     </div>
                 </div>

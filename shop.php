@@ -21,8 +21,12 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
 </div>";
 }
 ?>
+<div class="shop-page-banner">
+    <h2>Don't Donate, <span class="golden border-0">Purchase</span></h2>
+</div>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row p-4">
+        <p class="text-secondary text-center py-1">..Be a Responsible Citizen. Your Purposeful Purchase can lift someone from the poverty trap and turn him or her from a Beggar To Entrepreneur (BTE). By purchasing from BTEs, you serve three purposes at once: Begging Free India, Plastic Free India, and Transforming lives without donating. Feel the magic of the hands who once begged for your coins. Explore the diverse range of products stitched with the dreams of a better life for their children.</p>
         <!-- <div class="col-sm-2">
             <div class="filter-main-head">
                 <h5>Filters</h5>
