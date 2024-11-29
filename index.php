@@ -86,9 +86,9 @@ if($product_sql->execute())
             {
                 ?>
                     <div class="swiper-slide">
-                        <div class="cate_div">
-                            <img src="<?=BASE_URL?>BackendAssets/assets/images/banner2-img.png" alt="">
-                            <h5><?=$category['category']?></h5>
+                        <div class="cate_div w-75">
+                            <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category['category_image']?>" alt="<?=$category['category_image']?>">
+                            <a href="<?=BASE_URL?>shop/<?=$category['category']?>" target="_blank" rel="noopener noreferrer"><h5><?=$category['category']?></h5></a>
                         </div>
                     </div>
                 <?php

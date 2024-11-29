@@ -24,9 +24,11 @@ include("config/db.php");
                     <div class="col-sm-6">
                         <div class="product_category">
                             <h4 class="py-2">Add Products Categories from here</h4>
-                            <form action="<?=BASE_URL?>BackendAssets/mysqlcode/addcategory.php" method="POST">
+                            <form action="<?=BASE_URL?>BackendAssets/mysqlcode/addcategory.php" method="POST" enctype="multipart/form-data">
                                 <label for="category">Add Category :</label><br>
                                 <input type="text" name="category" placeholder="Enter your category here"><br>
+                                <label for="category_image">Add Category Image</label>
+                                <input type="file" name="category_image" id="category_image" accept="image/*"><br>
                                 <button type="submit" name="cateSubmit">Add Category</button>
                             </form>
                             <h5 class="py-2">Add subcategory</h5>
@@ -39,7 +41,9 @@ include("config/db.php");
                                         $category_result = $category->get_result();
                                         foreach ($category_result->fetch_all(MYSQLI_ASSOC) as $cate) {
                                     ?>
-                                            <option value="<?= $cate['id'] ?>"><?= $cate['category'] ?></option>
+                                            <option value="<?= $cate['id'] ?>">
+                                                <?= $cate['category'] ?>
+                                            </option>
                                     <?php
                                         }
                                     }
@@ -65,6 +69,7 @@ include("config/db.php");
                                         $cateid = $cates['id'];
                                 ?>
                                         <li><?= $cates['category'] ?>
+                                        <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$cates['category_image']?>" class="w-25 shadow-lg rounded m-2" alt="">
                                             <span class="operation_link">
                                                 <a href="<?=BASE_URL?>BackendAssets/mysqlcode/addcategory.php?function=update_category_and_subcategory&table=category&id=<?= $cates['id'] ?>"><i class="bi bi-pencil-square"></i></a>
                                                 <a href="<?=BASE_URL?>BackendAssets/mysqlcode/addcategory.php?function=delete_category_and_subcategory&table=category&id=<?= $cates['id'] ?>"><i class="bi bi-x-square" style="color:red !important;"></i></a>

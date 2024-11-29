@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     var swiper_1 = new Swiper(".myswiper", {
         slidesPerView: 3,
-        spaceBetween: 30,
+        spaceBetween: 20,
         pagination: {
           el: ".swiper-pagination",
           clickable: true,
@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded",()=>{
               spaceBetween: 40,
             },
             1024: {
-              slidesPerView: 3,
-              spaceBetween: 50,
+              slidesPerView: 4,
+              spaceBetween: 20,
             },
         }
       });

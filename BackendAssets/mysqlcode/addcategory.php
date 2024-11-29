@@ -5,21 +5,31 @@ $baseurl=BASE_URL;
 if (isset($_POST['category']) && isset($_POST['cateSubmit'])) {
     
     $category = $_POST['category'];
-    $msg;
-    $sql = "SELECT * FROM `category` WHERE `category` = '$category'";
-    $result = mysqli_query($conn, $sql);
-    $numrow = mysqli_num_rows($result);
-    if ($numrow === 0) {
-        $sql = "INSERT INTO `category`(`category`) VALUES ('$category')";
-        if ($conn->query($sql)) {
-            $msg = "Category added";
+    $category_image=$_FILES['category_image']['name'];
+    $category_image_tmp_name=$_FILES['category_image']['tmp_name'];
+    $upload_path='../assets/images/category_images/'.$category_image;
+    if(move_uploaded_file($category_image_tmp_name,$upload_path))
+    {
+        $msg;
+        $sql = "SELECT * FROM `category` WHERE `category` = '$category'";
+        $result = mysqli_query($conn, $sql);
+        $numrow = mysqli_num_rows($result);
+        if ($numrow === 0) {
+            $sql = "INSERT INTO `category`(`category`) VALUES ('$category')";
+            if ($conn->query($sql)) {
+                $msg = "Category added";
+            }
         }
+        else
+        {
+            $msg = "Category already exists";
+        }
+        $conn->close();
     }
     else
     {
-        $msg = "Category already exists";
+        $msg="Image not uploaded";
     }
-    $conn->close();
     header("Location: ".$baseurl."add?msg=". $msg);
     exit();
 }
@@ -69,11 +79,23 @@ else if(isset($_GET['function']) && $_GET['function'] === 'update_category_and_s
         {
             $cate=$fetch_category_details->get_result()->fetch_array(MYSQLI_ASSOC);
             ?>
-            <form action="./addcategory.php" method="post">
-                <input type="text" name="cate_update_value" value="<?=$cate['category']?>">
-                <input type="hidden" name="cate_update_id" value="<?=$id?>">
-                <button type="submit" name="cate_update">Update</button>
-            </form>
+            <div style="display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                        background: lavender;
+                        width: 100%;">
+                <form action="./addcategory.php" method="post" enctype="multipart/form-data" style="padding: 20px 10px;
+                                                                                                    box-shadow: 0 0 6px 0px #c2c2f3;
+                                                                                                    border-radius: 10px;">
+                    <label for="cate_update_value">Category Name</label><br>
+                    <input type="text" name="cate_update_value" id="cate_update_value" value="<?=$cate['category']?>"><br><br>
+                    <input type="hidden" name="cate_update_id" value="<?=$id?>">
+                    <label for="category_image">Category Image</label><br>
+                    <input type="file" name="update_category_image" id="category_image" accept="image/*"><br><br>
+                    <button type="submit" name="cate_update">Update</button>
+                </form>
+            </div>
             <?php
         }
 
@@ -86,11 +108,20 @@ else if(isset($_GET['function']) && $_GET['function'] === 'update_category_and_s
         {
             $subcate=$fetch_subcategory_details->get_result()->fetch_array(MYSQLI_ASSOC);
             ?>
-            <form action="./addcategory.php" method="post">
-                <input type="text" name="subcate_update_value" value="<?=$subcate['subcategory']?>">
-                <input type="hidden" name="subcate_update_id" value="<?=$id?>">
-                <button type="submit" name="subcate_update">Update</button>
-            </form>
+            <div style="display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                        background: lavender;
+                        width: 100%;">
+                <form action="./addcategory.php" method="post" style="padding: 20px 10px;
+                                                                      box-shadow: 0 0 6px 0px #c2c2f3;
+                                                                      border-radius: 10px;">
+                    <input type="text" name="subcate_update_value" value="<?=$subcate['subcategory']?>">
+                    <input type="hidden" name="subcate_update_id" value="<?=$id?>">
+                    <button type="submit" name="subcate_update">Update</button>
+                </form>
+            </div>
             <?php
         }
     }
@@ -154,19 +185,50 @@ else if(isset($_POST['cate_update']))
     $cate_update_id=$_POST['cate_update_id'];
     $msg;
 
-    $cate_update=$conn->prepare("UPDATE `category` SET `category`=? WHERE id=?");
-    $cate_update->bind_param('si',$cate_update_value,$cate_update_id);
-    if($cate_update->execute())
+    if(!empty($_FILES['update_category_image']['name']))
     {
-        $msg="Category updated successfully";
+        $img_name=$_FILES['update_category_image']['name'];
+        $img_tmp_name=$_FILES['update_category_image']['tmp_name'];
+        $upload_path='../assets/images/category_images/'.$img_name;
+        if(move_uploaded_file($img_tmp_name,$upload_path))
+        {
+            $cate_update=$conn->prepare("UPDATE `category` SET `category`=?,`category_image`=? WHERE id=?");
+            $cate_update->bind_param('ssi',$cate_update_value,$img_name,$cate_update_id);
+            if($cate_update->execute())
+            {
+                $msg="Category updated successfully";
+            }
+            else
+            {
+                $msg="Category updation failed";
+            }
+            $cate_update->close();
+            header("Location: ".$baseurl."add?msg=$msg");
+            exit();
+        }
+        else
+        {
+            echo "fsd";
+
+        }
     }
     else
     {
-        $msg="Category updation failed";
+        $cate_update=$conn->prepare("UPDATE `category` SET `category`=? WHERE id=?");
+        $cate_update->bind_param('si',$cate_update_value,$cate_update_id);
+        if($cate_update->execute())
+        {
+            $msg="Category updated successfully";
+        }
+        else
+        {
+            $msg="Category updation failed";
+        }
+        $cate_update->close();
+        header("Location: ".$baseurl."add?msg=$msg");
+        exit();
     }
-    $cate_update->close();
-    header("Location: ".$baseurl."add?msg=$msg");
-    exit();
+
 }
 else if(isset($_POST['subcate_update']))
 {
