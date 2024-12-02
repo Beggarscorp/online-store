@@ -52,7 +52,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
 
 ?>
 <div class="container">
-    <div class="smain">
+    <div class="smain singleproductmian">
         <div class="row">
             <div class="col-sm-7">
                 
@@ -72,7 +72,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                             foreach ($galleryImages as $galleryImage) {
                                 ?>
                                 <div class="col-sm-4 col-4">
-                                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= $galleryImage ?>"  alt="<?= $galleryImage ?>" onclick="galleryimages(this)">
+                                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= $galleryImage ?>"  alt="<?= $galleryImage ?>">
                                 </div>
                             <?php
                             }
