@@ -81,11 +81,12 @@ include("login_logout_msg.php");
                                         <?php
                                         if (isset($_SESSION['user'])) {
                                         ?>
-                                            <li><a href="<?= BASE_URL ?>/BackendAssets/mysqlcode/logout.php">Logout</a></li>
+                                            <li><a href="<?= BASE_URL ?>logout.php">Logout</a></li>
                                         <?php
                                         } else {
                                         ?>
                                             <li><a href="<?= BASE_URL ?>login">Login</a></li>
+                                            <li><a href="<?= BASE_URL ?>signup">Sign up</a></li>
                                         <?php
                                         }
                                         ?>

@@ -75,30 +75,32 @@ if($product_sql->execute())
     </div>
 
     <div class="category  pb-5">
-    <div class="container-fluid p-4">
+    <div class="container-fluid">
         <div class="heading">
             <h3>Cate<span class="golden">gories</span></h3>
         </div>
-    <div class="swiper myswiper">
-        <div class="swiper-wrapper">
-            <?php
-            foreach($categories as $category)
-            {
-                ?>
-                    <div class="swiper-slide">
-                        <div class="cate_div w-75">
-                            <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category['category_image']?>" alt="<?=$category['category_image']?>">
-                            <a href="<?=BASE_URL?>shop/<?=$category['category']?>" target="_blank" rel="noopener noreferrer"><h5><?=$category['category']?></h5></a>
-                        </div>
-                    </div>
+    <div class="category-content">
+        <div class="swiper myswiper">
+            <div class="swiper-wrapper">
                 <?php
-            }
-            ?>
-        </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
+                foreach($categories as $category)
+                {
+                    ?>
+                        <div class="swiper-slide">
+                            <div class="cate_div m-5">
+                                <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category['category_image']?>" alt="<?=$category['category_image']?>">
+                                <a href="<?=BASE_URL?>shop/<?=$category['category']?>" target="_blank" rel="noopener noreferrer"><h5><?=$category['category']?></h5></a>
+                            </div>
+                        </div>
+                    <?php
+                }
+                ?>
+            </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    </div>
 </div>
     </div>
 

@@ -82,6 +82,7 @@ include("login_logout_msg.php");
                                         } else {
                                         ?>
                                             <li><a href="<?= BASE_URL ?>login">Login</a></li>
+                                            <li><a href="<?= BASE_URL ?>signup">Sign up</a></li>
                                         <?php
                                         }
                                         ?>
