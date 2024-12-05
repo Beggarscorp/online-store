@@ -2,13 +2,8 @@
 require('BackendAssets/Components/header.php');
 include('config/db.php');
 
-$cate_sql=$conn->prepare("SELECT * FROM `category`");
-$categories;
-if($cate_sql->execute())
-{
-    $cate_result=$cate_sql->get_result();
-    $categories=$cate_result->fetch_all(MYSQLI_ASSOC);
-}
+$category_image=['Bagful of Dreams.png','Enchanted Shirt.png','Home & Decor.png','Poonya.png'];
+$category_name=['Bagful of Dreams','Enchanted Shirt','Home & Decor','Poonya'];
 
 $product_sql=$conn->prepare("SELECT * FROM `products`");
 $products;
@@ -74,34 +69,29 @@ if($product_sql->execute())
         </div>
     </div>
 
-    <div class="category  pb-5">
+    <div class="category">
     <div class="container-fluid">
         <div class="heading">
             <h3>Cate<span class="golden">gories</span></h3>
         </div>
-    <div class="category-content">
-        <div class="swiper myswiper">
-            <div class="swiper-wrapper">
-                <?php
-                foreach($categories as $category)
-                {
-                    ?>
-                        <div class="swiper-slide">
-                            <div class="cate_div m-5">
-                                <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category['category_image']?>" alt="<?=$category['category_image']?>">
-                                <a href="<?=BASE_URL?>shop/<?=$category['category']?>" target="_blank" rel="noopener noreferrer"><h5><?=$category['category']?></h5></a>
-                            </div>
+    <div class="row p-4">
+        <?php
+        for($c=0;$c<count($category_image);$c++)
+        {
+            ?>
+                <div class="col-sm-3 category-content p-4">
+                    <a href="<?=BASE_URL?>shop/<?=$category_name[$c]?>" target="_blank" rel="noopener noreferrer">
+                        <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category_image[$c]?>" alt="<?=$category_image[$c]?>">
+                        <div class="category-title">
+                            <h5><?=$category_name[$c]?></h5>
                         </div>
-                    <?php
-                }
-                ?>
-            </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+                    </a>
+                </div>
+            <?php
+        }
+        ?>
     </div>
     </div>
-</div>
     </div>
 
     <div class="featured_products container-fluid p-4 bg-light bg-gradient">

@@ -106,12 +106,15 @@ include("login_logout_msg.php");
             <div class="header_second">
                 <div class="container-fluid">
                     <div class="row p-3">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <ul class="navbar_links my-auto">
                                 <li><a href="<?= BASE_URL ?>">Home</a></li>
                                 <li><a href="<?= BASE_URL ?>shop">Don't Donate,Purchase</a></li>
-                                <li class="category">Categories
+                                <li><a href="<?= BASE_URL ?>Bagful of Dreams">Bagful of Dreams</a></li>
+                                <li><a href="<?= BASE_URL ?>Enchanted Shirt">Enchanted Shirt</a></li>
+                                <li><a href="<?= BASE_URL ?>Home & Decor">Home & Decor</a></li>
+                                <li><a href="<?= BASE_URL ?>Poonya">Poonya</a></li>
+                                <!-- <li class="category">Categories
                                     <ul class="sub_menu shadow">
                                     <?php
                                     foreach ($categories as $category) {
@@ -121,10 +124,9 @@ include("login_logout_msg.php");
                                     }
                                     ?>
                                     </ul>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
-                        <div class="col-sm-3"></div>
                     </div>
                 </div>
             </div>
