@@ -34,8 +34,21 @@ a
 {
     padding: 10px 0;
     margin: 10px;
-    transition: 0.5s linear;
-    transition: transform 0.5s linear;
+    animation: product-card-show linear;
+    animation-timeline: view();
+    animation-range: entry 0 cover 40%;
+}
+@keyframes product-card-show {
+    from
+    {
+        scale: 0;
+        opacity: 0;
+    }
+    to
+    {
+        scale: 1;
+        opacity: 1;
+    }
 }
 .productCard a
 {
@@ -55,52 +68,24 @@ a
     width: 100%;
     border-radius:10px;
     /*transition: transform 0.2s linear;*/
-    animation: myAnim 2s ease 0s 1 normal forwards;
 }
-@keyframes myAnim {
-	0% {
-		animation-timing-function: ease-in;
-		opacity: 0;
-		transform: translateY(-250px);
-	}
-
-	38% {
-		animation-timing-function: ease-out;
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	55% {
-		animation-timing-function: ease-in;
-		transform: translateY(-65px);
-	}
-
-	72% {
-		animation-timing-function: ease-out;
-		transform: translateY(0);
-	}
-
-	81% {
-		animation-timing-function: ease-in;
-		transform: translateY(-28px);
-	}
-
-	90% {
-		animation-timing-function: ease-out;
-		transform: translateY(0);
-	}
-
-	95% {
-		animation-timing-function: ease-in;
-		transform: translateY(-8px);
-	}
-
-	100% {
-		animation-timing-function: ease-out;
-		transform: translateY(0);
-	}
+.product-image
+{
+    position: relative;
 }
-
+.product-image .second-image
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: z-index .3s ease,transform .4s ease;
+}
+.product-image:hover .second-image
+{
+    z-index: 0;
+    transform: scale(1.05);
+}
 .add-to-cart-btn
 {
     border: none;

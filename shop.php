@@ -66,7 +66,10 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                 <div class="col-sm-3 light-bg">
                                     <div class="productCard text-center">
                                         <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
-                                            <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
+                                        <div class="product-image">
+                                            <img class="first-image" src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="<?= $row['productimage'] ?>">
+                                            <img class="second-image" src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= explode(',',$row['productimagegallery'])[0] ?>" alt="<?= explode(',',$row['productimagegallery'])[0] ?>">
+                                        </div>
                                             <?php
                                                 if((int)$row['stock'] === 0)
                                                 {
@@ -103,7 +106,10 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                             <div class="col-sm-3 light-bg">
                                 <div class="productCard text-center">
                                     <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
-                                        <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="">
+                                    <div class="product-image">
+                                        <img class="first-image" src="<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $row['productimage'] ?>" alt="<?= $row['productimage'] ?>">
+                                        <img class="second-image" src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= explode(',',$row['productimagegallery'])[0] ?>" alt="<?= explode(',',$row['productimagegallery'])[0] ?>">
+                                    </div>
                                         <?php
                                             if((int)$row['stock'] === 0)
                                             {

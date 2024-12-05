@@ -8,6 +8,7 @@ include('BackendAssets/mysqlcode/allproducts.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Products</title>
+    <link rel="shortcut icon" href="<?=BASE_URL?>BackendAssets/assets/images/logos/admin-panel-icon.webp" type="image/x-icon">
     <link rel="stylesheet" href="<?=BASE_URL?>BackendAssets/css/allproduct.css">
 </head>
 
@@ -17,10 +18,10 @@ include('BackendAssets/mysqlcode/allproducts.php');
             <div class="col-sm-2 p-0">
                 <?php include 'sidebar.php'; ?>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-10 p-0">
             <div class="content vh-100 overflowY-visible p-3 table-responsiveness">
-                    <h3>All products</h3>
-                    <table class="w-100 py-2">
+                    <h3 class="text-light">All products</h3>
+                    <table class="w-100 shadow">
                         <thead>
                             <tr class="lato-black">
                                 <td>Product code</td>
@@ -40,14 +41,14 @@ include('BackendAssets/mysqlcode/allproducts.php');
                             </tr>
                         </thead>
                         <tbody>
-                            <h6 class="text-end">Total products : <?=count($data)?></h6>
+                            <h6 class="text-end text-light">Total products : <?=count($data)?></h6>
                             <?php
                            foreach($data as $row) {
                             ?>
                             <tr>
                                 <td><?=$row['id']?></td>
                                 <td>
-                                <img src="<?=BASE_URL?>BackendAssets/assets/images/ProductImages/<?=$row['productimage']?>" alt="<?=$row['productimage']?>" style="height:60px;">    
+                                <img class="shadow-lg" src="<?=BASE_URL?>BackendAssets/assets/images/ProductImages/<?=$row['productimage']?>" alt="<?=$row['productimage']?>" style="height:60px;">    
                                 </td>
                                 <td><?=$row['productname']?></td>
                                 <td><?=$row['category']?></td>
@@ -123,6 +124,7 @@ include('BackendAssets/mysqlcode/allproducts.php');
             document.getElementById("delete").submit();
         }
         }
+        console.log($base_url);
 
         const sendUpdateProduct=(updateproductdata)=>{
             const data=updateproductdata.dataset;

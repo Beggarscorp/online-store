@@ -45,12 +45,13 @@ else if(isset($_POST['subcategory_submit']))
         $check_Subcategory_result=$check_Subcategory->get_result();
         if((int)$check_Subcategory_result->num_rows === 0)
         {
+            $check_Subcategory->close();
             $insert_Sebcategory=$conn->prepare("INSERT INTO `subcategory`(`cate_id`, `subcategory`) VALUES (?,?)");
             $insert_Sebcategory->bind_param('is',$cateid,$subcategory);
             if($insert_Sebcategory->execute())
             {
                 $msg="Subcategory Inserted Successfully";
-                $check_Subcategory->close();
+                $insert_Sebcategory->close();
             }
             else
             {

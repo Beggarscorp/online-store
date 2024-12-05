@@ -8,6 +8,7 @@ require("config/db.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin panel</title>
+    <link rel="shortcut icon" href="<?=BASE_URL?>BackendAssets/assets/images/logos/admin-panel-icon.webp" type="image/x-icon">
     <link rel="stylesheet" href="<?=BASE_URL?>BackendAssets/css/admin.css">
 
     <!-- exported links start from here -->
@@ -22,13 +23,13 @@ require("config/db.php");
                 <div class="sidebar vh-100 w-100">
                     <h3>Menu</h3>
                     <ul class="list-unstyled">
-                        <li><a href="<?=BASE_URL?>shop.php" >Shop</a></li<?=BASE_URL?></li>
-                        <li><a href="<?=BASE_URL?>signup.php" >Sign up</a></li>
-                        <li><a href="<?=BASE_URL?>orders.php" >Orders</a></li>
-                        <li><a href="<?=BASE_URL?>addProduct.php" >Add Product</a></li>
-                        <li><a href="<?=BASE_URL?>add.php" >Add</a></li>
-                        <li><a href="<?=BASE_URL?>allproduct.php" >All Product</a></li>
-                        <li><a href="<?=BASE_URL?>login.php" >Login</a></li>
+                        <li><a href="<?=BASE_URL?>shop" >Shop</a></li<?=BASE_URL?></li>
+                        <li><a href="<?=BASE_URL?>signup" >Sign up</a></li>
+                        <li><a href="<?=BASE_URL?>orders" >Orders</a></li>
+                        <li><a href="<?=BASE_URL?>addProduct" >Add Product</a></li>
+                        <li><a href="<?=BASE_URL?>add" >Add</a></li>
+                        <li><a href="<?=BASE_URL?>allproduct" >All Product</a></li>
+                        <li><a href="<?=BASE_URL?>login" >Login</a></li>
                     </ul>
                 </div>
             </div>

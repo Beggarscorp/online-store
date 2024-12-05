@@ -66,7 +66,7 @@ if($product_sql->execute())
                         <h4 class="my-2" >Don't Donate,Purchase</h4>
                         <p class="h6 text-secondary">..Be a Responsible Citizen. Your Purposeful Purchase can lift someone from the poverty trap and turn him or her from a Beggar To Entrepreneur (BTE).</p>
                         <a href="<?=BASE_URL?>shop">
-                            <button class="border-0 bg-gradient-warning p-2 rounded shadow my-2 text-light h6" style="background:var(--gradient)">See our BTEs Handmade Products <i class="bi bi-arrow-right-short"></i></button>
+                            <button id="see-more-btn" class="border-0 bg-gradient-warning px-4 py-1 rounded shadow my-2 text-light">See more <i class="bi bi-arrow-right-short"></i></button>
                         </a>
                     </div>
                 </div>

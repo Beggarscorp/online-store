@@ -1,6 +1,6 @@
 <?php
 include("./config/db.php");
-// include("./config/config.php");
+
 // product count code start from here
 
 $sqlproductcount="SELECT COUNT(*) FROM `products`";
@@ -63,7 +63,7 @@ if($order_count_result)
         <div class="row m-3">
             <div class="col-sm-3">
                 <div class="products-box text-center">
-                    <a href="/allproduct.php">
+                    <a href="<?=BASE_URL?>allproduct">
                         <h3>Products</h3>
                         <div class="productcount">
                             <?=$productcountvalue?>
@@ -73,7 +73,7 @@ if($order_count_result)
             </div>
             <div class="col-sm-3">
             <div class="products-box text-center">
-                    <a href="/allproduct.php">
+                    <a href="<?=BASE_URL?>allproduct.php">
                         <h3>Users</h3>
                         <div class="productcount">
                             <?=$usercountvalue?>
@@ -83,7 +83,7 @@ if($order_count_result)
             </div>
             <div class="col-sm-3">
             <div class="products-box text-center">
-                    <a href="/allproduct.php">
+                    <a href="<?=BASE_URL?>allproduct.php">
                         <h3>Stock</h3>
                         <div class="productcount">
                             0
@@ -93,7 +93,7 @@ if($order_count_result)
             </div>
             <div class="col-sm-3">
             <div class="products-box text-center">
-                    <a href="/orders.php">
+                    <a href="<?=BASE_URL?>orders.php">
                         <h3>Orders</h3>
                         <div class="productcount">
                             <?=$order_count_val?>
