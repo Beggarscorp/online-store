@@ -1,61 +1,46 @@
-
-const imagediv = document.getElementsByClassName("productImg");
-    imagediv[0].addEventListener("mousemove", (e) => {
-        imagediv[0].style.setProperty('--opacity', '1');
-        imagediv[0].style.cursor = "zoom-in";
-        let pointer = {
-            x: (e.offsetX * 100) / imagediv[0].offsetWidth,
-            y: (e.offsetY * 100) / imagediv[0].offsetHeight
-        }
-        imagediv[0].style.setProperty('--zoom-x', pointer.x + '%');
-        imagediv[0].style.setProperty('--zoom-y', pointer.y + '%');
-    })
-    imagediv[0].addEventListener("mouseout", () => {
-        imagediv[0].style.setProperty('--opacity', '0');
-    })
-
-
-
-    const galleryimages = (e) => {
-        let productImgImate = document.querySelector(".productImg img");
-        let productImg = document.getElementsByClassName("productImg");
-        productImgImate.setAttribute("src", e.getAttribute("src"));
-        let tt = e.getAttribute("src");
-        productImg[0].setAttribute("style", "--imageurl:url(" + tt + ")");
-    }
-
-    const quantityTotal = (e) => {
-
-        data = {
-            "userid": e.getAttribute("userid"),
-            "procductid": e.getAttribute("productid"),
-            "productprice": e.getAttribute("productprice"),
-            "productQty": e.value
-        }
-        fetch("BackendAssets/mysqlcode/checkoutcart.php", {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
+document.addEventListener("DOMContentLoaded",()=>{
+   
+    const imagediv = document.getElementsByClassName("productImg");
+        imagediv[0].addEventListener("mousemove", (e) => {
+            imagediv[0].style.setProperty('--opacity', '1');
+            imagediv[0].style.cursor = "zoom-in";
+            let pointer = {
+                x: (e.offsetX * 100) / imagediv[0].offsetWidth,
+                y: (e.offsetY * 100) / imagediv[0].offsetHeight
+            }
+            imagediv[0].style.setProperty('--zoom-x', pointer.x + '%');
+            imagediv[0].style.setProperty('--zoom-y', pointer.y + '%');
+        })
+        imagediv[0].addEventListener("mouseout", () => {
+            imagediv[0].style.setProperty('--opacity', '0');
+        })
+    
+        // set product image on main image element
+        
+        let galleryImage=document.querySelectorAll(".singleproductmian .multipleImg img");
+            let productImg = document.getElementsByClassName("productImg");
+            let productImgEle = document.querySelector(".productImg img");
+        galleryImage.forEach((g)=>{
+            g.addEventListener("click",(e)=>{
+                productImg[0].setAttribute("style", "--imageurl:url(" + e.currentTarget.getAttribute('src') + ")");
+                productImgEle.setAttribute("src",e.currentTarget.getAttribute('src'));
             })
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                e.value = data.data.product_qty;
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
+        })
+
+        // end here
+    
+
+});
 
     // jquery start form here
+    
+    $(document).ready(function () {
 
     $base_url=$(".base_url_define").attr("base_url");
 
-    $(document).ready(function () {
-        $(".proceed_to_checkout").click(function (e) { 
+        $(".detail_page_content").on("click",".proceed_to_checkout",(e) => {
+        // $(".proceed_to_checkout").click(function (e) { 
+        
             e.preventDefault();
             $product_cart_id=$(e.currentTarget).attr("product_cart_id");
             $.ajax({
@@ -77,7 +62,8 @@ const imagediv = document.getElementsByClassName("productImg");
 
         // increase cart product quantity 
 
-    $('.plus_icon').on("click",(e)=>{
+    $(".detail_page_content").on("click",".plus_icon",(e)=>{
+    // $('.plus_icon').on("click",(e)=>{
 
         $cart_product_id=e.currentTarget.attributes.cart_product_id.value;
         
@@ -105,7 +91,8 @@ const imagediv = document.getElementsByClassName("productImg");
 
     // decrease cart product quantity
 
-    $('.minus_icon').on("click",(e)=>{
+    $(".detail_page_content").on("click",".minus_icon",(e)=>{
+    // $('.minus_icon').on("click",(e)=>{
         
         $cart_product_id=e.currentTarget.attributes.cart_product_id.value;
 

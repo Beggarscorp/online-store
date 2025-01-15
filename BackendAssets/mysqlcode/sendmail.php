@@ -1,7 +1,6 @@
-
 <?php
-require("../../config/config.php");
 ob_start();
+require("../../config/config.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -12,6 +11,8 @@ require '../Components/PHPMailer/src/SMTP.php';
 $baseurl=BASE_URL;
 $id=$_GET['id'];
 $email=$_GET['email'];
+echo 'Click on the link and verify your email<br>
+    <a href="'.$baseurl.'verifyemail.php?id='.$id.'">Click to verify</a>';
 
 $mail = new PHPMailer(true);
 
@@ -45,14 +46,15 @@ try {
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Email verification';
     $mail->Body    = 'Click on the link and verify your email<br>
-    https://www.beggarscorporation.com/verifyemail.php?id='.$id;
+    https://shop.beggarscorporation.com/verifyemail.php?id='.$id;
 
     $mail->send();
-    ob_end_flush();
     $msg="Verification link send to your email <strong>$email</strong>";
     $url=$baseurl."signup.php?verify=".$msg;
-    header("Location: $url");
+    echo "<script>window.location.href='$url'</script>";
+    // header("Location: $url");
     echo 'Message has been sent';
+    ob_end_flush();
     exit();
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

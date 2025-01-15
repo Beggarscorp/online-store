@@ -51,18 +51,27 @@
 
 $(document).ready(function () {
     
-    get_all_products=($filter,$value)=>{
+    get_all_products=($filter,$value,$category_id)=>{
         
         $.ajax({
             type: "POST",
             url: $base_url+"BackendAssets/mysqlcode/shop.php",
-            data: {action:"fetch_all_products",filter:$filter,value:$value},
+            data: {action:"fetch_all_products",filter:$filter,value:$value,category_id:$category_id},
             dataType: "json",
             success: function (response) {
                 if(response.status === true)
                 {
                     // $(".loader").remove();
                     $(".product-container .row").html(response.data);
+                    $(".filter-container-show").on("mouseleave",()=>{
+                        const filter_container=document.getElementsByClassName("filter-container");
+                        setTimeout(() => {
+                            if(filter_container[0].classList.contains("filter-container-show"))
+                            {
+                                filter_container[0].classList.remove("filter-container-show");
+                            }
+                        },2000);
+                    });
                 }
             }
         });
@@ -71,10 +80,40 @@ $(document).ready(function () {
     $(".cate-heading").click(function (e) { 
         e.preventDefault();
         // $(".product-container").html("<div class='loader'></div>");
-        $value=$(e.target).text().toLowerCase();
-        $filter='category';
-        get_all_products($filter,$value);
+        if($(e.target).attr('category-slug'))
+        {
+            $value=$(e.target).attr('category-slug');
+            $category_id=$(e.target).attr('category-id');
+            $filter='category';
+        }
+        if($(e.target).attr('subcategory-slug'))
+            {
+                $value=$(e.target).attr('subcategory-slug');
+                $filter='subcategory';
+                $category_id="";
+        }
+        get_all_products($filter,$value,$category_id);
+        pegination_div_show_hide();
     });
-    // get_all_products();
+
+// show hide product pegination according to the product count start from here
+
+    const pegination_div_show_hide = () => {
+        
+        $count_of_productCard=$(".product-container .productCard").length;
+        console.log($count_of_productCard)
+    
+        if($count_of_productCard <= 16)
+        {
+            $(".pegination-div").css("display","none");
+        }
+        else
+        {
+            $(".pegination-div").css("display","block");
+        }
+
+    }
+
+    // end here
 
 });

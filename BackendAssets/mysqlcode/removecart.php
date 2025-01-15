@@ -1,12 +1,11 @@
-
 <?php
+session_start();
+header('Content-Type: application/json'); 
 include("../../config/db.php");
 
-header('Content-Type: application/json'); 
 
 if(isset($_POST['product_id']))
 {
-    session_start();
     $product_cart_id=intval($_POST['product_id']);
     $product_cart_quantity;
 

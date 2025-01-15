@@ -1,28 +1,27 @@
 <?php
-include('./config/db.php');
+// Include the database configuration file
+include("./config/db.php");
 
-if (isset($_POST['delete']) && isset($_POST['id'])) {
-    deleteProduct();
-}
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
+// Query to fetch all products
 $sql = "SELECT * FROM `products`";
 $Allproducts = $conn->query($sql);
 
 $data = [];
 if ($Allproducts) {
-  foreach ($Allproducts as $row) {
-    $data[] = $row;
-  }
+    // Fetch all the rows and store them in the $data array
+    while ($row = $Allproducts->fetch_assoc()) {
+        $data[] = $row;
+    }
 } else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
+    // Output error message if query fails
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
+// Close the connection
 $conn->close();
-function deleteProduct()
-{
-  include '../db.php';
-  $sql = "DELETE FROM `products` WHERE id=" . $_POST['id'];
-  if ($conn->query($sql) === TRUE) {
-    header("Location: /allproduct.php");
-    exit();
-  }
-}
+
+// End output buffering and send output
+?>

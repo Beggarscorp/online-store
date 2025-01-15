@@ -2,6 +2,7 @@
 ob_start();
 include("BackendAssets/Components/header.php");
 include("./config/db.php");
+
 if (isset($_SESSION['user'])) {
 
     $userid = $_SESSION['id'];
@@ -24,7 +25,7 @@ if (isset($_SESSION['user'])) {
     </script>";
     }
 
-    // ;
+    
 
 $userSql=$conn->prepare("SELECT * FROM `user_default_address_table` WHERE default_address=1 AND user_id=? UNION SELECT * FROM `user_second_address_table` WHERE default_address=1 AND user_id=? UNION SELECT * FROM `user_third_address_table` WHERE default_address=1 AND user_id=?");
 $userSql->bind_param('iii',$userid,$userid,$userid);
@@ -35,6 +36,7 @@ if($userSql->execute())
     $userData=$userSql_result->fetch_all(MYSQLI_ASSOC)[0];
     $userSql->close();
 }
+print_r($userData);
 ?>
 
     <div class="dashboard_main bg-light bg-gradient py-5">
@@ -113,41 +115,6 @@ if($userSql->execute())
     exit();
 }
 ob_end_flush();
-?>
 
-<script>
-
-    const triggeriamgeupload = () => {
-        document.getElementById("imagefileInput").click();
-    }
-
-    const handleFileSelect = (e) => {
-        const file = event.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('upload_user_image', file);
-
-            // Use fetch API to send the file to the server
-            fetch('BackendAssets/mysqlcode/dashboard.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.text())
-                .then(result => {
-                    window.location.reload();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    }
-
-    const show_adress_div = (e) => {
-        let match = e.className.match(/_(\d+)$/);
-        let class_number = parseInt(match[1], 10);
-        document.getElementsByClassName("address_div_" + class_number)[0].classList.toggle("content_hide");
-    }
-</script>
-<?php
 include("BackendAssets/Components/footer.php");
 ?>

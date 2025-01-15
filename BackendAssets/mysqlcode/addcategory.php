@@ -5,31 +5,23 @@ $baseurl=BASE_URL;
 if (isset($_POST['category']) && isset($_POST['cateSubmit'])) {
     
     $category = $_POST['category'];
-    $category_image=$_FILES['category_image']['name'];
-    $category_image_tmp_name=$_FILES['category_image']['tmp_name'];
-    $upload_path='../assets/images/category_images/'.$category_image;
-    if(move_uploaded_file($category_image_tmp_name,$upload_path))
-    {
-        $msg;
-        $sql = "SELECT * FROM `category` WHERE `category` = '$category'";
-        $result = mysqli_query($conn, $sql);
-        $numrow = mysqli_num_rows($result);
-        if ($numrow === 0) {
-            $sql = "INSERT INTO `category`(`category`) VALUES ('$category')";
-            if ($conn->query($sql)) {
-                $msg = "Category added";
-            }
+    $category_slug=strtolower(str_replace(" ","-",$category));
+
+    $msg;
+    $sql = "SELECT * FROM `category` WHERE `category` = '$category'";
+    $result = mysqli_query($conn, $sql);
+    $numrow = mysqli_num_rows($result);
+    if ($numrow === 0) {
+        $sql = "INSERT INTO `category`(`category`, `category-slug`) VALUES ('$category','$category_slug')";
+        if ($conn->query($sql)) {
+            $msg = "Category added";
         }
-        else
-        {
-            $msg = "Category already exists";
-        }
-        $conn->close();
     }
     else
     {
-        $msg="Image not uploaded";
+        $msg = "Category already exists";
     }
+    $conn->close();
     header("Location: ".$baseurl."add?msg=". $msg);
     exit();
 }
@@ -37,6 +29,7 @@ else if(isset($_POST['subcategory_submit']))
 {
     $cateid=$_POST['cateid'];
     $subcategory=$_POST['subcategory'];
+    $subcategory_slug=strtolower(str_replace(" ","-",$subcategory));
     $msg;
     
     $check_Subcategory=$conn->prepare("SELECT * FROM `subcategory` WHERE `subcategory`='$subcategory'");
@@ -45,12 +38,13 @@ else if(isset($_POST['subcategory_submit']))
         $check_Subcategory_result=$check_Subcategory->get_result();
         if((int)$check_Subcategory_result->num_rows === 0)
         {
-            $insert_Sebcategory=$conn->prepare("INSERT INTO `subcategory`(`cate_id`, `subcategory`) VALUES (?,?)");
-            $insert_Sebcategory->bind_param('is',$cateid,$subcategory);
+            $check_Subcategory->close();
+            $insert_Sebcategory=$conn->prepare("INSERT INTO `subcategory`(`cate_id`, `subcategory`,`subcategory-slug`) VALUES (?,?,?)");
+            $insert_Sebcategory->bind_param('iss',$cateid,$subcategory,$subcategory_slug);
             if($insert_Sebcategory->execute())
             {
                 $msg="Subcategory Inserted Successfully";
-                $check_Subcategory->close();
+                $insert_Sebcategory->close();
             }
             else
             {
@@ -91,8 +85,6 @@ else if(isset($_GET['function']) && $_GET['function'] === 'update_category_and_s
                     <label for="cate_update_value">Category Name</label><br>
                     <input type="text" name="cate_update_value" id="cate_update_value" value="<?=$cate['category']?>"><br><br>
                     <input type="hidden" name="cate_update_id" value="<?=$id?>">
-                    <label for="category_image">Category Image</label><br>
-                    <input type="file" name="update_category_image" id="category_image" accept="image/*"><br><br>
                     <button type="submit" name="cate_update">Update</button>
                 </form>
             </div>
@@ -182,62 +174,34 @@ else if(isset($_GET['function']) && $_GET['function'] === 'delete_category_and_s
 else if(isset($_POST['cate_update']))
 {
     $cate_update_value=$_POST['cate_update_value'];
+    $cate_update_slug=strtolower(str_replace(" ","-",$cate_update_value));
     $cate_update_id=$_POST['cate_update_id'];
     $msg;
 
-    if(!empty($_FILES['update_category_image']['name']))
+    $cate_update=$conn->prepare("UPDATE `category` SET `category`=?,`category-slug`=? WHERE id=?");
+    $cate_update->bind_param('ssi',$cate_update_value,$cate_update_slug,$cate_update_id);
+    if($cate_update->execute())
     {
-        $img_name=$_FILES['update_category_image']['name'];
-        $img_tmp_name=$_FILES['update_category_image']['tmp_name'];
-        $upload_path='../assets/images/category_images/'.$img_name;
-        if(move_uploaded_file($img_tmp_name,$upload_path))
-        {
-            $cate_update=$conn->prepare("UPDATE `category` SET `category`=?,`category_image`=? WHERE id=?");
-            $cate_update->bind_param('ssi',$cate_update_value,$img_name,$cate_update_id);
-            if($cate_update->execute())
-            {
-                $msg="Category updated successfully";
-            }
-            else
-            {
-                $msg="Category updation failed";
-            }
-            $cate_update->close();
-            header("Location: ".$baseurl."add?msg=$msg");
-            exit();
-        }
-        else
-        {
-            echo "fsd";
-
-        }
+        $msg="Category updated successfully";
     }
     else
     {
-        $cate_update=$conn->prepare("UPDATE `category` SET `category`=? WHERE id=?");
-        $cate_update->bind_param('si',$cate_update_value,$cate_update_id);
-        if($cate_update->execute())
-        {
-            $msg="Category updated successfully";
-        }
-        else
-        {
-            $msg="Category updation failed";
-        }
-        $cate_update->close();
-        header("Location: ".$baseurl."add?msg=$msg");
-        exit();
+        $msg="Category updation failed";
     }
+    $cate_update->close();
+    header("Location: ".$baseurl."add?msg=$msg");
+    exit();
 
 }
 else if(isset($_POST['subcate_update']))
 {
     $subcate_update_value=$_POST['subcate_update_value'];
+    $subcate_upate_slug=strtolower(str_replace(" ","-",$subcate_update_value));
     $subcate_update_id=$_POST['subcate_update_id'];
     $msg;
 
-    $subcate_update=$conn->prepare("UPDATE `subcategory` SET `subcategory`=? WHERE subcategory_id=?");
-    $subcate_update->bind_param('si',$subcate_update_value,$subcate_update_id);
+    $subcate_update=$conn->prepare("UPDATE `subcategory` SET `subcategory`=?,`subcategory-slug`=? WHERE subcategory_id=?");
+    $subcate_update->bind_param('ssi',$subcate_update_value,$subcate_upate_slug,$subcate_update_id);
     if($subcate_update->execute())
     {
         $msg="Subcategory updated successfully";

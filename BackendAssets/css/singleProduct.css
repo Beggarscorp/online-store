@@ -6,21 +6,21 @@
 {
     margin: 0;
 }
-.add-to-cart-btn
+.singleproductmian .buttons .add-to-cart-btn
 {
     border: none;
-    background-color: #b06e09;
-    color: white;
-    font-weight: 600;
-    padding: 3px 20px;
-    margin: 13px 0;
-    border-radius: 10px;
+    background: var(--gradient);
+    width: 100%;
+    margin: 20px 0;
+    padding: 5px;
+    font-weight: bolder;
     transition: 0.2s linear;
+    color:var(--white);
 }
-.add-to-cart-btn:hover
+.singleproductmian .buttons .add-to-cart-btn:hover
 {
-    transform: translateX(10px);
-
+    transform: scale(1.05);
+    background-color: #ac7c34;
 }
 .related_pro_add_to_cart_btn
 {
@@ -47,17 +47,32 @@
 }
 .relatedProductCard h5
 {
-    margin: 2px 0;
+    margin: 5px 0;
     color:#fff;
+    font-size:15px;
 }
 .relatedProductCard a img
 {
     width:100%;
 }
+.relatedProductCard .add-to-cart-btn
+{
+    all: unset;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid;
+    margin: 10px;
+    padding: 0 15px;
+}
+.relatedProductCard .add-to-cart-btn:hover
+{
+    background:#9f6207;
+    border:1px solid #9f6207;
+}
 .size_fit,.material_care,.spacifications
 {
     border-bottom: 1px solid lightgray;
-    padding-bottom: 10px;
+    padding: 10px 0;
 }
 .productImg
 {
@@ -65,7 +80,6 @@
     width: 400px;
     height: 400px;
     margin: auto;
-    border: 5px solid var(--golden);
 }
 @media screen and (max-width:400px) {
     .productImg
@@ -97,18 +111,17 @@
 .go_to_checkout
 {
     border: none;
-    background-color: #ba760f;
+    background: var(--gradient);
     width: 100%;
     margin: 20px 0;
-    padding: 8px;
+    padding: 5px;
     font-weight: bolder;
-    border-radius: 12px;
     transition: 0.2s linear;
     color:var(--white);
 }
 .go_to_checkout:hover
 {
-    transform: translateX(10px);
+    transform: scale(1.05);
     background-color: #ac7c34;
 }
 #quantityIncreaseDecrease
@@ -126,4 +139,17 @@ a
 .smain p, .smain div
 {
     color: var(--text-light-white);
+}
+.product_color
+{
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+}
+.product_color button
+{
+    all: unset;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    margin:10px;
 }

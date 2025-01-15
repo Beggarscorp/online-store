@@ -1,9 +1,10 @@
 
 <?php
-include("./BackendAssets/db.php");
+include("config/db.php");
 
 $user_id=$_GET['id'];
-
+$msg='';
+$url='';
 // check email verify or not
 
 $sql="SELECT * FROM `user` WHERE id=$user_id AND user_verified=0";
@@ -17,21 +18,21 @@ if(isset($user_id) && $result === 1)
     if($verifyEmailSqlResult)
     {
         $msg="Your email verified";
-        header("Location: /login.php?msg=$msg");
-        exit();
+        $url="/login.php?msg=$msg";
     }
     else
     {
         $msg="Your email not verified something gone wrong";
-        header("Location: /signup.php?msg=$msg");
-        exit();
+        $url="/signup.php?msg=$msg";
     }
 }
 else
 {
     $msg="Something gone wrong";
-    header("Location: signup.php?msg=$msg");
-    exit();
-} 
+    $url="/signup.php?msg=$msg";
+}
+
+echo "<script>window.location.href='$url'</script>";
+exit;
 
 ?>

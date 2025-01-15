@@ -15,6 +15,9 @@ thead tr td,tbody tr td
     word-break: break-all;
     white-space: nowrap;
 }
+tbody tr:hover {
+    background: #03346e30;
+}
 .content::-webkit-scrollbar-thumb
 {
     background-color: var(--color-2);

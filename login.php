@@ -5,8 +5,7 @@ include 'BackendAssets/Components/header.php';
 if(!isset($_SESSION['user']))
 {
 
-  include("config/google_config.php");
-
+include("config/google_config.php");
 if(isset($_GET['code']))
 {
   $token=$google_client->fetchAccessTokenWithAuthCode($_GET['code']);
@@ -55,12 +54,13 @@ if(isset($_GET['code']))
     //INSERT INTO `user`(`First_name`, `Last_name`, `email`, `password`, `user_verified`, `user_image`) VALUES ('Team Begga','','beggarscorpoffice@gmail.com','$2y$10$noQkW1nzGQeB93o8yyuFdebiFDVZa5ePx9.jgEWMm/WnLMYtdKfDi','1','') ON DUPLICATE KEY UPDATE `First_name`='Team Begga',`Last_name`='',`email`='beggarscorpoffice@gmail.com',`password`='$2y$10$noQkW1nzGQeB93o8yyuFdebiFDVZa5ePx9.jgEWMm/WnLMYtdKfDi',`user_verified`='1',`user_image`='';
 
 
-      $google_login_user_sql=$conn->prepare("INSERT INTO `user`(`First_name`, `Last_name`, `email`, `password`, `user_verified`, `user_image`) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `First_name`=?,`Last_name`=?,`email`=?,`password`=?,`user_verified`=?,`user_image`=?");
+      $google_login_user_sql=$conn->prepare("INSERT INTO `user`(`First_name`, `Last_name`, `email`, `password`, `user_verified`, `user_image`) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `First_name`=?,`Last_name`=?,`email`=?,`password`=?,`user_verified`=?");
 
-      $google_login_user_sql->bind_param('ssssisssssis',$name,$last_name,$email,$hashPassword,$user_verified,$user_image,$name,$last_name,$email,$hashPassword,$user_verified,$user_image);
+      $google_login_user_sql->bind_param('ssssisssssi',$name,$last_name,$email,$hashPassword,$user_verified,$user_image,$name,$last_name,$email,$hashPassword,$user_verified);
 
       if($google_login_user_sql->execute())
       {
+          
         $_SESSION['id']=$google_login_user_sql->insert_id;
 
         $_SESSION['user']=$user_data['given_name'];
@@ -119,6 +119,10 @@ else
             <a href="<?=BASE_URL?>forgot_password"><span>Forgot password</span></a>&nbsp;
             <a href="<?=BASE_URL?>signup" style="text-decoration: underline !important;font-size:15px;"><span>Create account</span></a>
           </div>
+          <div class="continue-as-guest">
+            <h2>Cotinue as a guest</h2>
+            <a href="<?=BASE_URL?>shop"><button>Continue</button></a>
+          </div>
         </div>
       </div>
       <div class="col-sm-3"></div>
@@ -130,9 +134,9 @@ else
 }
 else
 {
-  echo "<h3>User already logged in 
-  <a style='color:var(--golden);text-decoration:underline;' href='".BASE_URL."shop'>Shop now</a>
-  </h3>";
+  echo "<h4 style='padding:0 50px;'>User already logged in 
+  <a style='color:var(--golden);text-decoration:underline;' href='".BASE_URL."shop'>Shop now <i class='bi bi-arrow-right-short'></i></a>
+  </h4>";
 }
 ob_end_flush();
 include 'BackendAssets/Components/footer.php';

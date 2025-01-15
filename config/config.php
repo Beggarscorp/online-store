@@ -1,16 +1,11 @@
-
 <?php
-
-
-// website setting
-
 if(!defined('SITE_NAME'))
 {
     define('SITE_NAME','Beggars Corporation');
 }
 if(!defined('BASE_URL'))
 {
-    define('BASE_URL','http://localhost/online-store/');
+    define('BASE_URL','https://shop.beggarscorporation.com/');
 }
 if(!defined('SITE_ICON'))
 {
@@ -28,10 +23,4 @@ if(!defined('FILE_VERSION'))
 {
     define('FILE_VERSION',rand(10000,99999));
 }
-
-// api keys
-
-
-// file upload 
-
 ?>

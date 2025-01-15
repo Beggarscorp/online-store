@@ -8,6 +8,7 @@ $email = isset($_POST['email']) ? $_POST['email'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
 $msg="";
+$url="";
 
 if($email != '' && $password != ""){
 
@@ -32,54 +33,39 @@ if($email != '' && $password != ""){
             {
                 $_SESSION["user"] = $userdata['First_name'];
                 $_SESSION["id"]= $userdata['id'];
-    
-                header("Location: ".$baseurl."shop");
-    
-                exit();
+                $url=$baseurl.'shop';
             }
             else
             {
                 $msg="Credential wrong";
-    
-                header("Location: ".$baseurl."login?msg=".$msg);
-    
-                exit();
+                $url=$baseurl.'login?msg='.$msg;
             }
         }
         else
         {
             $msg="Your email not verified";
-
-            header("Location: ".$baseurl."login?msg=".$msg);
-
-            exit();
+            $url=$baseurl.'login?msg='.$msg;
         }
     }       
     else
     {
         $msg="Email or password wrong";
-
-        header("Location: ".$baseurl."login?msg=".$msg);
-
-        exit();
+        $url=$baseurl.'login?msg='.$msg;
     }
     }
     else
     {
         $msg="User already exists";
-
-        header("Location: ".$baseurl."shop?msg=".$msg);
-
-        exit();
+        $url=$baseurl.'shop?msg='.$msg;
     }
 }
 elseif($email = "" || $password = ""){
 
     $msg="Put credential";
-
-    header("Location: ".$baseurl."login?msg=".$msg);
-
-    exit();
+    $url=$baseurl.'login?msg='.$msg;
 }
+
+echo "<script>window.location.href='$url'</script>";
+exit();
 
 ?>

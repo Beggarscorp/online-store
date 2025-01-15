@@ -1,5 +1,12 @@
 <?php
 session_start();
+// session_set_cookie_params([
+//     'lifetime' => 0,  // Browser session
+//     'path' => '/',    // Available across entire website
+//     'domain' => 'https://shop.beggarscorporation.com/',  // Your exact domain name
+//     'secure' => true, // Use HTTPS
+//     'httponly' => true // Prevent JavaScript access
+// ]);
 require('config/db.php');
 $categories;
 $fetch_category = $conn->prepare("SELECT * FROM `category`");
@@ -18,15 +25,15 @@ if ($fetch_category->execute()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= SITE_NAME ?></title>
-    <link rel="stylesheet" href="<?= BASE_URL ?>BackendAssets/css/main.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>BackendAssets/css/main.css?version=<?= FILE_VERSION ?>">
     <link rel="icon" type="image/x-icon" href="<?= SITE_ICON ?>">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css?version=<?= FILE_VERSION ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css?version=<?= FILE_VERSION ?>" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="<?= BASE_URL ?>BackendAssets/css/<?= CURRENT_PAGE ?>.css?version=<?= FILE_VERSION ?>">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js?version=<?= FILE_VERSION ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11?version=<?= FILE_VERSION ?>"></script>
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css?version=<?= FILE_VERSION ?>" />
     
 
 </head>
@@ -36,6 +43,8 @@ include("login_logout_msg.php");
 ?>
 
 <body class="roboto-regular">
+    <div class="header_sticky">
+        
     <div class="header_for_desktop">
         <header>
             <div class="base_url_define" base_url="<?= BASE_URL ?>"></div>
@@ -60,10 +69,10 @@ include("login_logout_msg.php");
                                     <h5><?= isset($_SESSION['user']) ? "Welcome " . $_SESSION['user'] . "," : "User Menu" ?></h5>
                                     <h5><i class="bi bi-x" id="hide_dashboard"></i></h5>
                                 </div>
-                                <div class="dashboard_show_body">
+                                <div class="dashboard_show_body text-light">
                                     <ol>
                                         <li>
-                                            <a href="<?=BASE_URL?>Dashboard">Dashboard</a>
+                                            <a href="<?=BASE_URL?>dashboard">Dashboard</a>
                                         </li>
                                         <li id="address">Address 1 <i class="bi bi-check2-circle" style="font-size:15px;"></i></li>
                                         <select name="select_address" id="select_address">
@@ -72,16 +81,17 @@ include("login_logout_msg.php");
                                             <option value="2">Address 2</option>
                                             <option value="3">Address 3</option>
                                         </select>
-                                        <li><a href="<?=BASE_URL?>Dashboard">Orders</a></li>
-                                        <li><a href="<?=BASE_URL?>Dashboard">Cart</a></li>
+                                        <li><a href="<?=BASE_URL?>dashboard">Orders</a></li>
+                                        <li><a href="<?=BASE_URL?>dashboard">Cart</a></li>
                                         <?php
                                         if (isset($_SESSION['user'])) {
                                         ?>
-                                            <li><a href="<?= BASE_URL ?>/BackendAssets/mysqlcode/logout.php">Logout</a></li>
+                                            <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
                                         <?php
                                         } else {
                                         ?>
                                             <li><a href="<?= BASE_URL ?>login">Login</a></li>
+                                            <li><a href="<?= BASE_URL ?>signup">Sign up</a></li>
                                         <?php
                                         }
                                         ?>
@@ -94,7 +104,7 @@ include("login_logout_msg.php");
                             <?php
                             foreach ($categories as $category) {
                             ?>
-                                <option value="<?= $category['category'] ?>"><?= $category['category'] ?></option>
+                                <option value="<?= $category['category-slug'] ?>"><?= $category['category'] ?></option>
                             <?php
                             }
                             ?>
@@ -105,30 +115,23 @@ include("login_logout_msg.php");
             <div class="header_second">
                 <div class="container-fluid">
                     <div class="row p-3">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <ul class="navbar_links my-auto">
                                 <li><a href="<?= BASE_URL ?>">Home</a></li>
-                                <li><a href="<?= BASE_URL ?>shop">Don't Donate,Purchase</a></li>
-                                <li class="category">Categories
-                                    <ul class="sub_menu shadow">
-                                    <?php
-                                    foreach ($categories as $category) {
-                                    ?>
-                                        <li><a href="<?=BASE_URL?>shop/<?=$category['category']?>"><?=$category['category']?></a></li>
-                                    <?php
-                                    }
-                                    ?>
-                                    </ul>
-                                </li>
+                                <li><a href="<?= BASE_URL ?>shop">Don't Donate, Purchase</a></li>
+                                <li><a href="<?= BASE_URL ?>shop/bagful-of-dreams">Bagful of Dreams</a></li>
+                                <li><a href="<?= BASE_URL ?>shop/enchanted-shirt">Enchanted Shirt</a></li>
+                                <li><a href="<?= BASE_URL ?>shop/home-and-decor">Home & Decor</a></li>
+                                <li><a href="<?= BASE_URL ?>poonya">Poonya</a></li>
                             </ul>
                         </div>
-                        <div class="col-sm-3"></div>
                     </div>
                 </div>
             </div>
         </header>
     </div>
+    
+        <!--sidebar code start from here-->
     <div class="sidebar">
                     <div class="container-fluid">
                         <div class="row">
@@ -169,10 +172,14 @@ include("login_logout_msg.php");
                         </div>
                     </div>
                 </div>
+                
+                <!--end here-->
+                
 
     <div class="header_for_mobile">
         <?php
         include("./BackendAssets/Components/mobile_header.php");
         ?>
+    </div>
     </div>
     

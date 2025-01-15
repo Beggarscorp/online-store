@@ -1,8 +1,7 @@
-
 <?php
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    header('Content-Type: application/json');
 
     // Razorpay credentials
     $keyId = 'rzp_live_OyvHUvi3gQtHGd';

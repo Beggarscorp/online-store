@@ -3,8 +3,17 @@ include 'BackendAssets/Components/header.php';
 include('config/db.php');
 
 
+$category=$_GET['category'];
 $id = $_GET['id'];
-$sql = "SELECT * FROM `products` WHERE id=$id";
+$color=isset($_GET['color']) ? $_GET['color'] : "";
+if(isset($_GET['color']))
+{
+    $sql="SELECT * FROM `products` WHERE `category`='$category' AND `product_color`='$color'";
+}
+else
+{
+    $sql = "SELECT * FROM `products` WHERE id=$id";
+}
 $Allproducts = $conn->query($sql);
 $row = mysqli_fetch_array($Allproducts);
 
@@ -40,6 +49,20 @@ else
 }
 
 
+//find the product color from his category
+
+$product_color_sql=$conn->prepare("SELECT DISTINCT  `product_color` FROM `products` WHERE `category`=?");
+$product_color_sql->bind_param('s',$category);
+if($product_color_sql->execute())
+{
+    $product_color__sql_result=$product_color_sql->get_result();
+    $product_color=$product_color__sql_result->fetch_all(MYSQLI_ASSOC);
+}
+
+
+// end here
+
+
 if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
     echo "<div class='alert alert-success' role='alert'>
   Product added to the cart
@@ -52,7 +75,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
 
 ?>
 <div class="container">
-    <div class="smain">
+    <div class="smain singleproductmian">
         <div class="row">
             <div class="col-sm-7">
                 
@@ -68,11 +91,11 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     <div class="multipleImg">
                         <div class="row pe-md-5">
                                 <?php
-                            $galleryImages = explode(",", $row["productimagegallery"]);
+                            $galleryImages = json_decode($row["productimagegallery"]);
                             foreach ($galleryImages as $galleryImage) {
                                 ?>
                                 <div class="col-sm-4 col-4">
-                                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= $galleryImage ?>"  alt="<?= $galleryImage ?>" onclick="galleryimages(this)">
+                                    <img src="<?= BASE_URL ?>BackendAssets/assets/images/ProductGalleryImages/<?= $galleryImage ?>"  alt="<?= $galleryImage ?>">
                                 </div>
                             <?php
                             }
@@ -82,12 +105,11 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     <!-- </div> -->
                 <!-- </div> -->
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 detail_page_content">
                 <div style="border-bottom:1px solid lightgray;">
                     <h2><?= $row['productname'] ?></h2>
                     <p class="font-16"><?= $row['discription'] ?></p>
                 </div>
-                <!-- <h4 class="productPrice">Price: ₹ <?= $row['price'] ?></h4> -->
                 <?php
                 if ($row['sizeandfit'] != "") {
                 ?>
@@ -99,8 +121,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     </div>
                 <?php
                 }
-                ?>
-                <?php
+                
                 if ($row['materialandcare'] != "") {
                 ?>
                     <div class="material_care">
@@ -111,8 +132,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     </div>
                 <?php
                 }
-                ?>
-                <?php
+                
                 if ($row['spacification'] != "") {
 
                 ?>
@@ -122,17 +142,53 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                             <?= $row['spacification'] ?>
                         </p>
                     </div>
+                    <!--<h5 class="productPrice my-3">Rs. <?= $row['price'] ?></h5>-->
                 <?php
+                }
+                if($row['product_color'] != "")
+                {
+                    ?>
+                    <div class="product_color">
+                        <h4>Colour</h4>
+                        <p class="font-16">
+                            <?php
+                            foreach($product_color as $color)
+                            {
+                                if(!empty($color['product_color']))
+                                {
+                                    if(strtolower($row['product_color']) === strtolower($color['product_color']))
+                                    {
+                                        ?>
+                                        <a href="<?=BASE_URL?>singleProduct/<?=$row['category']?>/<?=$row['id']?>/<?=$color['product_color']?>">
+                                            <button style="background:<?=strtolower($color['product_color'])?>;border:3px solid var(--golden);"></button>
+                                        </a>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <a href="<?=BASE_URL?>singleProduct/<?=$row['category']?>/<?=$row['id']?>/<?=$color['product_color']?>">
+                                            <button style="background:<?=strtolower($color['product_color'])?>;"></button>
+                                        </a>
+                                        <?php
+                                    }
+                                    
+                                }
+                            }
+                            ?>
+                        </p>
+                    </div>
+                    <?php
                 }
 
                 if((int)$row['min_order'] > 0)
                 {
                     ?>
-                    <div class="fix_quantity_div my-3">
+                    <div class="fix_quantity_div my-3 text-light">
                         QTY : <?=$product_qty?> <span>(min order)</span>
                     </div>
                     <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>' quantity='<?=$product_qty?>'>
-                        <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price']*(int)$product_qty)?></h6>
+                        <h5>Rs. <i class='bi bi-currency-rupee'></i> <?=((int)$row['price']*(int)$product_qty)?></h5>
                     </div>
                     <?php
                 }
@@ -145,7 +201,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     ?>
                     <div class="buttons">
                         <button class="add-to-cart-btn" id="btn_tooltip" disabled>Add to Cart 
-                            <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                            <span style="padding: 0 5px;"><i class="bi bi-cart-check"></i></span>
                             <span class="btn_tooltip">Product out of stock now</span>
                         </button>
                     </div>
@@ -156,7 +212,7 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                             ?>
                             <div class="buttons">
                                 <button class="add-to-cart-btn" product_cart_id="<?= $row['id'] ?>">Add to Cart 
-                                    <span style="padding: 0 5px;"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                                    <span style="padding: 0 5px;"><i class="bi bi-cart-check"></i></span>
                                 </button>
                             </div>
                             <?php
@@ -174,8 +230,8 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                 <span id='quantity-<?=$row['id']?>'><?=$product_qty?></span>
                             <button disabled><i class='bi bi-dash-lg'></i></button>
                         </div>
-                        <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>}' quantity='<?=$product_qty?>'>
-                            <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h6>
+                        <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>' quantity='<?=$product_qty?>'>
+                            <h5>Rs. <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h5>
                         </div>
                     </div>
                     <?php
@@ -188,8 +244,8 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                                 <span id='quantity-<?=$row['id']?>'><?=$product_qty?></span>
                             <button type='button' class='minus_icon' cart_product_id='<?=$row['id']?>'><i class='bi bi-dash-lg'></i></button>
                             </div>
-                            <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>}' quantity='<?=$product_qty?>'>
-                                <h6>Price : <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h6>
+                            <div class='price' id='price-<?=$row['id']?>' price='<?=$row['price']?>' quantity='<?=$product_qty?>'>
+                                <h5>Rs. <i class='bi bi-currency-rupee'></i> <?=((int)$row['price'])*((int)$product_qty)?></h5>
                             </div>
                             <?php
                         }

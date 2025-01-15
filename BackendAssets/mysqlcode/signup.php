@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require('../../config/db.php');
 // include('../Components/forsession.php');
 
@@ -22,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_submit']))
                 $last_id=$conn->insert_id;
                 header("Location: ../../BackendAssets/mysqlcode/sendmail.php?email=$email&id=$last_id");
                 exit();
-          
         }
         else 
         {
@@ -54,6 +54,6 @@ else
     header("Location: /signup?msg=$msg");
     exit();
 }
-
+ob_end_flush();
 
 ?>

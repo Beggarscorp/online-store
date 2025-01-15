@@ -66,6 +66,7 @@ $(document).ready(function () {
         })
     }
 
+    
     $(".profile").addClass("dash_content_show");
     $("#profile").addClass("navigation_link_click");
     dash_navigation_li.each((e)=>{
@@ -86,6 +87,23 @@ $(document).ready(function () {
             $(".navigation").toggleClass("navigation_show");
         })
     }
+
+    // end here
+    
+     // set the upadate table value
+
+    function set_table_name () {
+
+        let get_table_value=$($("#address_change_select_field")[0]).val();
+        let length_of_table_input_field=$($(".table_name")).length;
+        for($o=0;$o<length_of_table_input_field;$o++)
+        {
+            $($(".table_name")[$o]).val(get_table_value);
+        }
+
+    }
+
+    set_table_name();
 
     // end here
 });

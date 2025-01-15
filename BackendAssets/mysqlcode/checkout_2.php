@@ -1,4 +1,3 @@
-
 <?php
 include("../../config/db.php");
 $msgnumber;
@@ -82,7 +81,7 @@ else
     $msgnumber = 4;
 }
 
-header("Location: ".BASE_URL."checkout_2/$msgnumber");
+header("Location: ".BASE_URL."checkout/$msgnumber");
 exit();
 
 ?>

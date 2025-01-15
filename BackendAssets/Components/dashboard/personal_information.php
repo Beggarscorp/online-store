@@ -1,8 +1,10 @@
 
 <h4>Personal Information</h4>
+
                         <form action="" class="singleupdateform">
                             <label for="name">Name</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
@@ -14,7 +16,7 @@
                         <form action="" class="singleupdateform">
                             <label for="email">Email</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
-                            <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
@@ -26,6 +28,7 @@
                         <form action="" class="singleupdateform"> 
                             <label for="phonenumber">Phonenumber</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
@@ -37,6 +40,7 @@
                         <form action="" class="singleupdateform">
                             <label for="country">Country</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
@@ -48,6 +52,7 @@
                         <form action="" class="singleupdateform">
                             <label for="state">State</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
@@ -59,6 +64,7 @@
                         <form action="" class="singleupdateform">
                             <label for="city">City</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
@@ -70,6 +76,7 @@
                         <form action="" class="singleupdateform">
                             <label for="pincode">Pincode</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
@@ -81,6 +88,7 @@
                         <form action="" class="singleupdateform">
                             <label for="address">Address</label>
                             <input type="hidden" name="id" value="<?=$userData['address_id']?>">
+                            <input type="hidden" name="table_name" class="table_name">
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">

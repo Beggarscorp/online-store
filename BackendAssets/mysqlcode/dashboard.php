@@ -1,8 +1,7 @@
-
 <?php
+header('Content-Type: application/json');
 require('../Components/forsession.php');
 include("../../config/db.php");
-header('Content-Type: application/json');
 
 if(isset($_POST['action']) && $_POST['action'] === 'formupdate')
 {
@@ -10,10 +9,11 @@ if(isset($_POST['action']) && $_POST['action'] === 'formupdate')
     $id=$formData['id'];
     $key=$formData['key'];
     $value=$formData['value'];
+    $table_name=$formData['table_name'];
     $status;
-    $sqlUpdate="UPDATE `user_default_address_table` SET `$key`='$value' WHERE address_id=$id";
-    $result=mysqli_query($conn,$sqlUpdate);
-    if($sqlUpdate)
+    $sqlUpdate=$conn->prepare("UPDATE `$table_name` SET `$key`=? WHERE address_id=?");    
+    $sqlUpdate->bind_param('si',$value,$id);
+    if($sqlUpdate->execute())
     {
         $status=true;
     }

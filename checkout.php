@@ -133,7 +133,7 @@ $order_product_session;
                                         ?>
                                             <div class='row'>
                                                 <div class='col-sm-4'>
-                                                    <img src='<?= BASE_URL ?>BackendAssets/assets/images/productImages/<?= $data[0]['productimage'] ?>'
+                                                    <img src='<?= BASE_URL ?>BackendAssets/assets/images/ProductImages/<?= $data[0]['productimage'] ?>'
                                                         alt='<?= $data[0]['productimage'] ?>' class='img-thumbnail'>
                                                 </div>
                                                 <div class='col-sm-8'>
@@ -213,6 +213,7 @@ $order_product_session;
 </form>
 
 </main>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <?php
 

@@ -1,12 +1,52 @@
+.banner-video
+{
+  animation: myAnim 2s ease 0s 1 normal forwards;
+}
+@keyframes myAnim {
+	0% {
+		transform: scale(0.5);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+.banner-heading
+{
+  position: relative;
+}
+.banner-heading::before
+{
+  content: "Don't Donate, Purchase";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--golden);
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  animation: textTyping 5s linear infinite;
+}
+@keyframes textTyping {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  50% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
 .heading
 {
     text-align: center;
     padding: 30px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 .heading h3
 {
-    font-weight: 400;
-    font-style: italic;
+  color: var(--golden);
 }
 .slider-container {
     position: relative;
@@ -90,3 +130,90 @@
       flex: 0 0 100%;  /* Show 1 item on mobile screens */
     }
   }
+
+/* why we started css */
+
+.left
+{
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+  height: 100%;
+}
+.left-top,.left-bottom
+{
+  height: 100%;
+  color: transparent;
+}
+.why-we-started-content
+{
+  padding: 10px;
+  background-color: #fff;
+}
+.show-on-mobile
+{
+  display: none;
+}
+.hide-on-mobile
+{
+  display: block;
+}
+@media screen and (min-width:768px) {
+  .hide-on-mobile
+  {
+    display: none;
+  }
+  .show-on-mobile
+  {
+    display: block;
+  }
+  .r
+  {
+    right: -50px;
+  }
+  .left-center
+  {
+    position: relative;
+  }
+  .why-we-started-content
+  {
+    padding: 20px;
+    z-index: 1;
+    position: absolute;
+    width: 500px;
+  }
+}
+.left button
+{
+  all: unset;
+  background-color: var(--golden);
+  color: #fff;
+  padding: 5px 10px;
+  transition: 0.3s linear;
+}
+.left button:hover
+{
+  background: transparent;
+  color: var(--golden);
+}
+.right-img
+{
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.right-img:hover::before
+{
+  content: "";
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 96%;
+  height: 95%;
+  border: 1px solid var(--golden);
+}
+
+/* end here */
+
+.recognition-image img
+{
+  width: 100%;
+}

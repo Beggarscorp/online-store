@@ -1,12 +1,11 @@
-
 <?php
-include("../../config/db.php");
+session_start();
 header('Content-Type: application/json');
+include("../../config/db.php");
 
 // cart product quantity increase
 
 if (isset($_POST['product_id'])) {
-    session_start();
     $cart_product_id = intval($_POST['product_id']);
     $cart_product_count;
     foreach ($_SESSION['cart'] as $key => $cart_product) {

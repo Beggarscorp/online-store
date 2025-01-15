@@ -92,7 +92,7 @@ $(document).ready(function () {
 
 
 
-                    fetch('BackendAssets/Components/get_order_id.php', {
+                    fetch($base_url+'BackendAssets/Components/get_order_id.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'

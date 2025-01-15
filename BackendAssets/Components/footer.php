@@ -37,7 +37,7 @@
                     </div>
                     <div class="address">
                         <i class="bi bi-envelope"></i>
-                        <p><a class="text-decoration-none text-secondary" href="mailto:office@beggarscorporation.com" target="_blank" rel="noopener noreferrer">office@beggarscorporation.com</a></p>
+                        <p><a class="text-decoration-none" href="mailto:office@beggarscorporation.com" target="_blank" rel="noopener noreferrer">office@beggarscorporation.com</a></p>
                     </div>
                     <div class="social-media-links">
                         <a href="https://www.instagram.com/beggarscorporation/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
@@ -53,13 +53,13 @@
     <div class="footer_bottom">
         <p>Copyright ©  <span class="golden" style="border:none;">Beggars Corporation   | Humanomics Private Limited, India</span></p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js?version=<?= FILE_VERSION ?>" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="<?=BASE_URL?>BackendAssets/js/main.js"></script>
     <?php
     $filtePath=BASE_URL."BackendAssets/js/".CURRENT_PAGE.".js";
-    $serverPath=$_SERVER['DOCUMENT_ROOT']. "/online-store/BackendAssets/js/" . CURRENT_PAGE . ".js";
+    $serverPath=$_SERVER['DOCUMENT_ROOT']. "/BackendAssets/js/" . CURRENT_PAGE . ".js";
     if(file_exists($serverPath))
     {
         echo "<script src=\"" . BASE_URL . "BackendAssets/js/" . CURRENT_PAGE . ".js\"></script>";

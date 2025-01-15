@@ -1,7 +1,7 @@
-
 <?php
-include("../../config/db.php");
+session_start();
 header('Content-Type: application/json');
+include("../../config/db.php");
 
 
 if (isset($_POST['product_id']) && !empty($_POST['product_id'])) {
@@ -11,7 +11,6 @@ if (isset($_POST['product_id']) && !empty($_POST['product_id'])) {
         "product_id" => $productId,
         "product_count" => $cart_product_count
     );
-    session_start();
     if (isset($_SESSION['proceed_to_checkout'])) {
         $productFound = false;
         $status = "failed";
@@ -49,7 +48,6 @@ if (isset($_POST['product_id']) && !empty($_POST['product_id'])) {
 if(isset($_POST['increase_quantity']))
 {
 
-    session_start();
     $data=$_SESSION['proceed_to_checkout_data'][0][0]++;
 
     echo json_encode(['status'=>'success','data'=>$_SESSION['proceed_to_checkout_data'][0]]);
@@ -58,7 +56,6 @@ if(isset($_POST['increase_quantity']))
 if(isset($_POST['decrease_quantity']))
 {
 
-    session_start();
     if((int)$_SESSION['proceed_to_checkout_data'][0][0] === 0)
     {
         unset($_SESSION['proceed_to_checkout_data'][0]);

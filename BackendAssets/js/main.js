@@ -61,6 +61,55 @@ document.addEventListener("DOMContentLoaded",()=>{
             },
         }
       });
+      
+      var swiper_3 = new Swiper(".myswiper_3", {
+        slidesPerView: 3,
+        spaceBetween: 10,
+        autoplay:true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          breakpoints: {
+            250: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+        }
+      });
+      
+      //   visit_beggars_corporation_video loader js code
+
+      const visit_beggars_corporation_video=document.getElementById("visit-beggars-corporation-video");
+      const visit_beggars_corporation_video_loader=document.getElementById("visit-beggars-corporation-video-loader");
+      if(visit_beggars_corporation_video && visit_beggars_corporation_video_loader)
+      {
+          visit_beggars_corporation_video.style.display="none";
+          visit_beggars_corporation_video_loader.style.display="block";
+          visit_beggars_corporation_video.addEventListener("loadeddata",()=>{
+              visit_beggars_corporation_video_loader.style.display="none";
+              visit_beggars_corporation_video.style.display="block";
+          })
+          
+      }
+
+    //   end here
 
     const sidebar=document.getElementsByClassName("sidebar");
     const cart_icon=document.getElementById("cart_icon");
@@ -205,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-$(document).ready(()=>{
+$(document).ready(function () {
 
     // mobile header js code
 
@@ -380,7 +429,7 @@ $(document).ready(()=>{
     
     // set product of cart sidebar
 
-    const set_product_on_cart=()=>{
+    function set_product_on_cart () {
 
         $.ajax({
             url:$base_url+"BackendAssets/mysqlcode/addtocart.php",
@@ -388,6 +437,7 @@ $(document).ready(()=>{
             datatype:'json',
             data:{fetch_data_form_cart:true},
             success:(response)=>{
+                
                 if(response.status === 'success' && response.product_data != "")
                 {
                     $product_carts_html='';
@@ -421,7 +471,7 @@ $(document).ready(()=>{
                             <div class='product_cart'>
                                 <div class='row'>
                                     <div class='col-sm-3 col-4'>
-                                        <img src='`+$base_url+`BackendAssets/assets/images/productImages/${response.product_data[$i].productimage}' alt='${response.product_data[$i].productimage}' class='img-thumbnail'>
+                                        <img src='`+$base_url+`BackendAssets/assets/images/ProductImages/${response.product_data[$i].productimage}' alt='${response.product_data[$i].productimage}' class='img-thumbnail'>
                                     </div>
                                     <div class='col-sm-9 col-8'>
                                         <h6>${response.product_data[$i].productname}</h6>
@@ -581,9 +631,17 @@ $(document).ready(function() {
         });
     })
 
-    // $("#bannerCarousel").on('mouseover',(e)=>{
-    //     $(e.currentTarget).css("transform","skew("+e.offsetX+"deg,"+e.offsetY+"deg)");
-    // })
+       // remove messge tag from url
+
+    if(window.location.search)
+    {
+        const cleanUrl = window.location.pathname;
+        setTimeout(() =>{
+            window.history.replaceState({}, document.title, cleanUrl);
+        },2000);
+    }    
+
+    // end here
 
 
 });
