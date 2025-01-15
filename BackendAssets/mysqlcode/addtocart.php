@@ -25,7 +25,7 @@ if (isset($_POST['add_to_cart_product_id']) && !empty($_POST['add_to_cart_produc
         "product_id" => $productId,
         "product_count" => $cart_product_count
     );
-    session_start();
+    // session_start();
     if (isset($_SESSION['cart'])) {
         $productFound = false;
         $status = "failed";
@@ -51,7 +51,7 @@ if (isset($_POST['add_to_cart_product_id']) && !empty($_POST['add_to_cart_produc
 
 if (isset($_POST['fetch_data_form_cart'])) {
 
-    session_start();
+    // session_start();
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $cart_product_ids = [];
         $product_data = [];

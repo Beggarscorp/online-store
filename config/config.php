@@ -5,7 +5,7 @@ if(!defined('SITE_NAME'))
 }
 if(!defined('BASE_URL'))
 {
-    define('BASE_URL','https://shop.beggarscorporation.com/');
+    define('BASE_URL','http://localhost:3000/');
 }
 if(!defined('SITE_ICON'))
 {

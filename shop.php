@@ -128,6 +128,7 @@ $result = mysqli_query($conn, $sql);
         <div class="product-container">
                 <div class="row">
                     <?php
+                    $for_pegination=$data;
                     $productCard = "";
                     if (isset($_GET['page'])) {
                         $page = $_GET['page'];
@@ -189,21 +190,15 @@ $result = mysqli_query($conn, $sql);
                             </div>
                     <?php
                     }
-                    $datacountnumber = count($data);
-                    $countnumber = 1;
-                    if ($datacountnumber / 16) {
-                        $countnumber++;
-                    } else {
-                        $countnumber = 0;
-                    }
+                    $datacountnumber = ceil(count($for_pegination)/16);                 
                     ?>
                 </div>
                 <div class="pegination-div">
                     <ul>
                         <?php
                         
-                        if ((int)$countnumber < 16 && $pegination_show) {
-                            for ($i = 1; $i <= $countnumber; $i++) {
+                        if ($pegination_show) {
+                            for ($i = 1; $i <= $datacountnumber; $i++) {
                         ?>
                                 <li><?= $i ?></li>
                         <?php
@@ -211,7 +206,6 @@ $result = mysqli_query($conn, $sql);
                         } else {
                         }
                         ?>
-                                <li>3</li>
                     </ul>
                 </div>
             </div>

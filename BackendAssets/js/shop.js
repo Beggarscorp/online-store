@@ -114,6 +114,21 @@ $(document).ready(function () {
 
     }
 
+    // $all_data=$(".productCard").length;
+    // $product_div=$(".productCard");
+    // $data_per_page=10;
+    // $page_number=1;
+    // $pegination_show=Math.ceil($all_data/$data_per_page);
+    // const display_record = () =>{
+    //     $start_index=($page_number - 1) * $data_per_page;
+    //     $end_index=$start_index + ($data_per_page - 1);
+    //     for($i=$start_index;$i<=$end_index;$i++)
+    //     {
+    //         console.log($product_div[$i]);
+    //     }
+    // }
+    // display_record();
+
     // end here
 
 });

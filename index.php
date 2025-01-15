@@ -17,6 +17,7 @@ if($product_sql->execute())
 ?>
 
 <main>
+<div class="star-container"></div>
     <a href="<?=BASE_URL?>/shop/banarasi-stoles">
     <img src="<?=BASE_URL?>BackendAssets/assets/images/Banner.png" class="img-thumbnail border-0">
     </a>
@@ -319,3 +320,4 @@ if($product_sql->execute())
 <?php
 require('BackendAssets/Components/footer.php');
 ?>
+<button onclick="get_fact_about()">Get cat fact</button>
