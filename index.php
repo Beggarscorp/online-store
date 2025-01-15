@@ -320,4 +320,3 @@ if($product_sql->execute())
 <?php
 require('BackendAssets/Components/footer.php');
 ?>
-<button onclick="get_fact_about()">Get cat fact</button>

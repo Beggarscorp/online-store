@@ -672,13 +672,6 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < 50; i++) {
         createStar();
     }
-
-    get_fact_about = async () =>{
-        
-        await fetch("https://catfact.ninja/fact")
-        .then((res) => res.json())
-        .then((data) => console.log(data.fact));
-    }
     
 });
 
