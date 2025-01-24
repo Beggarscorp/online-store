@@ -26,10 +26,13 @@ if(isset($_POST['action']) && $_POST['action'] === 'formupdate')
 
 $userid=$_SESSION['id'];
 
-if(isset($_FILES['upload_user_image']) && $_SERVER['REQUEST_METHOD'] === 'POST')
+// if(isset($_FILES['upload_user_image']) && $_SERVER['REQUEST_METHOD'] === 'POST')
+if($_POST['action'] === 'profile_image_update' && $_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    $filename=basename($_FILES['upload_user_image']['name']);
-    $filetmpname=$_FILES['upload_user_image']['tmp_name'];
+    $filename=basename($_FILES['file']['name']);
+    $filetmpname=$_FILES['file']['tmp_name'];
+
+    // print_r($_FILES['file']['name']);
 
     $insertuserimgsql=$conn->prepare("UPDATE `user` SET user_image = ? WHERE `user`.`id` = $userid");
     $insertuserimgsql->bind_param('s',$filename);
@@ -40,7 +43,7 @@ if(isset($_FILES['upload_user_image']) && $_SERVER['REQUEST_METHOD'] === 'POST')
 
         if(move_uploaded_file($filetmpname,$targetPath))
         {
-            echo "file uploaded";
+           echo json_encode(["status"=>true,"imageName"=>$filename]);
         }
         else
         {

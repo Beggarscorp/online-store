@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function () { 
     let edit_=$(".edit");
     edit_.each(e =>{
         $(edit_[e]).on("click",()=>{
@@ -106,4 +106,34 @@ $(document).ready(function () {
     set_table_name();
 
     // end here
+
+    $(".img").on("click",(e)=>{
+        $("#imagefileInput").trigger("click")
+    })
+
+    $("#imagefileInput").on("change",(e)=>{
+        let file=e.target.files[0];
+        console.log(e.target.files)
+        let formdata=new FormData();
+        formdata.append("file",file);
+        formdata.append("action","profile_image_update");
+        $.ajax({
+            type: "POST",
+            url: $base_url+"BackendAssets/mysqlcode/dashboard.php",
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if(response.status)
+                {
+                    $(".img").attr("src",$base_url+"BackendAssets/assets/images/userimages/"+response.imageName);
+                    Swal.fire({
+                        title:"Profile image updated",
+                        icon:"success"
+                    })
+                }
+            }
+        });
+    })
+
 });

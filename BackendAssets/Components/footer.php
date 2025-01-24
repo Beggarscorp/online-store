@@ -59,7 +59,7 @@
     <script src="<?=BASE_URL?>BackendAssets/js/main.js"></script>
     <?php
     $filtePath=BASE_URL."BackendAssets/js/".CURRENT_PAGE.".js";
-    $serverPath=$_SERVER['DOCUMENT_ROOT']. "/BackendAssets/js/" . CURRENT_PAGE . ".js";
+    $serverPath=$_SERVER['DOCUMENT_ROOT']. "/online-store/BackendAssets/js/" . CURRENT_PAGE . ".js";
     if(file_exists($serverPath))
     {
         echo "<script src=\"" . BASE_URL . "BackendAssets/js/" . CURRENT_PAGE . ".js\"></script>";

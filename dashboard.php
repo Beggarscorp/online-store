@@ -52,18 +52,18 @@ if($userSql->execute())
                                     $img = $user_img->get_result()->fetch_assoc();
                                     if ($img['user_image'] != "") {
                                 ?>
-                                        <img src="BackendAssets/assets/images/userimages/<?= $img['user_image'] ?>" class="img" alt="" onclick="triggeriamgeupload()" srcset="">
+                                        <img src="BackendAssets/assets/images/userimages/<?= $img['user_image'] ?>" class="img" alt=""  srcset="">
                                     <?php
                                     } else {
                                     ?>
-                                        <img src="BackendAssets/assets/images/userimages/default_image_upload_img.png" class="img" onclick="triggeriamgeupload()" alt="">
+                                        <img src="BackendAssets/assets/images/userimages/default_image_upload_img.png" class="img"  alt="">
                                 <?php
                                     }
                                 }
                                 ?>
                             </div>
                             <div class="col-sm-6 col-6">
-                                <input type="file" id="imagefileInput" accept="image/*" onchange="handleFileSelect(event)">
+                                <input type="file" id="imagefileInput" accept="image/*" >
                                 <h6>Welcome,<br> <?= $img['First_name']?> </h6>
                             </div>
                         </div>
