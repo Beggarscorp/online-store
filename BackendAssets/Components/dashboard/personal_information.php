@@ -8,7 +8,7 @@
                             <span class="edit">Edit</span>
                             <br>
                             <div class="block">
-                            <input type="text" name="name" value="<?=$userData['name']?>" required disabled>
+                            <input type="text" name="name" value="<?=isset($userData['name']) ? $userData['name'] : "" ?>" required disabled>
                             <button type="submit" class="save_button">Save</button>
                             </div>
                         </form>

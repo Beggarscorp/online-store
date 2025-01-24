@@ -29,17 +29,26 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="product_delivery_status">
+                            <!-- order placed 1 -->
+                            <!-- order shipped 2 -->
+                            <!-- order delivered 0 -->
                             <?php
                             if((int)$order['order_status'] === 0)
                             {
                                 ?>
-                                    <h6 class="d-flex align-items-center"><i style="font-size: 10px;" class="bi bi-circle-fill text-danger w-25"></i>Order pending now..</h6>
+                                    <h6 class="d-flex align-items-center"><i style="font-size: 10px;" class="bi bi-circle-fill text-danger w-25"></i>Order Delivered</h6>
                                 <?php
                             }
                             if((int)$order['order_status'] === 1)
                             {
                                 ?>
-                                    <h6 class="d-flex align-items-center"><i style="font-size: 10px;" class="bi bi-circle-fill text-success w-25"></i>Delivered soon</h6>
+                                    <h6 class="d-flex align-items-center"><i style="font-size: 10px;" class="bi bi-circle-fill text-success w-25"></i>Order Placed</h6>
+                                <?php
+                            } 
+                            if((int)$order['order_status'] === 2)
+                            {
+                                ?>
+                                    <h6 class="d-flex align-items-center"><i style="font-size: 10px;" class="bi bi-circle-fill text-success w-25"></i>Order Shipped</h6>
                                 <?php
                             } 
                             ?>

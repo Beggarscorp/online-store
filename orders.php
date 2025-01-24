@@ -55,24 +55,33 @@ $show_more_details = false;
                                 <td> <?= $order['userpincode'] ?> </td>
                                 <td> <?= $order['useraddress'] ?> </td>
                                 <td>
-                                    <a href="BackendAssets/mysqlcode/order_status.php?approve=true&orderid=<?= $order['orderid'] ?>">
-                                        <button class="operation_approve_btn">Approve <i class="bi bi-check-lg"></i></button>
+                                    <!-- order placed 1 -->
+                                    <!-- order shipped 2 -->
+                                    <!-- order delivered 0 -->
+                                    <a href="BackendAssets/mysqlcode/order_status.php?shipped=true&orderid=<?= $order['orderid'] ?>">
+                                        <button class="operation_approve_btn">Order placed <i class="bi bi-check-lg"></i></button>
                                     </a>
                                     <div>OR</div>
-                                    <a href="BackendAssets/mysqlcode/order_status.php?cancel=true&orderid=<?= $order['orderid'] ?>">
-                                        <button class="operation_cancel_btn">Failed <i class="bi bi-x-lg"></i></button>
+                                    <a href="BackendAssets/mysqlcode/order_status.php?delivered=true&orderid=<?= $order['orderid'] ?>">
+                                        <button class="operation_cancel_btn">Order shipped <i class="bi bi-x-lg"></i></button>
+                                    </a>
                                 </td>
-                                </a>
                                 <td>
                                     <?php
                                     if ((int)$order['order_status'] === 0) {
                                     ?>
-                                        <button class="pending">Pending ...</button>
+                                        <button class="approved">Order Delivered</button>
                                     <?php
-                                    } else if ((int)$order['order_status'] === 1) {
+                                    } else if ((int)$order['order_status'] === 2) {
                                     ?>
-                                        <button class="approved">Approved <i class="bi bi-check2-circle"></i></button>
-                                    <?php
+                                        <button class="pending">Order Shipped <i class="bi bi-check2-circle"></i></button>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <button class="pending">Order placed <i class="bi bi-check2-circle"></i></button>
+                                        <?php
                                     }
                                     ?>
                                 </td>

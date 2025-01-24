@@ -28,8 +28,8 @@ if(isset($_GET['msg']) && (int)$_GET['msg'] === 3)
 if(isset($_GET['msg']) && (int)$_GET['msg'] === 4)
 {
     echo "<script>Swal.fire({
-      title:'You are not logged in',
-      icon:'error'
+      text:'Your order has been placed successfully. Further details will be shared with you via WhatsApp shortly. Stay tuned.',
+      icon:'success'
     });</script>";
 }
 if(isset($_GET['msg']) && (int)$_GET['msg'] === 5)
@@ -41,7 +41,25 @@ if(isset($_GET['msg']) && (int)$_GET['msg'] === 5)
 }
 
 $order_product_session;
-
+$user_id=$_SESSION['id'];
+$order_query_for_user_detail=$conn->prepare("SELECT * FROM `user_default_address_table` WHERE user_id=? and default_address=1 UNION SELECT * FROM `user_second_address_table` WHERE user_id=? and default_address=1 UNION SELECT * FROM `user_third_address_table` WHERE user_id=? and default_address=1");
+$order_query_for_user_detail->bind_param('iii',$user_id,$user_id,$user_id);
+if($order_query_for_user_detail->execute())
+{
+    $order_result=$order_query_for_user_detail->get_result();
+    if($order_result->num_rows > 0)
+    {
+        $address_data=$order_result->fetch_assoc();
+    }
+    else
+    {
+        $address_data=[];
+    }
+}
+else
+{
+    $address_data=[];
+}
 
 ?>
 
@@ -58,23 +76,26 @@ $order_product_session;
                         <label for="useremail">Email :</label><br>
                         <input type="email" name="useremail" placeholder="Enter your email" value="<?= isset($address_data['email']) ? $address_data['email'] : "" ?>" id="useremail"  required><br>
 
-                        <label for="usernumber">Number :</label><br>
-                        <input type="number" name="usernumber" placeholder="Enter your number" value="<?= isset($address_data['phonenumber']) ? $address_data['phonenumber'] : ""  ?>" id="usernumber" required><br>
+                        <div class="position-relative">
+                            <label for="usernumber">Number :</label><br>
+                            <input type="number" name="usernumber" placeholder="Enter your number" value="<?= isset($address_data['phonenumber']) ? $address_data['phonenumber'] : ""  ?>" id="usernumber" required><br>
+                            <span class="number-msg position-absolute end-0"></span>
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-4">
                                 <label for="country">Enter country name</label>
-                                <input type="text" name="country" id="country" placeholder="Enter your country">
+                                <input type="text" name="country" value="<?= isset($address_data['country']) ? $address_data['country'] : ""  ?>" id="country" placeholder="Enter your country">
                             </div>
 
                             <div class="col-sm-4">
                                 <label for="states">Enter state name</label><br>
-                                <input type="text" name="state" id="states" placeholder="Enter your state">
+                                <input type="text" name="state" id="states" value="<?= isset($address_data['state']) ? $address_data['state'] : ""  ?>" placeholder="Enter your state">
                             </div>
 
                             <div class="col-sm-4">
                                 <label for="city">Enter city name</label>
-                                <input type="text" name="city" id="city" placeholder="Enter your city">
+                                <input type="text" name="city" id="city" value="<?= isset($address_data['city']) ? $address_data['city'] : ""  ?>" placeholder="Enter your city">
                             </div>
                         </div>
 
@@ -90,8 +111,7 @@ $order_product_session;
                         </div><br>
 
                         <label for="useraddress">Address :</label><br>
-                        <textarea name="useraddress" placeholder="Flat/House no./Floor/Building" id="useraddress" required>Flat/House no./Floor/Building
-                        </textarea><br>
+                        <textarea name="useraddress" placeholder="Flat/House no./Floor/Building" id="useraddress" required><?= isset($address_data['address']) ? $address_data['address'] : ""  ?></textarea><br>
                         
 
 
@@ -214,6 +234,31 @@ $order_product_session;
 
 </main>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    $(document).ready(function () {
+
+        function number_config (length) {
+            if(length < 10 || length > 10)
+            {
+                $(".number-msg").html("Your number is not valid.");
+                $(".number-msg").css({"color":"red","font-size":"15px","bottom":"18px","padding":"0 10px"});
+            }
+            else
+            {
+                $(".number-msg").html("");
+            }
+            $("#usernumber").val().length === 0 ? $(".number-msg").html("") : $(".number-msg").html("Your number is not valid.");
+        }
+        
+        number_config($("#usernumber").val().length);
+
+        $("#usernumber").on("input",(e) => {
+            let number=e.currentTarget.value.length;
+            number_config(number);
+        })
+
+    });
+</script>
 
 <?php
 

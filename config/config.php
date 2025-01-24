@@ -5,7 +5,7 @@ if(!defined('SITE_NAME'))
 }
 if(!defined('BASE_URL'))
 {
-    define('BASE_URL','http://localhost:3000/');
+    define('BASE_URL','http://localhost/online-store/');
 }
 if(!defined('SITE_ICON'))
 {

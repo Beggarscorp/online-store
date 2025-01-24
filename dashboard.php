@@ -36,7 +36,7 @@ if($userSql->execute())
     $userData=$userSql_result->fetch_all(MYSQLI_ASSOC)[0];
     $userSql->close();
 }
-print_r($userData);
+// print_r($userData);
 ?>
 
     <div class="dashboard_main bg-light bg-gradient py-5">

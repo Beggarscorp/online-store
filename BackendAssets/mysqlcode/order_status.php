@@ -1,36 +1,39 @@
 <?php
-function conform_order()
+// order placed 1
+// order shipped 2 
+// order delivered 0 
+function shipped_order()
 {
-    include '../db.php';
+    include '../../config/db.php';
     $order_id = $_GET['orderid'];
-    $sql = "UPDATE `orders` SET `order_status`=1 WHERE `orderid`=$order_id";
+    $sql = "UPDATE `orders` SET `order_status`=2 WHERE `orderid`=$order_id";
     if ($conn->query($sql)) {
         
-        header("Location: /orders.php?order_status=true");
+        header("Location: ".BASE_URL."orders.php?order_status=true");
         exit();
     } else {
-        header("Location: /orders.php?order_status=false");
+        header("Location: ".BASE_URL."orders.php?order_status=false");
         exit();
     }
 }
-function cancel_order()
+function delivered_order()
 {
-    include '../db.php';
+    include '../../config/db.php';
     $order_id = $_GET['orderid'];
     $sql = "UPDATE `orders` SET `order_status`=0 WHERE `orderid`=$order_id";
     if ($conn->query($sql)) {
-        header("Location: /orders.php?order_status=true");
+        header("Location: ".BASE_URL."orders.php?order_status=true");
         exit();
     } else {
-        header("Location: /orders.php?order_status=false");
+        header("Location: ".BASE_URL."orders.php?order_status=false");
         exit();
     }
 }
-if (isset($_GET['approve'])) {
-    conform_order();
+if (isset($_GET['shipped'])) {
+    shipped_order();
 }
-if (isset($_GET['cancel'])) {
-    cancel_order();
+if (isset($_GET['delivered'])) {
+    delivered_order();
 }
 
 ?>

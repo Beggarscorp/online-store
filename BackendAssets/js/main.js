@@ -646,32 +646,32 @@ $(document).ready(function() {
 
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const starContainer = document.querySelector(".star-container");
+// document.addEventListener("DOMContentLoaded", () => {
+//     const starContainer = document.querySelector(".star-container");
 
-    // Function to create a star
-    function createStar() {
-        const star = document.createElement("div");
-        star.classList.add("star");
+//     // Function to create a star
+//     function createStar() {
+//         const star = document.createElement("div");
+//         star.classList.add("star");
 
-        // Set a random position and animation delay
-        star.style.left = `${Math.random() * 100}vw`;
-        star.style.top = `${Math.random() * 100}vh`;
-        star.style.animationDelay = `${Math.random() * 2}s`;
+//         // Set a random position and animation delay
+//         star.style.left = `${Math.random() * 100}vw`;
+//         star.style.top = `${Math.random() * 100}vh`;
+//         star.style.animationDelay = `${Math.random() * 2}s`;
 
-        // Add the star to the container
-        starContainer.appendChild(star);
+//         // Add the star to the container
+//         starContainer.appendChild(star);
 
-        // Remove the star after animation
-        star.addEventListener("animationend", () => {
-            star.remove();
-        });
-    }
+//         // Remove the star after animation
+//         star.addEventListener("animationend", () => {
+//             star.remove();
+//         });
+//     }
 
-    // Generate multiple stars
-    for (let i = 0; i < 50; i++) {
-        createStar();
-    }
+//     // Generate multiple stars
+//     for (let i = 0; i < 50; i++) {
+//         createStar();
+//     }
     
-});
+// });
 

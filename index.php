@@ -17,7 +17,7 @@ if($product_sql->execute())
 ?>
 
 <main>
-<div class="star-container"></div>
+<!-- <div class="star-container"></div> -->
     <a href="<?=BASE_URL?>/shop/banarasi-stoles">
     <img src="<?=BASE_URL?>BackendAssets/assets/images/Banner.png" class="img-thumbnail border-0">
     </a>
