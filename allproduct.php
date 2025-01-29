@@ -1,6 +1,12 @@
 <?php
 include('BackendAssets/mysqlcode/allproducts.php');
 
+if(isset($_GET['msg']))
+{
+    $msg=$_GET['msg'];
+    echo "<script>alert('".$msg."')</script>";
+}
+
 if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
 {
     echo "<script>alert('Product image not uploded')</script>";
@@ -50,7 +56,12 @@ if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
                            foreach($data as $row) {
                             ?>
                             <tr>
-                                <td><?=$row['id']?></td>
+                                <td>
+                                    <form action="<?=BASE_URL?>BackendAssets/mysqlcode/product_code.php" method="post">
+                                        <input type="number" name="product_code" value="<?=$row['product_code'] != "" ? $row['product_code'] : "" ?>" placeholder="Enter product code here">
+                                        <input type="hidden" name="product_id" value="<?=$row['id']?>">
+                                    </form>
+                                </td>
                                 <td>
                                 <img src="<?=BASE_URL?>BackendAssets/assets/images/ProductImages/<?=$row['productimage']?>" alt="<?=$row['productimage']?>" style="height:60px;">    
                                 </td>
@@ -122,6 +133,23 @@ if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
             }
         }
 
+        // Function to remove a specific query parameter
+        function removeQueryParam(param) {
+            const url = new URL(window.location); // Get the current URL
+            url.searchParams.delete(param); // Remove the query parameter
+
+            // Update the URL in the browser without reloading the page
+            history.pushState(null, '', url); // This adds a new entry in the browser history
+            // or use history.replaceState(null, '', url); // to replace the current history entry
+        }
+
+        // Example usage to remove 'filter' parameter
+    
+        setTimeout(() => {
+            
+            removeQueryParam('msg');
+            
+        }, 2000);
         
     </script>
 </body>
