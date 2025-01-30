@@ -1,4 +1,5 @@
 <?php
+require("./BackendAssets/Components/admin_upperLinks.php");
 include('BackendAssets/mysqlcode/allproducts.php');
 
 if(isset($_GET['msg']))
@@ -12,17 +13,7 @@ if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
     echo "<script>alert('Product image not uploded')</script>";
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products</title>
     <link rel="stylesheet" href="<?=BASE_URL?>BackendAssets/css/allproduct.css">
-</head>
-
-<body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2 p-0">
@@ -152,6 +143,6 @@ if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
         }, 2000);
         
     </script>
-</body>
-
-</html>
+<?php
+require("./BackendAssets/Components/admin_bottomLinks.php");
+?>

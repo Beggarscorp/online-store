@@ -1,6 +1,6 @@
 <?php
-include('BackendAssets/mysqlcode/allproducts.php');
-include("config/db.php");
+require("./BackendAssets/Components/admin_upperLinks.php");
+// include('BackendAssets/mysqlcode/allproducts.php');
 
 $sql = "SELECT * FROM `orders` AS o JOIN `products` AS p ON p.id=o.productid";
 $result = mysqli_query($conn, $sql);
@@ -98,3 +98,6 @@ $show_more_details = false;
         </div>
     </div>
 </div>
+<?php
+require("./BackendAssets/Components/admin_bottomLinks.php");
+?>

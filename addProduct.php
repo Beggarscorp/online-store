@@ -1,22 +1,11 @@
 <?php
-include("config/db.php");
-error_reporting(0);
+require("./BackendAssets/Components/admin_upperlinks.php");
 $sql="SELECT * FROM `category`";
 $result=mysqli_query($conn,$sql);
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Products</title>
     <link rel="stylesheet" href="<?=BASE_URL?>BackendAssets/css/addproduct.css">
-    <link rel="shortcut icon" type="image/x-icon" href="images/main/favicon.png">
-</head>
-
-<body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2 p-0">
@@ -150,6 +139,6 @@ $result=mysqli_query($conn,$sql);
         }
 
     </script>
-</body>
-
-</html>
+<?php
+require("./BackendAssets/Components/admin_bottomLinks.php");
+?>

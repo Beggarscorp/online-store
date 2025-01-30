@@ -1,5 +1,5 @@
 <?php
-include("config/db.php");
+require("./BackendAssets/Components/admin_upperLinks.php");
 ?>
 
 <link rel="stylesheet" href="./BackendAssets/css/add.css">
@@ -141,3 +141,6 @@ include("config/db.php");
         </div>
     </div>
 </div>
+<?php
+require("./BackendAssets/Components/admin_bottomLinks.php");
+?>
