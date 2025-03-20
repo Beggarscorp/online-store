@@ -13,9 +13,9 @@ $show_more_details = false;
         <div class="col-sm-2 p-0">
             <?php include 'sidebar.php'; ?>
         </div>
-        <div class="col-sm-10 p-2">
-            <div class="content p-3 table-responsiveness">
-                <h3 class="py-2 fw-bolder">Orders</h3>
+        <div class="col-sm-10 p-2" style="overflow: hidden;height:100vh;">
+            <div class="table-responsiveness p-3 content">
+                <h3 class="fw-bolder py-2">Orders</h3>
                 <table class="w-100 py-2">
                     <thead>
                         <tr>

@@ -77,12 +77,12 @@ $(document).ready(function () {
     
     $("#place_order").on("click",(e)=>{
         e.preventDefault();
+        // $("#place_order_form").submit();
         $total_pr=parseInt(getting_grand_total_price_for_payment_gateway());
         
             $place_order_form=$("#place_order_form")[0];
             if($place_order_form.checkValidity() && $total_pr != "")
                 {
-                    
                     
                 $username = $("#username").val();
                 $useremail = $("#useremail").val();
@@ -161,6 +161,25 @@ $(document).ready(function () {
                     })
                 }
 
+        })
+
+        function number_config (length) {
+            if(length < 10 || length > 10)
+            {
+                $(".number-msg").html("Your number is not valid.");
+                $(".number-msg").css({"color":"red","font-size":"15px","bottom":"18px","padding":"0 10px"});
+            }
+            else
+            {
+                $(".number-msg").html("");
+            }
+            // $("#usernumber").val().length === 0 ? $(".number-msg").html("") : $(".number-msg").html("Your number is not valid.");
+        }
+        // number_config($("#usernumber").val().length);
+
+        $("#usernumber").on("input",(e) => {
+            let number=e.currentTarget.value.length;
+            number_config(number);
         })
 
 
