@@ -62,7 +62,7 @@ $user_id=$_SESSION['id'] != "" ? $_SESSION['id'] : "";
                             <span class="position-absolute end-0 number-msg"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="row"> 
                             <div class="col-sm-4">
                                 <label for="country">Enter country name</label>
                                 <input type="text" name="country" id="country" placeholder="Enter your country">
@@ -213,7 +213,7 @@ $user_id=$_SESSION['id'] != "" ? $_SESSION['id'] : "";
 </form>
 
 </main>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
 
 <?php
 

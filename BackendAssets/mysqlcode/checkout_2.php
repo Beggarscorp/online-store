@@ -3,13 +3,12 @@ session_start();
 include("../../config/db.php");
 $msgnumber;
 
-
-
 function insert_checkout_date_in_table ($conn,$user_id,$username, $country, $useremail, $usernumber, $state, $city, $userpincode, $useraddress,$razorpay_payment_id,$razorpay_order_id,$razorpay_signature) {
     
     $product_id_and_quantity = $_POST['product_id_and_quantity'];
     $order_status = 0;
     $total_price=78987;
+
         
         if($product_id_and_quantity === 'cart')
         {
@@ -67,11 +66,11 @@ function insert_checkout_date_in_table ($conn,$user_id,$username, $country, $use
     $city = $_POST['city'] != "" ? $_POST['city'] : "";
     $userpincode = $_POST['userpincode'] != "" ? $_POST['userpincode'] : "";
     $useraddress = $_POST['useraddress'] != "" ? $_POST['useraddress'] : "";
-    $razorpay_payment_id=$_POST['razorpay_payment_id'] != "" ? $_POST['razorpay_payment_id'] : "";
-    $razorpay_order_id=$_POST['razorpay_order_id'] != "" ? $_POST['razorpay_order_id'] : "";   
-    $razorpay_signature=$_POST['razorpay_signature'] != "" ? $_POST['razorpay_signature'] : "";
+    $razorpay_payment_id=$_POST['razorpay_payment_id'] != "" ? $_POST['razorpay_payment_id'] : "xy";
+    $razorpay_order_id=$_POST['razorpay_order_id'] != "" ? $_POST['razorpay_order_id'] : "xy";   
+    $razorpay_signature=$_POST['razorpay_signature'] != "" ? $_POST['razorpay_signature'] : "xy";
 
-if ($username != "" && $useremail != "" && $usernumber != "" && $country != "" && $state != "" && $city != "" && $userpincode != "" && $useraddress != "" && $razorpay_payment_id != "" && $razorpay_order_id != "" && $razorpay_signature != "") 
+if ($username != "" && $useremail != "" && $usernumber != "" && $country != "" && $state != "" && $city != "" && $userpincode != "" && $useraddress != "" && $razorpay_payment_id != "" && $razorpay_order_id != "" && $razorpay_signature != "" && $_SERVER['REQUEST_METHOD'] === 'POST') 
 {
     $user_id=123;
     // isset($_SESSION['user_id'])
