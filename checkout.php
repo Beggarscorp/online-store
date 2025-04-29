@@ -213,7 +213,7 @@ $user_id=$_SESSION['id'] != "" ? $_SESSION['id'] : "";
 </form>
 
 </main>
-<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <?php
 
