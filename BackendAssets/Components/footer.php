@@ -5,7 +5,7 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-6 col-sm-12 col-md-4">
                     <h4>Important Links</h4>
                     <div class="links">
                         <p><a href="<?=BASE_URL?>" rel="noopener noreferrer">Home</a></p>
@@ -17,7 +17,7 @@
                         <p><a href="<?=BASE_URL?>cancellation-and-refund-policy">Cancellation and Refund Policy</a></p>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-6 col-sm-12 col-md-4">
                     <div class="footer_logs py-5">
                         <a href="<?=BASE_URL?>">
                             <img src="<?=BASE_URL?>BackendAssets/assets/images/logos/footer-logo-1.png" alt="footer-logo-1">
@@ -25,7 +25,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-6 col-sm-12 col-md-4">
                     <h4>Contact Information</h4>
                     <div class="address">
                         <i class="bi bi-geo-alt"></i>

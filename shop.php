@@ -138,7 +138,7 @@ $result = mysqli_query($conn, $sql);
                     $data = array_slice($data, 0, 16);
                     foreach ($data as $row) {
                             ?>
-                            <div class="col-sm-3 light-bg">
+                            <div class="col-sm-6 col-md-4 col-xl-3 light-bg">
                                 <div class="productCard text-center">
                                     <a href="<?=BASE_URL?>singleProduct/<?= $row['category']."/".$row['id'] ?>" target="_blank">
                                         <div class="product-image">
