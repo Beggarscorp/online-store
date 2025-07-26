@@ -8,16 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_submit']))
     $fname=$_POST['fname'];
     $lname=$_POST['lname'];
     $email=$_POST['email'];
+    $usertype=$_POST['usertype'];
     $password=$_POST['password'];
     
-    if(!isset($_SESSION['user']) && $fname != "" && $lname != "" && $email != "" && $password != "")
+    if(!isset($_SESSION['user']) && $fname != "" && $lname != "" && $email != "" && $usertype != "" && $password != "")
     {
         $sql="SELECT * FROM `user` WHERE `email` = '$email'";
         $result=mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) == 0)
         {
             $hash=password_hash($password, PASSWORD_DEFAULT );
-            $sql = "INSERT INTO `user` (`First_name`, `Last_name`,`email`,`password`) VALUES ('$fname', '$lname','$email','$hash')";
+            $sql = "INSERT INTO `user` (`First_name`, `Last_name`,`email`, `usertype` ,`password`) VALUES ('$fname', '$lname','$email', '$usertype' ,'$hash')";
             if ($conn->query($sql) === true) {
                
                 $last_id=$conn->insert_id;

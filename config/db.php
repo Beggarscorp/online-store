@@ -5,7 +5,7 @@ $database="beggarsc_Backend_2";
 $password = "";
 
 // Create connection
-$conn = mysqli_connect($servername, $username,$password,$database);
+$conn = mysqli_connect($servername, $username,$password,$database,3307);
 
 // Check connection
 if ($conn->connect_error) {

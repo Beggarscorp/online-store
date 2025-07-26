@@ -87,6 +87,7 @@ include("login_logout_msg.php");
                                         if (isset($_SESSION['user'])) {
                                         ?>
                                             <li><a href="<?= BASE_URL ?>logout">Logout</a></li>
+                                            <li><a href="<?= BASE_URL ?>addproduct">Add Product</a></li>
                                         <?php
                                         } else {
                                         ?>

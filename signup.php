@@ -25,6 +25,14 @@
                 <input type="text" name="lname" placeholder="Last name here" required>
               </div>
               <div>
+                <select name="usertype" id="usertype">
+                  <option value="">Select your option</option>
+                  <option value="customer">Customer</option>
+                  <option value="seller">Seller</option>
+                  <option value="both">Both</option>
+                </select>
+              </div>
+              <div>
                 <input type="email" name="email" placeholder="Email address here" pattern="[a-zA-Z0-9._%+-]+@gmail\.com" required>
               </div>
               <div>

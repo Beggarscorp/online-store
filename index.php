@@ -55,12 +55,30 @@ if($product_sql->execute())
             {
                 ?>
                     <div class="col-sm-3 category-content p-4">
-                        <a href="<?=BASE_URL?>shop/<?=$category_name[$c]?>" target="_blank" rel="noopener noreferrer">
-                            <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category_image[$c]?>" alt="<?=$category_image[$c]?>">
-                            <div class="category-title">
-                                <h5><?=$category_name[$c]?></h5>
-                            </div>
-                        </a>
+                        <?php
+                        if($category_name[$c] === 'poonya')
+                        {
+                            ?>
+                            <a href="<?=BASE_URL?>poonya" target="_blank" rel="noopener noreferrer">
+                                <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category_image[$c]?>" alt="<?=$category_image[$c]?>">
+                                <div class="category-title">
+                                    <h5><?=$category_name[$c]?></h5>
+                                </div>
+                            </a>
+                            <?php
+                        }
+                        else
+                        {
+                            ?>
+                                <a href="<?=BASE_URL?>shop/<?=$category_name[$c]?>" target="_blank" rel="noopener noreferrer">
+                                    <img src="<?=BASE_URL?>BackendAssets/assets/images/category_images/<?=$category_image[$c]?>" alt="<?=$category_image[$c]?>">
+                                    <div class="category-title">
+                                        <h5><?=$category_name[$c]?></h5>
+                                    </div>
+                                </a>
+                            <?php
+                        }
+                        ?>
                     </div>
                 <?php
             }

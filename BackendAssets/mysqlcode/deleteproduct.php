@@ -16,7 +16,7 @@ function deleteProduct($conn, $productId) {
     // Execute the statement
     if ($stmt->execute()) {
         // Redirect to the all products page after successful deletion
-        header("Location: /allproduct.php");
+        header("Location: ".BASE_URL."/allproduct.php");
         exit(); // Exit the script after the header redirect
     } else {
         // If execution fails, output the error

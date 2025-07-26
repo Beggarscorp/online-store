@@ -57,6 +57,7 @@
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="<?=BASE_URL?>BackendAssets/js/main.js"></script>
+    <script src="<?=BASE_URL?>BackendAssets/js/globalfunction.js"></script>
     <?php
     $filtePath=BASE_URL."BackendAssets/js/".CURRENT_PAGE.".js";
     $serverPath=$_SERVER['DOCUMENT_ROOT']. "/online-store/BackendAssets/js/" . CURRENT_PAGE . ".js";
