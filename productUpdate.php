@@ -10,7 +10,7 @@ if($update_product_sql->execute())
 {
     $result = $update_product_sql->get_result();
     $up_data=$result->fetch_assoc();
-    $update_product_sql->close;
+    $update_product_sql->close();
 }
 else
 {
@@ -38,7 +38,7 @@ else
             <div class="col-sm-10">
             <div class="content vh-100 overflowY-visible p-3">
                     <h3>Update Product from here</h3>
-                    <form action="/BackendAssets/mysqlcode/productUpdate.php" method="POST" enctype="multipart/form-data">
+                    <form action="<?=BASE_URL?>BackendAssets/mysqlcode/productUpdate.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="product_id" value="<?=$up_data['id']?>">
                     <label for="name">Product Name:</label><br>
                     <input type="text" id="name" name="name" value="<?=$up_data['productname']?>"><br>
@@ -54,7 +54,10 @@ else
                         
                     <label for="spacification">Spacification:</label><br>
                     <textarea id="spacification" rows="10" oninput="convertText(this)" name="spacification"><?=$up_data['spacification']?></textarea><br>
-                    
+
+                    <label for="impact_product">Impact product by :</label><br>
+                    <input type="text" name="impact_product" id="impact_product" value="<?=$up_data['impact_product']?>"><br>
+
                     <label for="product_color">Product color</label><br>
                         <select name="product_color" id="product_color">
                             <option value="<?=$up_data['product_color']?>"><?=$up_data['product_color']?></option>

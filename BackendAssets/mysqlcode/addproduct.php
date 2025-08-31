@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
   $sizeAndfit = $_POST['sizeAndfit'];
   $materialAndCare = $_POST['materialAndCare'];
   $spacification = $_POST['spacification'];
+  $impact_product = $_POST['impact_product'];
   $min_order = $_POST['min_order'];
   $color = $_POST['product_color'];
   $img_gallery=[];
@@ -49,15 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $img_gallery_json=json_encode($img_gallery);
     echo "error";
     // Insert data into the database
-    $sql = $conn->prepare("INSERT INTO products (productname, discription, product_color, price, category, stock, productimage, sizeandfit, materialandcare, spacification, productimagegallery, min_order) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $sql = $conn->prepare("INSERT INTO products (productname, discription, product_color, price, category, stock, productimage, sizeandfit, materialandcare, spacification, impact_product, productimagegallery, min_order) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     if ($sql === false) {
         die("Prepare failed: " . $conn->error);
     }
 
     // Bind parameters for the query
-    $sql->bind_param("sssisisssssi", $proname, $prodis, $color, $proprice, $procategory, $prostock, $imageNameUnique, $sizeAndfit, $materialAndCare, $spacification, $img_gallery_json, $min_order);
+    $sql->bind_param("sssisissssssi", $proname, $prodis, $color, $proprice, $procategory, $prostock, $imageNameUnique, $sizeAndfit, $materialAndCare, $spacification, $impact_product, $img_gallery_json, $min_order);
 
     // Execute the query
     $sql->execute();

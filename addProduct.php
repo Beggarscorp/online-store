@@ -91,6 +91,9 @@ $result=mysqli_query($conn,$sql);
                         </select>
                         <br>
 
+                        <label for="impact_product">Impact product by :</label><br>
+                        <input type="text" name="impact_product" id="impact_product" placeholder="Enter the name of company"><br>
+
                         <label for="stock">Stock:</label><br>
                         <input type="number" id="stock" placeholder="Enter product stock here" name="stock" value="0"><br>
 

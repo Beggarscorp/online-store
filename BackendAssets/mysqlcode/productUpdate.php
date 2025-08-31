@@ -13,6 +13,7 @@ if (isset($_POST['submit'])) {
     $sizeAndfit = $_POST['sizeAndfit'];
     $materialandcare = $_POST['materialAndCare'];
     $spacification = $_POST['spacification'];
+    $impact_product = $_POST['impact_product'];
     $productPrice = $_POST['price'];
     $productCategory = $_POST['category'];
     $productStock = $_POST['stock'];
@@ -75,6 +76,7 @@ if (isset($_POST['submit'])) {
                                 sizeandfit = ?, 
                                 materialandcare = ?, 
                                 spacification = ?, 
+                                impact_product = ?, 
                                 productimagegallery = ?, 
                                 min_order = ? 
                                 WHERE id = ?");
@@ -82,13 +84,13 @@ if (isset($_POST['submit'])) {
             die("Prepare failed: " . $conn->error);
         } else {
             // Bind parameters
-            $sql->bind_param('sssisisssssii', 
+            $sql->bind_param('sssisissssssii', 
             $productName, $productDescription, $color, $productPrice, $productCategory, $productStock, $productImage, $sizeAndfit, $materialandcare, 
-            $spacification, $json_gallery, $min_order, $productId);
-    
+            $spacification, $impact_product, $json_gallery, $min_order, $productId);
+
             // Execute query
             if ($sql->execute()) {
-                header("Location: /allproduct.php?msg=product updated");
+                header("Location: ".BASE_URL."allproduct.php?msg=product updated");
                 exit();
             } else {
                 echo "Failed to update product: " . $conn->error;

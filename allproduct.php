@@ -37,6 +37,7 @@ if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
                                 <td>Size & Fit</td>
                                 <td>Material and Care</td>
                                 <td>Spacification</td>
+                                <td>Impact Product By</td>
                                 <td>Min order quantity</td>
                                 <!-- <td>Delete</td> -->
                             </tr>
@@ -75,6 +76,7 @@ if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
                                 <td><?=$row['sizeandfit']?></td>
                                 <td><?=$row['materialandcare']?></td>
                                 <td><?=$row['spacification']?></td>
+                                <td><?=$row['impact_product']?></td>
                                 <td><?=$row['min_order']?></td>
                             </tr>
                             <?php
@@ -109,7 +111,7 @@ if(isset($_GET['image-not-upload']) && $_GET['image-not-upload'] === 'true')
             
             if(confirm("Want to update product"))
         {
-            window.location.href="/productUpdate.php?Id="+encodeURIComponent(data.id);
+            window.location.href="/online-store/productUpdate.php?Id="+encodeURIComponent(data.id);
         }
         }
         
