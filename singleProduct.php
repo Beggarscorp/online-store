@@ -145,6 +145,19 @@ if (isset($_GET["cart"]) && $_GET['cart'] == "updated") {
                     <!--<h5 class="productPrice my-3">Rs. <?= $row['price'] ?></h5>-->
                 <?php
                 }
+                
+                if($row['impact_product'] != "")
+                {
+                    ?>
+                    <div class="impact_product">
+                        <h4>Impact Product By :</h4>
+                        <p class="font-16">
+                            <?= $row['impact_product'] ?>
+                        </p>
+                    </div>
+                    <?php
+                }
+
                 if($row['product_color'] != "")
                 {
                     ?>
